@@ -2,12 +2,22 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 const userRoutes = require('./routes/userRoutes');
+const mongoose = require('mongoose');
+const Db = require('./database/dbConfig').dbKey;
 
 const app = express(); // creating express app
 
+mongoose.connect(Db) //connecting mongoDb using mongoose
+.then(
+    console.log('Db connected!')
+)
+.catch((err)=>{
+    console.log(err);
+});
+
 app.use(bodyParser.json()); // to accept json type requests
 
-app.use('/user', userRoutes) //user routes - avantha
+app.use('/api/users', userRoutes) //user routes - avantha
 
 // product routes - pasindu
 
