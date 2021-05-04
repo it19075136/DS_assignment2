@@ -4,6 +4,7 @@ const port = process.env.PORT || 5000;
 const userRoutes = require('./routes/userRoutes');
 const mongoose = require('mongoose');
 const Db = require('./database/dbConfig').dbKey;
+const deliveryRoutes = require('./routes/deliveryRoutes');
 
 const app = express(); // creating express app
 
@@ -23,9 +24,10 @@ app.use('/api/users', userRoutes) //user routes - avantha
 
 // order/cart routes -thisara
 
-// orderHistory routes 
+// orderHistory routes +
 
 // delivery routes - dilmika
+app.use('/delivery', deliveryRoutes);
 
 // payment routes - dilmika
 
