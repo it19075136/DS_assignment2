@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
-const userRoutes = require('./routes/userRoutes');
 const mongoose = require('mongoose');
 const Db = require('./database/dbConfig').dbKey;
+const userRoutes = require('./routes/userRoutes');
 const deliveryRoutes = require('./routes/deliveryRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const productRoutes = require('./routes/productRotes')
 
 const app = express(); // creating express app
 
@@ -18,11 +20,11 @@ mongoose.connect(Db) //connecting mongoDb using mongoose
 
 app.use(bodyParser.json()); // to accept json type requests
 
-app.use('/api/users', userRoutes) //user routes - avantha
+app.use('/api/users', userRoutes); //user routes - avantha
 
-// product routes - pasindu
+app.use('/api/products', productRoutes); // product routes - pasindu
 
-// order/cart routes -thisara
+app.use('/api/order', orderRoutes); // order/cart routes -thisara
 
 // orderHistory routes +
 
