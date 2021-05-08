@@ -6,7 +6,7 @@ const Db = require('./database/dbConfig').dbKey;
 const userRoutes = require('./routes/userRoutes');
 const deliveryRoutes = require('./routes/deliveryRoutes');
 const orderRoutes = require('./routes/orderRoutes');
-const productRoutes = require('./routes/productRotes')
+const productRoutes = require('./routes/productRoutes');
 
 const app = express(); // creating express app
 
@@ -24,7 +24,7 @@ app.use('/api/users', userRoutes); //user routes - avantha
 
 app.use('/api/products', productRoutes); // product routes - pasindu
 
-app.use('/api/order', orderRoutes); // order/cart routes -thisara
+//app.use('/api/order', orderRoutes); // order/cart routes -thisara
 
 // orderHistory routes +
 
