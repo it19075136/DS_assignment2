@@ -3,6 +3,14 @@ const schema = mongoose.Schema;
 
 //-----create schema to order----//
 const orderSchema = new schema({
+    OrderId:{
+        type:String,
+        required:true
+    },
+    itemId:{
+        type:String,
+        required:true
+    },
     itemName:{
         type: String,
         required: true
@@ -18,7 +26,7 @@ const orderSchema = new schema({
     },
     date:{
         type: Date,
-        default: Date.now,
+        default: Date.now(),
     }
 });
 
