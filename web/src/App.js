@@ -1,25 +1,25 @@
 import './App.css';
-import { createStore, applyMiddleware } from 'redux'
+import { BrowserRouter,Route } from 'react-router-dom'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import rootReducer from '../reducers/index'
+import rootReducer from './reducers/index'
+import userRegistration from './components/userRegistration'
 
 const initstate = {}
 
 const middleware = [thunk]
 
-const store = createStore(rootReducer,initstate,applyMiddleware({
-  ...middleware
-}))
+const store = createStore(rootReducer,initstate,compose(applyMiddleware(
+  ...middleware)
+));
 
 function App() {
   return (
     <Provider store = {store} >
-    <div className="App">
-      <header className="App-header">
-        <h1>Hi People</h1>
-      </header>
-    </div>
+      <BrowserRouter>
+    <Route exact path="/user/registration" component={userRegistration} />
+    </BrowserRouter>
     </Provider>
   );
 }
