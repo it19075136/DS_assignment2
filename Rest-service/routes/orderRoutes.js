@@ -13,6 +13,9 @@ const order = require('../models/orderModel');
 //     });
 //     User.find({age: {$gte: 21, $lte: 65}}, callback);
 // })
+router.post('/',(req,res)=>{
+    order.OrderId
+})
 router.get('/',(req,res)=>{
     order.find({userId:req.params.id}).then((orders)=>res.json(orders)).catch((err)=>res.status(400).json("Error"+ err))
 })
