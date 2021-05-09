@@ -29,7 +29,7 @@ app.use('/api/order', orderRoutes); // order/cart routes -thisara
 // orderHistory routes +
 
 // delivery routes - dilmika
-app.use('/delivery', deliveryRoutes);
+app.use('/api/delivery', deliveryRoutes);
 
 // payment routes - dilmika
 
