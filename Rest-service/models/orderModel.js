@@ -5,24 +5,41 @@ const schema = mongoose.Schema;
 const orderSchema = new schema({
     OrderId:{
         type:String,
-        required:true
+        required:true,
+        unique:true
     },
-    itemId:{
+    userId:{
         type:String,
-        required:true
+        require:true
     },
-    itemName:{
-        type: String,
-        required: true
+    item:{
+        type:Array,
+        require:true,
+        itemId:{
+            type:String,
+            required:true
+        },
+        itemName:{
+            type: String,
+            required: true
+        },
+        itemcolor:{
+            type: String,
+            required: true
+        },
+        qty:{
+            type: Number,
+            required: true
+        },
+        amount:{
+            type: Number,
+            required: true
+    
+        },
     },
-    qty:{
-        type: Number,
-        required: true
-    },
-    amount:{
-        type: Number,
-        required: true
-
+    TotalAmount:{
+        type:Number,
+        require:true
     },
     date:{
         type: Date,
