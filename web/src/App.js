@@ -5,6 +5,10 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers/index'
 import userRegistration from './components/userRegistration'
+import ProductPage from './Pages/ProductPage';
+import HomePage from './Pages/HomePage';
+import CartPage from './Pages/CartPage';
+import Navbar from './components/Navbar';
 
 const initstate = {}
 
@@ -16,10 +20,15 @@ const store = createStore(rootReducer,initstate,compose(applyMiddleware(
 
 function App() {
   return (
-    <Provider store = {store} >
+    <Provider store = {store}>
+      
       <BrowserRouter>
-    <Route exact path="/user/registration" component={userRegistration} />
-    </BrowserRouter>
+        <Navbar/>
+        <Route exact path="/user/registration" component={userRegistration} />
+        <Route exact path="/" component={HomePage} />
+        <Route exact path="/product/:id" component={ProductPage} />
+        <Route exact path="/cart" component={CartPage} />
+      </BrowserRouter>
     </Provider>
   );
 }
