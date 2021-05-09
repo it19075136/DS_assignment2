@@ -7,6 +7,8 @@ const userRoutes = require('./routes/userRoutes');
 const deliveryRoutes = require('./routes/deliveryRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const productRoutes = require('./routes/productRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
+
 
 const app = express(); // creating express app
 
@@ -32,6 +34,8 @@ app.use('/api/order', orderRoutes); // order/cart routes -thisara
 app.use('/api/delivery', deliveryRoutes);
 
 // payment routes - dilmika
+app.use('/api/payment', paymentRoutes);
+
 
 app.use('/',(req,res) => { // setting router
     res.json("Hi people");
