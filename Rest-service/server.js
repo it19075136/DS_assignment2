@@ -24,18 +24,18 @@ app.use('/api/users', userRoutes); //user routes - avantha
 
 app.use('/api/products', productRoutes); // product routes - pasindu
 
-app.use('/api/order', orderRoutes); // order/cart routes -thisara
+//app.use('/api/order', orderRoutes); // order/cart routes -thisara
 
 // orderHistory routes +
 
 // delivery routes - dilmika
-app.use('/api/delivery', deliveryRoutes);
+app.use('/delivery', deliveryRoutes);
 
 // payment routes - dilmika
 
-app.use('/',(req,res) => { // setting router
-    res.json("Hi people");
-});
+// app.use('/',(req,res) => { // setting router
+//     res.json("Hi people");
+// });
 
 app.listen(port, () => { // setting the app to listen on the configured port
     console.log(`Listening on port: ${port}`);
