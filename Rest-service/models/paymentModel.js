@@ -4,6 +4,8 @@ const Schema  = mongoose.Schema;
 
 const paymentSchema = new Schema({
     itemName : {type:String, requires:true},
+    userID : {type:String, required:true}, 
+    userMail : {type: String, required:true},
     noOfItems : {type: Number, required:true},
     totalAmount: {type:Number, required:true},
     deliveryCharges : {type:Number, required:true},

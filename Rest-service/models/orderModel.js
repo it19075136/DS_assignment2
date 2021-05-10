@@ -3,7 +3,7 @@ const schema = mongoose.Schema;
 
 //-----create schema to order----//
 const orderSchema = new schema({
-    OrderId:{
+    orderId:{
         type:String,
         required:true,
         unique:true
