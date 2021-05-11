@@ -17,6 +17,8 @@ import EditDelivery from './Pages/EditDelivery';
 import DeliveryList from './Pages/DeliveryList';
 import Backdrop from './components/Backdrop';
 import SideDrawer from './components/SideDrawer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const initstate = {}
 

@@ -11,10 +11,8 @@ class DeliveryList extends Component {
     }
 
     componentDidMount(){
-        console.log('did mount works');
         axios.get('http://localhost:5000/api/delivery/')
         .then(response => {
-            console.log('response: ', response);
             this.setState({ deliveries:response.data })
         })
         .catch(error => {
@@ -24,9 +22,28 @@ class DeliveryList extends Component {
     }
 
     render() {
+        const {deliveries} = this.state;
+        console.log('deliveries: ', deliveries);
+
+
         return (
             <div>
                 <h1>Delivery List Page</h1>
+                <table className="table">
+                    <thead className="thead-light">
+                        <tr>
+                            <th>Items</th>
+                            <th>Amount</th>
+                            <th>isCancel</th>
+                            <th>Quantity</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {/* {this.exerciseLis()} */}
+                        
+                    </tbody>
+                </table>
             </div>
         );
     }
