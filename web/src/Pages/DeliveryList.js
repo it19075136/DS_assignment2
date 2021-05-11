@@ -27,24 +27,39 @@ class DeliveryList extends Component {
 
 
         return (
-            <div>
-                <h1>Delivery List Page</h1>
-                <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                            <th>Items</th>
-                            <th>Amount</th>
-                            <th>isCancel</th>
-                            <th>Quantity</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* {this.exerciseLis()} */}
-                        
-                    </tbody>
-                </table>
-            </div>
+          <div>
+            <h1>Delivery List Page</h1>
+            <table className="table">
+              <thead className="thead-light">
+                <tr>
+                  <th>Items</th>
+                  <th>Amount</th>
+                  <th>isCancel</th>
+                  <th>Quantity</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* {this.exerciseLis()} */}
+                {deliveries.map((item) => 
+                  <tr>
+                    <td>{item.deliveryItems.toString()}</td>
+                    <td>Rs {item.amount}.00</td>
+                    <td>{item.isCancel ? 'true' : 'false'}</td>
+                    <td>{item.quantity}</td>
+                    <td>
+                     {/* <a href="http://localhost:5000/api/delivery/list" 
+                     onClick={
+                         () => this.deleteDelivery(item._id)
+                         }
+                         >delete</a> */}
+                         delete
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         );
     }
 }
