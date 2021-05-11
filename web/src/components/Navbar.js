@@ -1,7 +1,18 @@
 import './Navbar.css';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import { logOut } from '../actions/userActions'
 
-const Navbar = ({click}) => {
+const Navbar = (props) => {
+    const {click} = props;
+    let {profile} = props.users;
+    console.log(profile);
+
+    const handleLogout = () => {
+        console.log("Logging out");
+        props.logOut();
+    }
+
     return (
         <nav className="navbar">
             <div className="navbar__logo">
@@ -24,6 +35,16 @@ const Navbar = ({click}) => {
                         Shop
                     </Link>
                 </li>
+                        {profile.firstName ? (<li><Link onClick={handleLogout}>Log out</Link></li>):
+                        (<ul className="navbar__links">
+                            <li>
+                                <Link to="/user/login">Login</Link> 
+                            </li>
+                            <li>
+                                <Link to="/user/registration">Sign Up</Link>
+                            </li>
+                        </ul>)
+                        }
             </ul>
 
             {/* hamburger menu */}
@@ -36,4 +57,8 @@ const Navbar = ({click}) => {
     )
 }
 
-export default Navbar
+const mapStateToProps = (state) => ({
+    users: state.users
+})
+
+export default connect(mapStateToProps,{ logOut })(Navbar)
