@@ -1,9 +1,21 @@
 import './SideDrawer.css'
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import { logOut } from '../actions/userActions'
 
-const SideDrawer = ({show, click}) => {
+const SideDrawer = (props) => {
 
     const sideDrawerClass = ["sidedrawer"];
+
+    const {show,click} = props;
+    let {profile} = props.users;
+
+    console.log(profile);
+
+    const handleLogout = () => {
+        console.log("Logging out");
+        props.logOut();
+    }
 
     if(show){
         sideDrawerClass.push("show");
@@ -25,9 +37,23 @@ const SideDrawer = ({show, click}) => {
                         Shop
                     </Link>
                 </li>
+                {profile.firstName ? (<li><Link onClick={handleLogout}>Log out</Link></li>):
+                        (<ul className="navbar__links">
+                            <li>
+                                <Link to="/user/login">Login</Link> 
+                            </li>
+                            <li>
+                                <Link to="/user/registration">Sign Up</Link>
+                            </li>
+                        </ul>)
+                        }
             </ul>
         </div>
     )
 }
 
-export default SideDrawer
+const mapStateToProps = (state) => ({
+    users: state.users
+})
+
+export default connect(mapStateToProps,{ logOut })(SideDrawer)
