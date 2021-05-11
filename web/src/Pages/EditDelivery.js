@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class EditDelivery extends Component {
     constructor(props){
@@ -18,6 +19,7 @@ class EditDelivery extends Component {
     }
 
     componentDidMount(){
+
         
     }
 

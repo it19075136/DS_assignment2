@@ -13,6 +13,7 @@ import Orders from './Pages/Orders'
 import Navbar from './components/Navbar';
 import Delivery from './Pages/DeliveryPage';
 import EditDelivery from './Pages/EditDelivery';
+import DeliveryList from './Pages/DeliveryList';
 
 const initstate = {}
 
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/order" component={Orders}/>
         <Route exact path="/delivery" component={Delivery}/>
         <Route exact path="/delivery/edit" component={EditDelivery}/>
+        <Route exact path="/delivery/list" component={DeliveryList}/>
 
 
 
