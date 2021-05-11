@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
@@ -19,6 +20,8 @@ mongoose.connect(Db) //connecting mongoDb using mongoose
 .catch((err)=>{
     console.log(err);
 });
+
+app.use(cors()); //using cors middleware as a connect
 
 app.use(bodyParser.json()); // to accept json type requests
 

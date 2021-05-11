@@ -6,13 +6,19 @@ const userSchema = new schema({
     id: {
         type: String
     },
-    name: {
+    firstName: {
+        type: String
+    },    
+    lastName: {
         type: String
     },
     phoneNumber: {
         type: String
     },
     email: {
+        type: String
+    },
+    password: {
         type: String
     },
     type: {
