@@ -1,9 +1,21 @@
+import Product from '../components/Product'
 import './HomePage.css'
+
 
 const HomePage = () => {
     return (
         <div className="homepage">
-            Home Screen            
+            <h2 className="homepage__title">Latest Product</h2>
+            <div className="homepage__products">
+                <Product/>
+                <Product/>
+                <Product/>
+                <Product/>
+                <Product/>
+                <Product/>
+                <Product/>
+                <Product/>
+            </div>        
         </div>
     )
 }
