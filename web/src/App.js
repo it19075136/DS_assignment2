@@ -12,8 +12,13 @@ import HomePage from './Pages/HomePage';
 import CartPage from './Pages/CartPage';
 import Orders from './Pages/Orders'
 import Navbar from './components/Navbar';
+import Delivery from './Pages/DeliveryPage';
+import EditDelivery from './Pages/EditDelivery';
+import DeliveryList from './Pages/DeliveryList';
 import Backdrop from './components/Backdrop';
 import SideDrawer from './components/SideDrawer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const initstate = {}
 
@@ -41,6 +46,11 @@ function App() {
         <Route exact path="/product/:id" component={ProductPage} />
         <Route exact path="/cart" component={CartPage} />
         <Route exact path="/order" component={Orders}/>
+        <Route exact path="/delivery" component={Delivery}/>
+        <Route exact path="/delivery/edit" component={EditDelivery}/>
+        <Route exact path="/delivery/list" component={DeliveryList}/>
+
+
 
       </BrowserRouter>
     </Provider>

@@ -34,7 +34,7 @@ app.use('/api/products', productRoutes); // product routes - pasindu
 // orderHistory routes +
 
 // delivery routes - dilmika
-app.use('/delivery', deliveryRoutes);
+app.use('/api/delivery', deliveryRoutes);
 
 // payment routes - dilmika
 app.use('/api/payment', paymentRoutes);
