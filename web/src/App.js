@@ -12,6 +12,7 @@ import HomePage from './Pages/HomePage';
 import CartPage from './Pages/CartPage';
 import Orders from './Pages/Orders'
 import Navbar from './components/Navbar';
+import Order from './Pages/Order';
 import Delivery from './Pages/DeliveryPage';
 import EditDelivery from './Pages/EditDelivery';
 import DeliveryList from './Pages/DeliveryList';
@@ -45,7 +46,8 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/product/:id" component={ProductPage} />
         <Route exact path="/cart" component={CartPage} />
-        <Route exact path="/order" component={Orders}/>
+        <Route exact path="/orders" component={Orders}/>//problem
+        <Route exact path="/order/:order_ID" component={Order}/>//problem
         <Route exact path="/delivery" component={Delivery}/>
         <Route exact path="/delivery/edit" component={EditDelivery}/>
         <Route exact path="/delivery/list" component={DeliveryList}/>
