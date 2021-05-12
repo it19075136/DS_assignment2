@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { login } from '../actions/userActions'
 import HomePage from './HomePage'
+import './LoginPage.css'
 
 class userLogin extends Component {
 
@@ -27,21 +28,19 @@ class userLogin extends Component {
         let { authError } = this.props.users;       
         return (
             profile.firstName ? (<HomePage />):(<div>
-                <h3>Please login</h3>
-                <form onSubmit={this.handleSubmit}>
-                <div class="col-auto">
-                        <label for="email" class="visually-hidden">Email</label>
-                        <input type="text" onChange={this.handleChange} class="form-control-plaintext" id="email" name="email" placeholder="email@example.com" />
+                <form onSubmit={this.handleSubmit} className="form">
+                <h3 className="form">Please login</h3>
+                    <div className="form col-3">
+                        <input type="text" onChange={this.handleChange} class="form-control" id="email" name="email" placeholder="Email" />
                     </div>
-                    <div class="col-auto">
-                        <label for="password" class="visually-hidden">Password</label>
+                    <div className="form col-3">
                         <input type="password" onChange={this.handleChange} class="form-control" id="password" name="password" placeholder="Password" />
-                    </div>                    
-                    <div class="col-auto">
-                        <button type="submit" class="btn btn-primary mb-3">Login</button>
+                    </div>                  
+                    <a href="/user/registration" className="form">New,Register now!</a>
+                    <div className="form">
+                        <button type="submit" class="btn btn-primary right">Login</button>
                     </div>
                 </form>
-                <h4><a href="/user/registration">Don't have an account, Register now!!!</a></h4>
                 </div>)          
         )
     }
