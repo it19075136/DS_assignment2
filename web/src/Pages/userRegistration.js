@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addUser, login } from '../actions/userActions'
 import HomePage from './HomePage'
+import './LoginPage.css'
 
 class userRegistration extends Component {
 
@@ -32,39 +33,34 @@ class userRegistration extends Component {
         console.log(profile);        
         return (
             profile.firstName ? (<HomePage />):(<div>
-                <form class="row g-3" onSubmit={this.handleSubmit}>
-                <div class="col-auto">
-                        <label for="firstName" class="visually-hidden">First Name</label>
-                        <input type="text" onChange={this.handleChange} class="form-control-plaintext" id="firstName" name="firstName" placeholder="John" />
+                <form onSubmit={this.handleSubmit} className="form">
+                <h3 className="form">Sign Up</h3>
+                <div class="form col-3">
+                        <input type="text" onChange={this.handleChange} class="form-control" id="firstName" name="firstName" placeholder="First Name" />
                     </div>                    
-                    <div class="col-auto">
-                        <label for="lastName" class="visually-hidden">Last Name</label>
-                        <input type="text" onChange={this.handleChange} class="form-control-plaintext" id="lastName" name="lastName" placeholder="Smith" />
+                    <div class="form col-3">
+                        <input type="text" onChange={this.handleChange} class="form-control" id="lastName" name="lastName" placeholder="Last Name" />
                     </div>                    
-                    <div class="col-auto">
-                        <label for="phoneNumber" class="visually-hidden">Contact Number</label>
-                        <input type="text" onChange={this.handleChange} class="form-control-plaintext" id="phoneNumber" name="phoneNumber" placeholder="0771234567" />
-                    </div>                    
-                    <div class="col-auto">
+                    <div class="form col-3">
+                        <input type="text" onChange={this.handleChange} class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Contact Number" />
+                    </div>                     
+                    <div class="form col-3">
                         Select Account Type:
-                        <select id="type" name="type" onChange={this.handleChange}>
+                        <select id="type" name="type" onChange={this.handleChange} className="form-control">
                         <option key="1" value="Buyer">Buyer</option>
                         <option key="2" value="Seller">Seller</option>
                         </select>
-                    </div>                    
-                    <div class="col-auto">
-                        <label for="email" class="visually-hidden">Email</label>
-                        <input type="text" onChange={this.handleChange} class="form-control-plaintext" id="email" name="email" placeholder="email@example.com" />
+                    </div>                     
+                    <div class="form col-3">
+                        <input type="text" onChange={this.handleChange} class="form-control" id="email" name="email" placeholder="Email" />
                     </div>
-                    <div class="col-auto">
-                        <label for="password" class="visually-hidden">Password</label>
+                    <div class="form col-3">
                         <input type="password" onChange={this.handleChange} class="form-control" id="password" name="password" placeholder="Password" />
                     </div>                    
-                    <div class="col-auto">
-                        <label for="Cpassword" class="visually-hidden">Confirm Password</label>
-                        <input type="password" class="form-control" id="Cpassword" name="Cpassword" placeholder="Password" />
+                    <div class="form col-3">
+                        <input type="password" class="form-control" id="Cpassword" name="Cpassword" placeholder="Repeat Password" />
                     </div>
-                    <div class="col-auto">
+                    <div className="form">
                         <button type="submit" class="btn btn-primary mb-3">Submit</button>
                     </div>
                 </form>
