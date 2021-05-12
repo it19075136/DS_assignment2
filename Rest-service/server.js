@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 const mongoose = require('mongoose');
@@ -20,13 +21,15 @@ mongoose.connect(Db) //connecting mongoDb using mongoose
     console.log(err);
 });
 
+app.use(cors()); //using cors middleware as a connect
+
 app.use(bodyParser.json()); // to accept json type requests
 
 app.use('/api/users', userRoutes); //user routes - avantha
 
 app.use('/api/products', productRoutes); // product routes - pasindu
 
-app.use('/api/order', orderRoutes); // order/cart routes -thisara
+//app.use('/api/order', orderRoutes); // order/cart routes -thisara
 
 // orderHistory routes +
 
@@ -37,9 +40,9 @@ app.use('/api/delivery', deliveryRoutes);
 app.use('/api/payment', paymentRoutes);
 
 
-app.use('/',(req,res) => { // setting router
-    res.json("Hi people");
-});
+// app.use('/',(req,res) => { // setting router
+//     res.json("Hi people");
+// });
 
 app.listen(port, () => { // setting the app to listen on the configured port
     console.log(`Listening on port: ${port}`);

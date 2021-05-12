@@ -42,10 +42,19 @@ import './Navbar.css';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux'
 import { getOrder } from '../actions/orderActions';
+import { logOut } from '../actions/userActions'
 
 const Navbar = (props) => {
     const handleSubmit=()=>{
         props.getOrder('U01');
+    }
+    const {click} = props;
+    let {profile} = props.users;
+    console.log(profile);
+
+    const handleLogout = () => {
+        console.log("Logging out");
+        props.logOut();
     }
     return (
         <nav className="navbar">
@@ -74,10 +83,20 @@ const Navbar = (props) => {
                         orders
                     </Link>
                 </li>
+                        {profile.firstName ? (<li><Link onClick={handleLogout}>Log out</Link></li>):
+                        (<ul className="navbar__links">
+                            <li>
+                                <Link to="/user/login">Login</Link> 
+                            </li>
+                            <li>
+                                <Link to="/user/registration">Sign Up</Link>
+                            </li>
+                        </ul>)
+                        }
             </ul>
 
             {/* hamburger menu */}
-            <div className="hamburger__menu">
+            <div className="hamburger__menu" onClick={click }>
                 <div></div>
                 <div></div>
                 <div></div>
@@ -85,10 +104,11 @@ const Navbar = (props) => {
         </nav> 
     )
 }
-const mapDispatchToProps =(dispatch)=>{//problem
-    return{
-        // createProject:(project)=>dispatch(createProject(project))
-        getOrder:(userid)=>dispatch(getOrder(userid))//problem
-    }
-}
-export default connect(null,mapDispatchToProps)(Navbar)
+
+
+const mapStateToProps = (state) => ({
+    users: state.users
+})
+
+export default connect(mapStateToProps,{ logOut,getOrder })(Navbar)
+

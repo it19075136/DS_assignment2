@@ -2,14 +2,14 @@ const router = require('express').Router();
 const uuid = require('uuid');
 const User = require('../models/userModel');
 
-// get users
+// get users -- done
 router.get('/',(req,res)=>{
     User.find((err,docs)=>{
         res.json(docs);
     })
 });
 
-// post user
+// post user -- done
 router.post('/',(req,res)=>{
     req.body.id = uuid.v4();
     const user = new User(req.body);
@@ -25,9 +25,17 @@ router.post('/',(req,res)=>{
 
 // delete user
 
-// get user by Id
-router.get('/:id',(req,res)=>{
-    res.json("Hello ",req.params.id);
+// login user by email -- done
+router.post('/:email',(req,res)=>{
+    User.findOne({
+        email: req.params.email
+    }).then(user=>{
+        if(user.password === req.body.password)
+            res.json(user);
+        else
+            res.json("AUTHERROR");
+    })
+    console.log(req.params.email);
 });
 
 module.exports = router;
