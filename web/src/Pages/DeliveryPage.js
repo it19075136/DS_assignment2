@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {addDelivery} from '../actions/deliveryActions';
 
 class Delivery extends Component {
     constructor(props){
@@ -47,6 +49,10 @@ class Delivery extends Component {
         }
         console.log('delivery: ', delivery);
 
+        console.log(this.props);
+        const { addDelivery } = this.props;
+        
+        addDelivery(delivery);
     }
 
     render() {
@@ -61,7 +67,7 @@ class Delivery extends Component {
                                 pattern="[0-9]*"
                                 required
                                 className="form-control"
-                                // value={this.state.quantity}
+                                value={this.state.quantity}
                                 onChange={this.onChangeQuantity}
                             />
                     </div>
@@ -73,7 +79,7 @@ class Delivery extends Component {
                                 required
                                 placeholder="item1,item2,item3"
                                 className="form-control"
-                                // value={this.state.delivery}
+                                value={this.state.delivery}
                                 onChange={this.onChangeDelivery}
                             />
                     </div>
@@ -85,7 +91,7 @@ class Delivery extends Component {
                                 pattern="[0-9]*"
                                 required
                                 className="form-control"
-                                // value={this.state.amount}
+                                value={this.state.amount}
                                 onChange={this.onChangeAmount}
                             />
                     </div>    
@@ -102,4 +108,8 @@ class Delivery extends Component {
     }
 }
 
-export default Delivery;
+const mapStateToProps = (state) => ({
+    // delivery : state.delivery
+})
+
+export default connect(mapStateToProps, {addDelivery}) (Delivery)
