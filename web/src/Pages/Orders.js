@@ -135,11 +135,11 @@ const useStyles = makeStyles((theme) => ({
    
         const classes = useStyles();
         // const userId = this.
-        const orders= props.orders;//problem
+        const orders= props.orders;
         console.log(orders)
         const orderList= orders.map(order=>{
             return (
-                <Link to={'/order/'+order.orderId} onClick={()=>this.handlesubmit()}>
+                <Link to={'/order/'+order.orderId} >
                     <div className={classes.root} key={order.orderId}>
         <Paper className={classes.paper}>
             <Grid container spacing={2}>
@@ -185,9 +185,9 @@ const useStyles = makeStyles((theme) => ({
         
    
 }
-const mapStateToProps =(state)=>{//problem
+const mapStateToProps =(state)=>{
     return{
-        orders:state.orders.orders//problem
+        orders:state.orders.orders
     }
 }
 // const mapDispatchToProps =(dispatch)=>{//problem
