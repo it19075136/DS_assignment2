@@ -32,14 +32,17 @@ const useStyles = makeStyles((theme) => ({
 const Order = (props) => { 
     const classes = useStyles();
     const {order_ID} = useParams();
+    console.log('order id',order_ID)
     const orders=props.orders;
-    // const data = datacopy ? (datacopy.filter(data => data.orderNo == orderNo)) : datacopy
-
-    const order = orders.map(order ? (order.filter(order=> order.order_ID == order_ID)):null)
+    const order = orders ? (orders.filter(orders => orders.orderId == order_ID)) : null
+    // const order = orders.map(order=>{
+    //     return  order ?(order.filter(order => order.orderId == 'O01')) :order
+    // })
+    console.log(order,'order eka')
+    // const order = orders.map(order ? (order.filter(order=> order.orderId == order_ID)):null)
     const items = order.item.map(item=>{
         return (
-
-            <div className={classes.root} key={order.orderId}>
+            <div className={classes.root} key={item.itemId}>
         <Paper className={classes.paper}>
             <Grid container spacing={2}>
             <Grid item>
