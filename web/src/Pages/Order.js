@@ -15,7 +15,9 @@ const useStyles = makeStyles((theme) => ({
     paper: {
       padding: theme.spacing(2),
       margin: 'auto',
-      maxWidth: 500,
+      maxWidth: 700,
+        marginTop:40,
+        borderRadius: 10
     },
     image: {
       width: 128,
@@ -34,20 +36,21 @@ const Order = (props) => {
     const {order_ID} = useParams();
     console.log('order id',order_ID)
     const orders=props.orders;
-    const order = orders ? (orders.filter(orders => orders.orderId == order_ID)) : null
+    console.log(orders)
+    const order = orders ? (orders.filter(order => order.orderId == order_ID)) : null
     // const order = orders.map(order=>{
     //     return  order ?(order.filter(order => order.orderId == 'O01')) :order
     // })
-    console.log(order,'order eka')
+    console.log(order[0],'order eka')
     // const order = orders.map(order ? (order.filter(order=> order.orderId == order_ID)):null)
-    const items = order.item.map(item=>{
+    const items = order[0].item.map(item=>{
         return (
             <div className={classes.root} key={item.itemId}>
         <Paper className={classes.paper}>
             <Grid container spacing={2}>
             <Grid item>
                 <ButtonBase className={classes.image}>
-                <img className={classes.img} alt="complex" src={item.imgUrl} />
+                <img className={classes.img} alt="complex"  src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" /> 
                 </ButtonBase>
             </Grid>
             <Grid item xs={12} sm container>
@@ -55,6 +58,9 @@ const Order = (props) => {
                 <Grid item xs>
                     <Typography gutterBottom variant="subtitle1">
                     item Name:{item.itemName}
+                    </Typography>
+                    <Typography variant="body2" gutterBottom>
+                    Item price:{item.amount}
                     </Typography>
                     <Typography variant="body2" gutterBottom>
                     Qunatity:{item.qty}
@@ -81,6 +87,31 @@ const Order = (props) => {
         return (
             <div>
                 {items}
+                {/* <Paper className={classes.paper}>
+            <Grid container spacing={2}>
+            <Grid item xs={12} sm container>
+                <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs>
+                    <Typography gutterBottom variant="subtitle1">
+                    item Name:{order[0].itemName}
+                    </Typography>
+                    <Typography variant="body2" gutterBottom>
+                    Item price:{item.amount}
+                    </Typography>
+                    <Typography variant="body2" gutterBottom>
+                    Qunatity:{item.qty}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                    item color: {item.itemcolor}
+                    </Typography>
+                </Grid>
+                </Grid>
+                <Grid item>
+                <Typography variant="subtitle1">{item.amount}</Typography>
+                </Grid>
+            </Grid>
+            </Grid>
+        </Paper> */}
             </div>
             
         )
@@ -91,71 +122,3 @@ const mapStateToProps=(state)=>{
     }
 }
 export default connect(mapStateToProps,null) (Order)
-// import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Grid from '@material-ui/core/Grid';
-// import Paper from '@material-ui/core/Paper';
-// import Typography from '@material-ui/core/Typography';
-// import ButtonBase from '@material-ui/core/ButtonBase';
-
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     flexGrow: 1,
-//   },
-//   paper: {
-//     padding: theme.spacing(2),
-//     margin: 'auto',
-//     maxWidth: 500,
-//   },
-//   image: {
-//     width: 128,
-//     height: 128,
-//   },
-//   img: {
-//     margin: 'auto',
-//     display: 'block',
-//     maxWidth: '100%',
-//     maxHeight: '100%',
-//   },
-// }));
-
-// export default function ComplexGrid() {
-//   const classes = useStyles();
-
-//   return (
-//     <div className={classes.root}>
-//       <Paper className={classes.paper}>
-//         <Grid container spacing={2}>
-//           <Grid item>
-//             <ButtonBase className={classes.image}>
-//               <img className={classes.img} alt="complex" src="/static/images/grid/complex.jpg" />
-//             </ButtonBase>
-//           </Grid>
-//           <Grid item xs={12} sm container>
-//             <Grid item xs container direction="column" spacing={2}>
-//               <Grid item xs>
-//                 <Typography gutterBottom variant="subtitle1">
-//                   Standard license
-//                 </Typography>
-//                 <Typography variant="body2" gutterBottom>
-//                   Full resolution 1920x1080 • JPEG
-//                 </Typography>
-//                 <Typography variant="body2" color="textSecondary">
-//                   ID: 1030114
-//                 </Typography>
-//               </Grid>
-//               <Grid item>
-//                 <Typography variant="body2" style={{ cursor: 'pointer' }}>
-//                   Remove
-//                 </Typography>
-//               </Grid>
-//             </Grid>
-//             <Grid item>
-//               <Typography variant="subtitle1">$19.00</Typography>
-//             </Grid>
-//           </Grid>
-//         </Grid>
-//       </Paper>
-//     </div>
-//   );
-// }
