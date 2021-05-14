@@ -46,14 +46,15 @@ import { logOut } from '../actions/userActions'
 
 const Navbar = (props) => {
     
-    const handleSubmit=()=>{
-        props.getOrder('U01');
-    }
     const {click} = props;
     let {profile} = props.users;
 
     const handleLogout = () => {
         props.logOut();
+    }
+
+    const handleSubmit=()=>{
+        props.getOrder(profile.id);
     }
     return (
         <nav className="navbar">
