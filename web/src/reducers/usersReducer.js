@@ -8,15 +8,14 @@ let initstate = {
 export default function (state = initstate, action) {
     switch (action.type) {
         case "ADD_USER":
-            console.log("User added!!!");
             return {
                 ...state,
                 users: [action.payload, ...state.users],
-                profile: action.payload
+                profile: action.currentUser
             }
         case "LOGIN":
-            console.log('login', action.payload)
             if (action.payload === "AUTHERROR") {
+                console.log("authError")
                 return {
                     ...state,
                     authError: true,
@@ -34,7 +33,7 @@ export default function (state = initstate, action) {
         case "LOGOUT":
                 return {
                     ...state,
-                    authError: true,
+                    authError: false,
                     formSubmitted: false, // after update user formsubmition reset 
                     profile: {}
                 }
