@@ -50,7 +50,8 @@ function App() {
         <SideDrawer show={sideToggle} click={() => setSideToggle(false)}/>
         <Backdrop   show={sideToggle} click={() => setSideToggle(false)}/>
         <Route exact path="/user/registration" component={userRegistration} />
-        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/user/login" component={LoginPage} />
+        <Route exact path="/" component={HomePage} />
         <Route exact path="/product/:id" component={ProductPage} />
         <Route exact path="/cart" component={CartPage} />
         <Route exact path="/orders" component={Orders}/>
