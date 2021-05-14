@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {deleteDelivery} from '../actions/deliveryActions';
+
 
 class DeliveryList extends Component {
 
     constructor(props){
         super(props);
+
+        this.deleteDelivery = this.deleteDelivery.bind(this);
+        this.editDelivery = this.editDelivery.bind(this);
+
         this.state = {
             deliveries : []
         }
@@ -21,9 +28,21 @@ class DeliveryList extends Component {
         
     }
 
+    deleteDelivery(value){
+  
+      const {deleteDelivery} = this.props;
+      
+      deleteDelivery(value);
+
+    }
+
+    editDelivery(id){
+      console.log('id: ', id);
+
+    }
+
     render() {
         const {deliveries} = this.state;
-        console.log('deliveries: ', deliveries);
 
 
         return (
@@ -42,6 +61,7 @@ class DeliveryList extends Component {
               <tbody>
                 {/* {this.exerciseLis()} */}
                 {deliveries.map((item) => 
+                
                   <tr>
                     <td>{item.deliveryItems.toString()}</td>
                     <td>Rs {item.amount}.00</td>
@@ -53,7 +73,10 @@ class DeliveryList extends Component {
                          () => this.deleteDelivery(item._id)
                          }
                          >delete</a> */}
-                         delete
+                         <button onClick={() => this.deleteDelivery(item._id)}>Delete</button>
+                    </td>
+                    <td>
+                      <button onClick={() => this.editDelivery(item._id)} >Edit</button>
                     </td>
                   </tr>
                 )}
@@ -64,4 +87,8 @@ class DeliveryList extends Component {
     }
 }
 
-export default DeliveryList;
+const mapStateToProps = (state) => ({
+  delivery : state.delivery
+})
+
+export default connect(mapStateToProps, {deleteDelivery}) (DeliveryList);
