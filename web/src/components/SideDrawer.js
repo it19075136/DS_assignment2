@@ -35,7 +35,7 @@ const SideDrawer = (props) => {
                     </Link>
                 </li>
                 {profile.id ? (<li><Link onClick={handleLogout}>Log out</Link></li>):
-                        (<ul className="navbar__links">
+                        (<ul className="sidedrawer__links" onClick={click}>
                             <li>
                                 <Link to="/">Login</Link> 
                             </li>
