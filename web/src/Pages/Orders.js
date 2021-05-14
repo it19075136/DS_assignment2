@@ -106,8 +106,9 @@ const useStyles = makeStyles((theme) => ({
         // const userId = this.
         const orders= props.orders;
         console.log(orders)
-        const orderList= orders.map(order=>{
-            return (  
+
+        const orderList=orders ?  orders.map(order=>{
+            return (          
         <div className={classes.root}  key={order.orderId}>
         <Paper className={classes.paper}>
             <Link to={'/order/'+order.orderId} >
@@ -145,13 +146,13 @@ const useStyles = makeStyles((theme) => ({
         </Paper>
         </div>
             )
-        })
-        return(
-                 <div>
-                    {orderList}
-                </div>
-        )
-        
+        }):(<div>no Orders to display</div>)
+
+return(
+    <div>
+        {orderList}
+    </div>
+)        
    
 }
 const mapStateToProps =(state)=>{

@@ -9,6 +9,7 @@ export const addOrder=(order)=>dispatch => {
     });
 }
 export const getOrder=(userid)=>dispatch => {
+    if(userid){
     axios.get(`http://localhost:5000/api/order/${userid}`).then((res)=>{
         console.log('order added');
         console.log(res.data)
@@ -16,4 +17,7 @@ export const getOrder=(userid)=>dispatch => {
     }).catch(err=>{
         console.log(err)
     });
+    }
+    else
+        dispatch({type:'GET_ORDER',payload:null});
 }
