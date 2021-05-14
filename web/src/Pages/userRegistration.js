@@ -18,7 +18,6 @@ class userRegistration extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
         this.props.addUser(this.state);
     }
 
@@ -30,9 +29,8 @@ class userRegistration extends Component {
 
     render() {
         let { profile } = this.props.users;
-        console.log(profile);        
         return (
-            profile.firstName ? (<HomePage />):(<div>
+            profile.id ? (<HomePage />):(<div>
                 <form onSubmit={this.handleSubmit} className="form">
                 <h3 className="form">Sign Up</h3>
                 <div class="form col-3">

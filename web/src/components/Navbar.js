@@ -51,10 +51,8 @@ const Navbar = (props) => {
     }
     const {click} = props;
     let {profile} = props.users;
-    console.log(profile);
 
     const handleLogout = () => {
-        console.log("Logging out");
         props.logOut();
     }
     return (
@@ -84,7 +82,7 @@ const Navbar = (props) => {
                         orders
                     </Link>
                 </li>
-                        {profile.firstName ? (<li><Link onClick={handleLogout}>Log out</Link></li>):
+                        {profile.id ? (<li><Link onClick={handleLogout}>Log out</Link></li>):
                         (<ul className="navbar__links">
                             <li>
                                 <Link to="/user/login">Login</Link> 

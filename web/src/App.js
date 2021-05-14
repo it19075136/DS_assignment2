@@ -19,6 +19,10 @@ import DeliveryList from './Pages/DeliveryList';
 import Backdrop from './components/Backdrop';
 import SideDrawer from './components/SideDrawer';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import setAuthorizationToken from './actions/authActions';
+import { login } from './actions/userActions';
+import jwt from 'jsonwebtoken'
+import LoginPage from './Pages/LoginPage';
 
 
 const initstate = {}
@@ -29,6 +33,10 @@ const store = createStore(rootReducer,initstate,compose(applyMiddleware(
   ...middleware)
 ));
 
+if(localStorage.jwtToken){
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(login(jwt.decode(localStorage.jwtToken)));
+}
 function App() {
 
   const[sideToggle, setSideToggle] = useState(false);
@@ -42,7 +50,7 @@ function App() {
         <SideDrawer show={sideToggle} click={() => setSideToggle(false)}/>
         <Backdrop   show={sideToggle} click={() => setSideToggle(false)}/>
         <Route exact path="/user/registration" component={userRegistration} />
-        <Route exact path="/user/login" component={userLogin} />
+        <Route exact path="/user/login" component={LoginPage} />
         <Route exact path="/" component={HomePage} />
         <Route exact path="/product/:id" component={ProductPage} />
         <Route exact path="/cart" component={CartPage} />
