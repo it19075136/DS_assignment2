@@ -28,10 +28,8 @@ function App() {
   const[sideToggle, setSideToggle] = useState(false);
 
   return (
-    <Provider store = {store}>
-      
+    <Provider store = {store}>   
       <BrowserRouter>
-       
         <Navbar click={() => setSideToggle(true)}/>
         <SideDrawer show={sideToggle} click={() => setSideToggle(false)}/>
         <Backdrop   show={sideToggle} click={() => setSideToggle(false)}/>

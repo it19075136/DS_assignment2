@@ -7,6 +7,7 @@ const Product = require('../models/productModel');
 router.get('/', (req, res) => {
    
         Product.find((err, docs) => {
+                console.log(docs);
             res.json(docs);
         });
 });
