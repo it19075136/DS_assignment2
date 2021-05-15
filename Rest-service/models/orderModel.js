@@ -36,6 +36,10 @@ const orderSchema = new schema({
             required: true
     
         },
+        imgUrl:{
+            type:String,
+            required:true
+        }
     },
     TotalAmount:{
         type:Number,

@@ -10,10 +10,7 @@ const SideDrawer = (props) => {
     const {show,click} = props;
     let {profile} = props.users;
 
-    console.log(profile);
-
     const handleLogout = () => {
-        console.log("Logging out");
         props.logOut();
     }
 
@@ -37,8 +34,8 @@ const SideDrawer = (props) => {
                         Shop
                     </Link>
                 </li>
-                {profile.firstName ? (<li><Link onClick={handleLogout}>Log out</Link></li>):
-                        (<ul className="navbar__links">
+                {profile.id ? (<li><Link onClick={handleLogout}>Log out</Link></li>):
+                        (<ul className="sidedrawer__links" onClick={click}>
                             <li>
                                 <Link to="/user/login">Login</Link> 
                             </li>
