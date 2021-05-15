@@ -1,7 +1,12 @@
 import CartItem from '../components/CartItem'
 import './CartPage.css'
+import {connect} from 'react-redux'
+import {addOrder} from '../actions/orderActions'
 
-const CartPage = () => {
+const CartPage = (props) => {
+    const handleSubmit=()=>{
+        props.addOrder();
+    }
     return (
         <div className="cartpage">
             <div className="cartpage__left">
@@ -16,11 +21,11 @@ const CartPage = () => {
                     <p>$100.88</p>
                 </div>
                 <div className="btn__checkout">
-                    <button>Proceed To Checkout</button>
+                    <button onClick={handleSubmit}>Proceed To Checkout</button>
                 </div>
             </div>
         </div>
     )
 }
 
-export default CartPage
+export default connect(null,{addOrder}) (CartPage)

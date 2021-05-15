@@ -26,6 +26,10 @@ const productSchema = new schema({
     },
     imageUrl: {
         type: String,
+    },
+    sellerId:{
+        type: Number,
+        required: true
     }
 });
 
