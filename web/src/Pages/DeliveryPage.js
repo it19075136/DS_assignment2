@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {addDelivery} from '../actions/deliveryActions';
+import {Link} from 'react-router-dom';
 
 class Delivery extends Component {
     constructor(props){
@@ -12,6 +13,7 @@ class Delivery extends Component {
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
+            user_id : '',
             quantity : '',
             amount : '',
             deliveryItems : [],
@@ -39,23 +41,24 @@ class Delivery extends Component {
 
     onSubmit(e){
         e.preventDefault();
+        const {users} = this.props;
 
         const deliveryArray = this.state.deliveryItems.split(',');
         const delivery  = {
+            user_id : users.profile.id,
             quantity : this.state.quantity,
             amount : this.state.amount,
             deliveryItems : deliveryArray,
             isCancel : false
         }
-        console.log('delivery: ', delivery);
-
-        console.log(this.props);
-        const { addDelivery } = this.props;
-        
+        const { addDelivery } = this.props;      
         addDelivery(delivery);
+        window.location.href ="/delivery/list";
     }
 
     render() {
+        
+        console.log('this.props: ', this.props);
         return (
             <div>
                 <h3>Create a Delivery</h3>
@@ -110,6 +113,7 @@ class Delivery extends Component {
 
 const mapStateToProps = (state) => ({
     // delivery : state.delivery
+    users : state.users
 })
 
 export default connect(mapStateToProps, {addDelivery}) (Delivery)
