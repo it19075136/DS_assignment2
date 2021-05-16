@@ -3,21 +3,22 @@ const mongoose = require('mongoose');
 const Schema  = mongoose.Schema;
 
 const paymentSchema = new Schema({
-    itemName : {type:String, requires:true},
-    userID : {type:String, required:true}, 
-    userMail : {type: String, required:true},
-    noOfItems : {type: Number, required:true},
-    totalAmount: {type:Number, required:true},
-    deliveryCharges : {type:Number, required:true},
-    NIC : {type:Number, required : true},
-    PhoneNumber : {type:Number, required:true},
-    CardNumber : {type:Number, required:true},
-    ExpirationMonth : {type:String, required:true},
-    ExpirationYear : {type:Number, required:true },
-    CVC : {type:Number, required:true}
+    itemName : {type:String, requires:false},
+    userID : {type:String, required:false}, 
+    userMail : {type: String, required:false},
+    noOfItems : {type: Number, required:false},//make this optional
+    totalAmount: {type:Number, required:false},
+    deliveryCharges : {type:Number, required:false},
+    NIC : {type:Number, required : false},
+    PhoneNumber : {type:Number, required:false},
+    CardNumber : {type:Number, required:false},
+    ExpirationMonth : {type:String, required:false},
+    ExpirationYear : {type:Number, required:false },
+    CVC : {type:Number, required:false}
 },{
     timestamps:true
 });
+
 
 const Payment = mongoose.model('Payment', paymentSchema);
 

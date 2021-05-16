@@ -23,6 +23,7 @@ import setAuthorizationToken from './actions/authActions';
 import { login } from './actions/userActions';
 import jwt from 'jsonwebtoken'
 import LoginPage from './Pages/LoginPage';
+import Payment from './Pages/PaymentPage';
 
 
 const initstate = {}
@@ -57,6 +58,7 @@ function App() {
         <Route exact path="/delivery" component={Delivery}/>
         <Route exact path="/delivery/edit" component={EditDelivery}/>
         <Route exact path="/delivery/list" component={DeliveryList}/>
+        <Route exact path="/delivery/payment" component ={Payment} />
 
 
 

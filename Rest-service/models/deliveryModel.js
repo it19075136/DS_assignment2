@@ -4,10 +4,12 @@ const Schema = mongoose.Schema;
 
 const deliverySchema = new Schema ({
 
+    user_id : { type : String, required : true },
     quantity : {type:Number, required: true},
     amount : {type:Number, required:true},
     deliveryItems : {type:Array, "default" : [] },
-    isCancel : {type : Boolean, required:true}
+    isCancel : {type : Boolean, required:true},
+    address: {type : String, required: false}
 
 },{
     timestamps:true,

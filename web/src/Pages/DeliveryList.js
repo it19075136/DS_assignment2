@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {deleteDelivery} from '../actions/deliveryActions';
+import {deleteDelivery, editDeliveryCache, updateDelivery} from '../actions/deliveryActions';
+import { Link } from 'react-router-dom'
+
 
 
 class DeliveryList extends Component {
@@ -32,13 +34,15 @@ class DeliveryList extends Component {
   
       const {deleteDelivery} = this.props;
       
-      deleteDelivery(value);
+      // deleteDelivery(value);
 
     }
 
-    editDelivery(id){
-      console.log('id: ', id);
-
+    editDelivery(item){
+      const {setFinal, editDeliveryCache} = this.props;
+      editDeliveryCache(item);
+      setFinal();
+      
     }
 
     render() {
@@ -48,10 +52,12 @@ class DeliveryList extends Component {
         return (
           <div>
             <h1>Delivery List Page</h1>
+            <button onClick={() => window.location.href ="/delivery"}>Add a new delivery</button>
             <table className="table">
               <thead className="thead-light">
                 <tr>
                   <th>Items</th>
+                  <th>User Id</th>
                   <th>Amount</th>
                   <th>isCancel</th>
                   <th>Quantity</th>
@@ -64,6 +70,7 @@ class DeliveryList extends Component {
                 
                   <tr>
                     <td>{item.deliveryItems.toString()}</td>
+                    <td>{item.user_id}</td>
                     <td>Rs {item.amount}.00</td>
                     <td>{item.isCancel ? 'true' : 'false'}</td>
                     <td>{item.quantity}</td>
@@ -76,7 +83,7 @@ class DeliveryList extends Component {
                          <button onClick={() => this.deleteDelivery(item._id)}>Delete</button>
                     </td>
                     <td>
-                      <button onClick={() => this.editDelivery(item._id)} >Edit</button>
+                      <button onClick={() => this.editDelivery(item)} >Edit</button>
                     </td>
                   </tr>
                 )}
@@ -87,8 +94,187 @@ class DeliveryList extends Component {
     }
 }
 
+class EditDelivery extends Component {
+  constructor(props){
+      super(props);
+
+      this.onChangeAmount = this.onChangeAmount.bind(this);
+      this.onChangeDelivery = this.onChangeDelivery.bind(this);
+      this.onChangeQuantity = this.onChangeQuantity.bind(this);
+      this.onSubmit = this.onSubmit.bind(this);
+
+      this.state = {
+          quantity : '',
+          amount : '',
+          deliveryItems : [],
+          isCancel : false
+      }
+  }
+
+  componentDidMount(){
+
+    const {editDelivery} = this.props.delivery;
+
+    this.setState(
+      {
+        quantity : editDelivery.quantity,
+        amount : editDelivery.amount,
+        deliveryItems : editDelivery.deliveryItems.toString(),
+        isCancel : false
+      }
+    )
+    
+      
+  }
+
+  onChangeAmount(e){
+      this.setState({
+          amount: e.target.value
+      })
+  }
+
+  onChangeDelivery(e){
+      this.setState({
+          deliveryItems: e.target.value
+      })
+  }
+
+  onChangeQuantity(e){
+      this.setState({
+          quantity: e.target.value
+      })
+  }
+
+  onSubmit(e){
+    const {updateDelivery,delivery,setFinal} = this.props;
+    e.preventDefault();
+
+      const deliveryArray = this.state.deliveryItems.split(',');
+      const deliveryUpdate  = {
+          quantity : this.state.quantity,
+          amount : this.state.amount,
+          deliveryItems : deliveryArray,
+          isCancel : false
+      }
+
+      deliveryUpdate._id = delivery.editDelivery._id;
+
+      updateDelivery(deliveryUpdate);
+      setFinal();
+  }
+
+  goBack(){
+    const {setFinal} = this.props;
+    setFinal();
+  }
+
+  render() {
+      return (
+          <div>
+              <h3>Create a Delivery</h3>
+              <form onSubmit={this.onSubmit} className="container">
+              
+                   <div className="form-group">
+                          <label>Quantity</label>
+                          <input type="text"
+                              pattern="[0-9]*"
+                              required
+                              className="form-control"
+                              value={this.state.quantity}
+                              onChange={this.onChangeQuantity}
+                          />
+                  </div>
+
+                  <br></br>
+                  <div className="form-group">
+                          <label>Enter Delivery Items</label>
+                          <input type="text"
+                              required
+                              placeholder="item1,item2,item3"
+                              className="form-control"
+                              value={this.state.deliveryItems}
+                              onChange={this.onChangeDelivery}
+                          />
+                  </div>
+
+                  <br></br>
+                  <div className="form-group">
+                          <label>Enter the Amount</label>
+                          <input type="text"
+                              pattern="[0-9]*"
+                              required
+                              className="form-control"
+                              value={this.state.amount}
+                              onChange={this.onChangeAmount}
+                          />
+                  </div>    
+                  <br></br>
+                  <div className="form-group">
+                      <input type="submit" value="Update Delivery" className="btn btn-primary" />
+                  </div>
+                  <div>
+                    <button onClick={() => this.goBack()}>Go Back</button>
+                  </div>
+              </form>
+
+
+              
+          </div>
+      );
+  }
+}
+
+class Parent extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.setItem = this.setItem.bind(this);
+
+    this.state = {
+      final: false,
+      item : {}
+     
+    };
+  }
+
+  componentDidMount() {
+   
+  }
+
+  setItem(item){
+    this.setState({
+      item
+    })
+    
+  }
+
+  setFinal() {
+    const { final } = this.state;
+    this.setState({
+      final: !final
+    });
+  }
+
+  render() {
+    const { final, item } = this.state;
+   
+    return (
+      <div >
+        {final ? (
+            <EditDelivery item = {item} {...this.props} setFinal={() => this.setFinal()} />
+        ) : (     
+            <DeliveryList {...this.props}  setFinal={() => this.setFinal()} />
+        )}
+      </div>
+    );
+  }
+}
+
 const mapStateToProps = (state) => ({
-  delivery : state.delivery
+  delivery : state.delivery,
+  editDelivery : state.editDelivery,
+  updatedDelivery : state.updatedDelivery
+
 })
 
-export default connect(mapStateToProps, {deleteDelivery}) (DeliveryList);
+export default connect(mapStateToProps, {deleteDelivery,editDeliveryCache,updateDelivery}) (Parent);
