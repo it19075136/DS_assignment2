@@ -1,24 +1,24 @@
 import './CartItem.css'
 import {Link} from 'react-router-dom'
 
-const CartItem = () => {
+
+const CartItem = ({item , qtyChangeHandler}) => {
     return (
         <div className="cartitem">
             <div className="cartitem__image">
-                <img src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" alt="product name" />
+                <img src={item.imageUrl} alt={item.itemName}/>
             </div>
 
-            <Link to={`/product/${111}`} className="cartitem__name">
-                <p>Product 1</p>
+            <Link to={`/product/${item.product}`} className="cartitem__name">
+                <p>{item.itemName}</p>
             </Link>
 
-            <p className="cartitem__price">$100.88</p>
+            <p className="cartitem__price">LKR{item.price}</p>
 
-            <select className="cartitem__select">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+            <select className="cartitem__select" value={item.qty}>
+                {[Array(item.countInStock).keys()].map(x => (
+                    <option key={x+1} value={x+1}>{x+1}</option>
+                ))}
             </select>
 
             <button className="cartitem__deleteBtn">
