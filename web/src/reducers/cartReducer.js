@@ -9,13 +9,13 @@ export default function (state = initstate, action) {
         case actionType.ADD_TO_CART:
             console.log('Product added to cart')
             const item = action.payload;
+            console.log(item);
+            // const existItem = state.cartItems.find((x) => x.product === item.product)
 
-            const existItem = state.cartItems.find((x) => x.product === item.product)
-
-            if (existItem) {
+            if (false) {
                 return {
                     ...state,
-                    cartItems: state.cartItems.map((x) => x.product == existItem.product ? item : x)
+                    // cartItems: state.cartItems.map((x) => x.product == existItem.product ? item : x)
                 }
             } else {
                 return {

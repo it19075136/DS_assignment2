@@ -12,6 +12,7 @@ const Product = (props) => {
         console.log(id);
         props.getProductDetails(id);
     } 
+    
     return (
         <div className="product">
             <img src={imageUrl} alt={name}/>
@@ -23,7 +24,7 @@ const Product = (props) => {
                 <p className="info__price">LKR{price}</p>
                 <p className="info__date">{date}</p>
 
-                <Link to={`/product/${productId}`} className="info__button" onClick={displayProduct.bind(this,productId)}>View</Link>
+                <Link to={`/product/${productId}`} className="info__button" onClick={() => displayProduct(productId)}>View</Link>
             </div>
         </div>
     )
