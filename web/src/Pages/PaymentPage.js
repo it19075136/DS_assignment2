@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {Dropdown} from 'react-bootstrap';
+
 
 
 class Payment extends Component {
@@ -13,6 +15,7 @@ class Payment extends Component {
         this.onChangeExpMonth = this.onChangeExpMonth.bind(this);
         this.onChangeExpYear = this.onChangeExpYear.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.handleChangeDelivery = this.handleChangeDelivery.bind(this);
 
         this.state = {
             itemName :'',
@@ -20,13 +23,14 @@ class Payment extends Component {
             userMail : '',
             noOfItems : '',//make this optional
             totalAmount: '',
-            deliveryCharges : '',
+            deliveryCharges : 300,
             NIC : '',
             PhoneNumber : '',
             CardNumber : '',
             ExpirationMonth : '',
             ExpirationYear : '',
-            CVC :''
+            CVC :'',
+            delivery : "Prompt Express"
         }
     }
 
@@ -66,44 +70,60 @@ class Payment extends Component {
     }
 
     onSubmit(e){
+
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+        const itemnames = cartItems.map((item) => {
+            return item.name;
+        })
+
+        const s = cartItems.reduce(
+            (s,{price}) => s+price,0
+            );
+
         e.preventDefault();
         const {users} = this.props;
-        // this.setState({
-        //     itemName :'',
-        //     userID : users.profile.id, 
-        //     userMail : users.profile.email,
-        //     noOfItems : '',//make this optional
-        //     totalAmount: '',
-        //     deliveryCharges : '',
-        //     NIC : this.state.NIC,
-        //     PhoneNumber :'',
-        //     CardNumber : this.state.CardNumber,
-        //     ExpirationMonth : this.state.ExpirationMonth,
-        //     ExpirationYear :  this.state.ExpirationYear,
-        //     CVC :this.state.CVC
-        // })
 
         const payment = {
-            itemName :'',
+            itemNames : itemnames,
             userID : users.profile.id, 
             userMail : users.profile.email,
-            noOfItems : '',//make this optional
-            totalAmount: '',
-            deliveryCharges : '',
+            noOfItems : itemnames.length,//make this optional
+            totalAmount: s,
+            deliveryCharges : this.state.deliveryCharges,
             NIC : this.state.NIC,
             PhoneNumber :'',
             CardNumber : this.state.CardNumber,
             ExpirationMonth : this.state.ExpirationMonth,
             ExpirationYear :  this.state.ExpirationYear,
-            CVC :this.state.CVC            
+            CVC :this.state.CVC,
+            delivery : this.state.delivery            
         }
-
+        
         console.log('payment: ', payment);
+    }
 
+    handleChangeDelivery(e){
+        let charges = null;
+        if(e.target.value == 'Prompt Express'){
+            charges = 300;
+        }else if (e.target.value == 'DHL'){
+            charges = 550;
+        }else if (e.target.value == 'TUKTUK'){
+            charges = 300;
+        }
+        this.setState({
+            delivery: e.target.value,
+            deliveryCharges : charges
+            
+        })
+
+        
     }
 
 
     render() {
+
         return (
             <div>
                 <h3>Payment Information</h3>
@@ -145,7 +165,7 @@ class Payment extends Component {
                                 onChange={this.onChangeExpMonth}
                             />
                     </div>    
-                    <br></br>
+                    <br></br> 
                     <div className="form-group">
                             <label>Expiration Year</label>
                             <input type="text"
@@ -168,7 +188,17 @@ class Payment extends Component {
                                 value={this.state.CVC}
                                 onChange={this.onChangeCvc}
                             />
-                    </div>    
+                    </div>
+                    <br></br>
+                    <select 
+                        value={this.state.delivery} 
+                        onChange={this.handleChangeDelivery} 
+                    >
+                    <option value="Prompt Express">Prompt Express</option>
+                        <option value="DHL">DHL</option>
+                        <option value="TUKTUK">Tuk Tuk</option>
+                    </select>   
+                    <br></br>
                     <br></br>
                     <div className="form-group">
                         <input type="submit" value="Pay Now" className="btn btn-primary" />
@@ -183,7 +213,8 @@ class Payment extends Component {
 
 const mapStateToProps = (state) => ({
     // delivery : state.delivery
-    users : state.users
+    users : state.users,
+    cartItems : state.cartItems
 })
 
 export default connect(mapStateToProps, {}) (Payment)

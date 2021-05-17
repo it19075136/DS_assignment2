@@ -30,7 +30,7 @@ const CartPage = (props) => {
                     <p>$100.88</p>
                 </div>
                 <div className="btn__checkout">
-                    <button>Proceed To Checkout</button>
+                    <button onClick={() => window.location.href="/delivery/payment"}>Proceed To Checkout</button>
                 </div>
             </div>
         </div>
