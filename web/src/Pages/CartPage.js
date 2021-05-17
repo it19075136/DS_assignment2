@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import { addToCart } from '../actions/cartActions'
 
 const CartPage = (props) => {
-    const {cartItems} = props.cart
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
     return (
         <div className="cartpage">
             <div className="cartpage__left">
@@ -20,7 +20,7 @@ const CartPage = (props) => {
                         <CartItem
                         item={item}
                         // qtyChangeHandler={qtyChangeHandler}
-                        removeFromCart = {removeFromCart(item.id)}/>
+                        removeFromCart = {props.removeFromCart}/>
                     ))
                 )}
             </div>

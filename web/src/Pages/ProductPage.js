@@ -5,7 +5,6 @@ import { Component } from 'react'
 import {connect} from 'react-redux';
 
 //Actions
-import { getProductDetails } from '../actions/productActions'
 import { addToCart } from '../actions/cartActions'
 
 
@@ -16,7 +15,6 @@ class ProductPage extends Component {
     // const dispatch = useDispatch();
     state = {
         qty: 0,
-        link: '#'
     }
 
     // useEffect(() => {
@@ -24,10 +22,6 @@ class ProductPage extends Component {
     //         dispatch(getProductDetails(match.params.id))
     //     }
     // },[dispatch, product, match]);
-
-    componentDidMount(){
-        this.props.getProductDetails();
-    }
 
     // countHandler = (e) =>{
         
@@ -48,7 +42,7 @@ class ProductPage extends Component {
             if(this.state.qty <= product.countInStock ){
                 this.props.addToCart(id,this.state.qty);
                 console.log(cartItems);
-                localStorage.setItem('cart', JSON.stringify(cartItems)) ;          
+                localStorage.setItem('cart', JSON.stringify(cartItems));  
                 // window.location.href = "/cart";
             }
             else
@@ -107,4 +101,4 @@ const mapsStatetoprops = states => ({
     products: states.products,
     cart: states.cart
 })
-export default connect(mapsStatetoprops, {getProductDetails,addToCart}) (ProductPage)
+export default connect(mapsStatetoprops, {addToCart}) (ProductPage)
