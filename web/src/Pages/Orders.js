@@ -105,9 +105,10 @@ const useStyles = makeStyles((theme) => ({
         const classes = useStyles();
         // const userId = this.
         const orders= props.orders;
+        let {profile} = props.users;
         console.log(orders)
 
-        const orderList=orders ?  orders.map(order=>{
+        const orderList=orders && profile.id ? orders.map(order=>{
             return (          
         <div className={classes.root}  key={order.orderId}>
         <Paper className={classes.paper}>
@@ -157,7 +158,8 @@ return(
 }
 const mapStateToProps =(state)=>{
     return{
-        orders:state.orders.orders
+        orders:state.orders.orders,
+        users: state.users
     }
 }
 export default connect(mapStateToProps,null)(Orders)
