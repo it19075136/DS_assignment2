@@ -22,7 +22,7 @@ const productSchema = new schema({
     },
     date:{
         type: Date,
-        default: Date.now
+        default: new Date()
     },
     imageUrl: {
         type: String,
