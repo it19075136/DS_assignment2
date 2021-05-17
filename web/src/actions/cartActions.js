@@ -10,8 +10,8 @@ export const addToCart = (id , qty) => (dispatch, getState) => {
                     product: res.data._id,
                     name: res.data.itemName,
                     imageUrl: res.data.imageUrl,
-                    price:res.dataprice,
-                    countInStock: res.data.countInstock,
+                    price:res.data.price,
+                    countInStock: res.data.countInStock,
                     qty    
                 }
             });
