@@ -19,9 +19,19 @@ const CartPage = (props) => {
     //     TotalAmount:'',
     //     date:''
     // }
+
+    const {profile} = props.users;
+
     const handleSubmit=()=>{
-        props.addOrder();
-        window.location.href="/delivery/payment"        
+        if(profile.id){
+            console.log(profile);
+            props.addOrder();
+            window.location.href="/delivery/payment"
+        }
+        else{
+            alert("Please login in order to proceed!");
+            window.location.href="/user/login"
+        }       
     }
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -55,7 +65,7 @@ const CartPage = (props) => {
                 </div>
                 <div className="btn__checkout">
                     {/* <button onClick={handleSubmit}>Proceed To Checkout</button> */}
-                    <button onClick={() => handleSubmit}>Proceed To Checkout</button>
+                    <button onClick={handleSubmit} hidden={cartItems.length === 0}>Proceed To Checkout</button>
                 </div>
             </div>
         </div>
@@ -70,6 +80,7 @@ const CartPage = (props) => {
 
 // export default connect(null,{addOrder}) (CartPage)
 const mapsStatetoprops = state => ({
-    cart: state.cart
+    cart: state.cart,
+    users: state.users
 })
 export default connect(mapsStatetoprops, {addToCart, removeFromCart, addOrder}) (CartPage)
