@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addUser, login } from '../actions/userActions'
-import HomePage from './HomePage'
 import './LoginPage.css'
 import validator from 'validator'
+import hashPassword from 'password-hash'
 
 class userRegistration extends Component {
 
@@ -52,8 +52,14 @@ class userRegistration extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
+         this.setState({
+            ...this.state,
+            password: hashPassword.generate(this.state.password)
+        });
+
+        this.props.addUser(this.state);
         // if(this.isValidData(this.state))
-            this.props.addUser(this.state);
+        
         // else
         //     alert("Please insert correct details");
 
@@ -70,7 +76,7 @@ class userRegistration extends Component {
         let { profile } = this.props.users;
         console.log(this.state);
         return (
-            profile.id ? (<HomePage />):(<div>
+            profile.id ? ( window.location.href = '/'):(<div>
                 <form onSubmit={this.handleSubmit} className="form">
                 <h3 className="form">Sign Up</h3>
                 <div class="form row g-2">

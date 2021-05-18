@@ -9,10 +9,10 @@ const sellerProduct = (props) => {
     const product = props.product;
     console.log(product._id);
     const handlesubmit=()=>{
-        ProductWantTOUpdate(product);
+        props.ProductWantTOUpdate(product);
     }
     const handleDelete=()=>{
-        deleteProduct(product._id);
+        props.deleteProduct(product._id);
     }
     return (
         <div className="product">

@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
-import {addProduct} from '../actions/sellerActions';
+import { addProduct } from '../actions/sellerActions';
 import {updateProduct} from '../actions/sellerActions'; 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
   let {profile} = props.users;
   const update = props.update;
-  console.log(update)
+  console.log(update);
   const productWantTOUpdate = props.productWantTOUpdate;
 
   const [state, setState] = useState(
@@ -83,12 +83,12 @@ const useStyles = makeStyles((theme) => ({
   const handlesubmit=(e)=>{
     e.preventDefault();
     console.log(state)
-    addProduct(state);
+    props.addProduct(state);
   }
   const handleUpdateProduct=(e)=>{
     e.preventDefault();
       console.log(state)
-    updateProduct(state,id);
+    props.updateProduct(state,id);
   }
 
   return (

@@ -23,11 +23,10 @@ class userLogin extends Component {
     }
 
     render() { 
-        let { profile } = this.props.users;
-        let { authError } = this.props.users;
+        let { profile,authError } = this.props.users;
         return (
             authError ? (<span className="error error-text">Invalid credentials</span>):(
-            profile.id ? (<HomePage />):(<div>
+            profile.id ? (window.location.href = "/"):(<div>
                 <form onSubmit={this.handleSubmit} className="form">
                 <h3 className="form">Please login</h3>
                     <div className="form col-3">
