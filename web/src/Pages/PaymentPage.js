@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Dropdown} from 'react-bootstrap';
+import {addPayment} from '../actions/paymentAction';
 
 
 
@@ -71,6 +72,8 @@ class Payment extends Component {
 
     onSubmit(e){
 
+        const {addPayment} = this.props;
+
         const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
         const itemnames = cartItems.map((item) => {
@@ -99,8 +102,28 @@ class Payment extends Component {
             CVC :this.state.CVC,
             delivery : this.state.delivery            
         }
+
+        addPayment(payment);
+
+        this.setState({
+            
+                itemName :'',
+                userID : '', 
+                userMail : '',
+                noOfItems : '',//make this optional
+                totalAmount: '',
+                deliveryCharges : 300,
+                NIC : '',
+                PhoneNumber : '',
+                CardNumber : '',
+                ExpirationMonth : '',
+                ExpirationYear : '',
+                CVC :'',
+                delivery : "Prompt Express"
+            
+        })
         
-        console.log('payment: ', payment);
+        
     }
 
     handleChangeDelivery(e){
@@ -217,5 +240,5 @@ const mapStateToProps = (state) => ({
     cartItems : state.cartItems
 })
 
-export default connect(mapStateToProps, {}) (Payment)
+export default connect(mapStateToProps, {addPayment}) (Payment)
 
