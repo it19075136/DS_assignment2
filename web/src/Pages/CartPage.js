@@ -4,10 +4,9 @@ import {connect} from 'react-redux'
 import {addOrder} from '../actions/orderActions'
 import {Link} from 'react-router-dom'
 import { removeFromCart } from '../actions/cartActions'
-import {connect} from 'react-redux';
 import { addToCart } from '../actions/cartActions'
 const CartPage = (props) => {
-    const cartItems = props.cartItems;
+    // const cartItems = props.cartItems;
     // state={
     //     orderId:'',
     //     userId:'',
@@ -22,6 +21,7 @@ const CartPage = (props) => {
     // }
     const handleSubmit=()=>{
         props.addOrder();
+        window.location.href="/delivery/payment"        
     }
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
@@ -55,21 +55,21 @@ const CartPage = (props) => {
                 </div>
                 <div className="btn__checkout">
                     {/* <button onClick={handleSubmit}>Proceed To Checkout</button> */}
-                    <button onClick={() => window.location.href="/delivery/payment"}>Proceed To Checkout</button>
+                    <button onClick={() => handleSubmit}>Proceed To Checkout</button>
                 </div>
             </div>
         </div>
     )
 }
-const mapStateToProps=(state)=>{
-    return{
-        Items:state.cart.cartItems
-    }
-}
+// const mapStateToProps=(state)=>{
+//     return{
+//         Items:state.cart.cartItems
+//     }
+// }
 
 
 // export default connect(null,{addOrder}) (CartPage)
 const mapsStatetoprops = state => ({
     cart: state.cart
 })
-export default connect(mapsStatetoprops, {addToCart, removeFromCart}) (CartPage)
+export default connect(mapsStatetoprops, {addToCart, removeFromCart, addOrder}) (CartPage)
