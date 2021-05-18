@@ -26,6 +26,7 @@ import LoginPage from './Pages/LoginPage';
 import SellerProducts from './Pages/SellerProducts';
 import AddProductForm from './Pages/AddProductForm';
 import Checkout from './Pages/Checkout';
+import Payment from './Pages/PaymentPage';
 
 
 const initstate = {}
@@ -63,6 +64,7 @@ function App() {
         <Route exact path="/seller" component={SellerProducts}/>
       <Route exact path="/checkout" component={Checkout}/>
       <Route exact path="/form" component={AddProductForm}/>
+        <Route exact path="/delivery/payment" component ={Payment} />
       </BrowserRouter>
     </Provider>
   );

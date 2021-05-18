@@ -2,23 +2,19 @@ import * as actionTypes from '../constants/cartConstants';
 import axios from 'axios';
 
 export const addToCart = (id , qty) => (dispatch, getState) => {
-    const {data} = axios.get(`http://localhost:5000/api/products/${id}`).then((res) => {
-
-        if(res == 200){
+    axios.get(`http://localhost:5000/api/products/${id}`).then((res) => {
+        console.log(res.data.itemName);
             dispatch({
                 type: actionTypes.ADD_TO_CART,
                 payload: {    
-                    product: data._id,
-                    name: data.name,
-                    imageUrl: data.imageUrl,
-                    price:data.price,
-                    countInStock: data.countInstock,
+                    product: res.data._id,
+                    name: res.data.itemName,
+                    imageUrl: res.data.imageUrl,
+                    price:res.data.price,
+                    countInStock: res.data.countInStock,
                     qty    
                 }
-            })
-            
-            localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems));
-        }
+            });
     }).catch(err => {
         console.log(err);
     })

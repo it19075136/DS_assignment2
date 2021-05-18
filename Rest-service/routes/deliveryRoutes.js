@@ -18,10 +18,11 @@ router.get("/", (req, res) => {
 // //update delivery
 router.post("/update/:id", (req, res) => {
   Delivery.findByIdAndUpdate(req.params.id).then((delivery) => {
-    (delivery.quantity = Number(req.params.quantity)),
-      (delivery.amount = Number(req.params.amount)),
-      (delivery.deliveryItems = req.params.deliveryItems),
-      (delivery.isCancel = req.params.isCancel);
+    (delivery.user_id = req.body.user_id),
+    (delivery.quantity = Number(req.body.quantity)),
+      (delivery.amount = Number(req.body.amount)),
+      (delivery.deliveryItems = req.body.deliveryItems),
+      (delivery.isCancel = req.body.isCancel);
 
     delivery.save().then(() => res.json("Delivery Updated!"));
   });
@@ -30,7 +31,7 @@ router.post("/update/:id", (req, res) => {
 // //cancel delivery
 router.post("/cancel/:id", (req, res) => {
   Delivery.findByIdAndUpdate(req.params.id).then((delivery) => {
-    delivery.isCancel = req.params.isCancel;
+    delivery.isCancel = req.body.isCancel;
 
     delivery.save().then(() => res.json("Delivery Canceled!"));
   });

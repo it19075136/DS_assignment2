@@ -78,12 +78,12 @@ const Navbar = (props) => {
                         Shop
                     </Link>
                 </li>
-                <li>
+                        {profile.id ? ( <ul className="navbar__links">
+                                           <li>
                     <Link to="/orders" onClick={handleSubmit}>
                         orders
                     </Link>
-                </li>
-                        {profile.id ? (<li><Link onClick={handleLogout}>Log out</Link></li>):
+                </li><li><Link onClick={handleLogout}>Log out</Link></li></ul>):
                         (<ul className="navbar__links">
                             <li>
                                 <Link to="/user/login">Login</Link> 

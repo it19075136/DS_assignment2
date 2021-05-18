@@ -15,6 +15,9 @@ const userSchema = new schema({
     phoneNumber: {
         type: String
     },
+    address:{
+        type: String
+    },
     email: {
         type: String
     },

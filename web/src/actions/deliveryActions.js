@@ -35,3 +35,30 @@ export function deleteDelivery(values) {
   };
   
 }
+
+export function editDeliveryCache(values) {
+  return (dispatch) => {
+    dispatch({
+      type : "EDIT_DELIVERY_CACHE",
+      payload : values
+    })
+  }
+}
+
+export function updateDelivery (value) {
+  console.log('value: ', value);
+  return (dispatch) => {
+    axios.post(`http://localhost:5000/api/delivery/update/${value._id}`,value)
+    .then((res) => {
+      dispatch({
+        type:'UPDATE_DELIVERY',
+        payload : value
+      });
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+}
+

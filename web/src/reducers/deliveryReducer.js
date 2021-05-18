@@ -1,5 +1,8 @@
 let initstate = {
     delivery : {},
+    editDelivery :  {},
+    updatedDelivery : {}
+
 }
 
 export default function (state= initstate, action){
@@ -13,7 +16,17 @@ export default function (state= initstate, action){
             return {
                 ...state
                 // deleteDelivery : [action.payload, ...state.deleteDelivery]
-            }    
+            }
+        case "EDIT_DELIVERY_CACHE":
+            return  {
+                ...state,
+                editDelivery : action.payload
+            }
+        case "UPDATE_DELIVERY":
+            return {
+                ...state,
+                updatedDelivery :action.payload
+            }            
          default:
              return state;   
     }

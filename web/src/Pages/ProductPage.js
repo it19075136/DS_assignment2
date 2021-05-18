@@ -5,18 +5,17 @@ import { Component } from 'react'
 import {connect} from 'react-redux';
 
 //Actions
-import { getProductDetails } from '../actions/productActions'
 import { addToCart } from '../actions/cartActions'
-
 
 
 class ProductPage extends Component {
 
 
-    // const [qty, setQty] = useState(1);
-    // const dispatch = useDispatch();
-
     
+    // const dispatch = useDispatch();
+    state = {
+        qty: 0,
+    }
 
     // useEffect(() => {
     //     if(product && match.params.id !== product._id){
@@ -24,19 +23,38 @@ class ProductPage extends Component {
     //     }
     // },[dispatch, product, match]);
 
-    componentDidMount(){
-        this.props.getProductDetails();
-    }
-
     // countHandler = (e) =>{
         
     // }
 
     render(){
-
+        
         const {product, loading, error} = this.props.products;
+        let {cartItems} = this.props.cart;
 
-       
+    //    const addToCartHandler = () => {
+    //        dispatch(addToCart(product._id));
+    //        history.pushState("/cart")
+    //    }
+        
+        const addItemToCart = (id) => {
+            console.log(id);
+            if(this.state.qty <= product.countInStock ){
+                this.props.addToCart(id,this.state.qty);
+                console.log(cartItems);
+                localStorage.setItem('cart', JSON.stringify(cartItems));  
+                // window.location.href = "/cart";
+            }
+            else
+                alert("Quantity is higher than the available stock,Please enter a valid quantity");
+        }
+
+        const handleChange = (e) => {
+            this.setState({
+                qty: e.target.value
+            })
+            console.log(this.state);
+        }
        
         return (
             <div className="productpage">
@@ -62,11 +80,11 @@ class ProductPage extends Component {
                         </p>
                         <p>
                             Qty
-                            <input type="number" name="qty" onChange={(product.countInStock < 10) ? (document.getElementById("err").innerHTML = "Invalid Quantity") : null}/>
+                            <input type="number" name="qty" onChange={handleChange}/>
                             <span id="err"></span>
                         </p>
                         <p>
-                            <button type="button">Add To Cart</button>
+                            <button type="button" onClick={()=>addItemToCart(product._id)}>Add To Cart</button>
                         </p>
                     </div>
                 </div>
@@ -79,7 +97,8 @@ class ProductPage extends Component {
    
 }
 
-const mapsStatetoprops = state => ({
-    products: state.products
+const mapsStatetoprops = states => ({
+    products: states.products,
+    cart: states.cart
 })
-export default connect(mapsStatetoprops, {getProductDetails}) (ProductPage)
+export default connect(mapsStatetoprops, {addToCart}) (ProductPage)
