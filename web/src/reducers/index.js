@@ -13,6 +13,3 @@ export default combineReducers({
     products: productReducer
     
 })
-
-  
-
