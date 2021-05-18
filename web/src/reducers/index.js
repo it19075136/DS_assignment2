@@ -3,13 +3,15 @@ import orderReducer from './orderReducer';
 import usersReducer from './usersReducer'
 import deliveryReducer from './deliveryReducer';
 import cartReducer from './cartReducer';
-import productReducer from './productReducer'
+import productReducer from './productReducer';
+import paymentReducer from './paymentReducer';
 
 export default combineReducers({
     users: usersReducer,
     orders:orderReducer,
     delivery:deliveryReducer,
     cart: cartReducer,
-    products: productReducer
+    products: productReducer,
+    payment : paymentReducer
     
 })
