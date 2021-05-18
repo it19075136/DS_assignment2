@@ -4,6 +4,19 @@ import {connect} from 'react-redux'
 import {addOrder} from '../actions/orderActions'
 
 const CartPage = (props) => {
+    const cartItems = props.cartItems;
+    // state={
+    //     orderId:'',
+    //     userId:'',
+    //     item:[itemId:'',
+    //     itemName:'',
+    //     itemcolor:'',
+    //     qty:'',
+    //     amount'',
+    //     imgUrl:''],
+    //     TotalAmount:'',
+    //     date:''
+    // }
     const handleSubmit=()=>{
         props.addOrder();
     }
@@ -27,5 +40,11 @@ const CartPage = (props) => {
         </div>
     )
 }
+const mapStateToProps=(state)=>{
+    return{
+        Items:state.cart.cartItems
+    }
+}
+
 
 export default connect(null,{addOrder}) (CartPage)

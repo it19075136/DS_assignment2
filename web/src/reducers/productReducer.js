@@ -3,9 +3,13 @@ let initstate = {
     loading: true,
     products: [],
     product: {},
-    error: null
+    productWantTOUpdate:{},
+    error: null,
+    update:false,
 }
+
 export default function (state = initstate, action) {
+    console.log(action.payload)
     switch(action.type){
         //get all products
         case actionType.GET_PRODUCTS_REQUEST:
@@ -48,6 +52,30 @@ export default function (state = initstate, action) {
             return{
                 ...state,
                 product: {}
+            }
+        case 'ADD_PRODUCT':
+            return{
+                ...state,
+                products:[action.payload,...state.products]
+            }
+        case 'PRODUCT_WANT_TO_UPDATE':
+            return{
+                ...state,
+                update:true,
+                productWantTOUpdate:action.payload,
+                
+            }
+        case 'UPDATE_STATE':
+            return{
+                ...state,
+                update:false
+            }
+        case 'SELLER_UPDATE_PRODUCT':
+            return{
+                ...state,
+                productWantTOUpdate: null,
+                products: action.payload,
+                update:false,
             }
         default:
             return state;

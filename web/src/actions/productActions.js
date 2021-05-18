@@ -6,12 +6,14 @@ export const getProducts = () => (dispatch) => {
         dispatch({type: actionType.GET_PRODUCTS_REQUEST});
 
         axios.get("http://localhost:5000/api/products").then((res) => {
+            console.log(res.data);
             dispatch({
                 type: actionType.GET_PRODUCTS_SUCCESS,
                 payload: res.data
             })
         }).catch(err => {
             console.log(err)
+            console.log('error in getproduct')
         })
 
     }catch(error){

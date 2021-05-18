@@ -24,11 +24,11 @@ const productSchema = new schema({
         type: Date,
         default: Date.now
     },
-    imageUrl: {
+    imageUrl:{
         type: String,
     },
     sellerId:{
-        type: Number,
+        type: String,
         required: true
     }
 });
