@@ -23,10 +23,19 @@ import setAuthorizationToken from './actions/authActions';
 import { login } from './actions/userActions';
 import jwt from 'jsonwebtoken'
 import LoginPage from './Pages/LoginPage';
+import SellerProducts from './Pages/SellerProducts';
+import AddProductForm from './Pages/AddProductForm';
+import Checkout from './Pages/Checkout';
 import Payment from './Pages/PaymentPage';
 
 
-const initstate = {}
+// const initstate = {}
+const cartFromLocalStorage = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
+const initstate = {
+  cart: {
+      cartItems: cartFromLocalStorage
+  }
+}
 
 const middleware = [thunk]
 
@@ -58,10 +67,10 @@ function App() {
         <Route exact path="/delivery" component={Delivery}/>
         <Route exact path="/delivery/edit" component={EditDelivery}/>
         <Route exact path="/delivery/list" component={DeliveryList}/>
+        <Route exact path="/seller" component={SellerProducts}/>
+      <Route exact path="/checkout" component={Checkout}/>
+      <Route exact path="/form" component={AddProductForm}/>
         <Route exact path="/delivery/payment" component ={Payment} />
-
-
-
       </BrowserRouter>
     </Provider>
   );

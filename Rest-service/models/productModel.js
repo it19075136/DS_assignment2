@@ -24,8 +24,12 @@ const productSchema = new schema({
         type: Date,
         default: new Date()
     },
-    imageUrl: {
+    imageUrl:{
         type: String,
+    },
+    sellerId:{
+        type: String,
+        required: true
     }
 });
 
