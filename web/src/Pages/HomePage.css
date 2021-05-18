@@ -14,6 +14,13 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 }
+
+.searchbar{
+    display: flex;
+    padding: 10px;
+    width: 50%;
+}
+
 /****responsive css****/
 @media (max-width: 1232px) {
     .homepage__products{

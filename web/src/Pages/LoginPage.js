@@ -14,6 +14,7 @@ class userLogin extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.login(this.state);
+        console.log(this.props.users.profile)
     }
 
     handleChange = (e) => {
