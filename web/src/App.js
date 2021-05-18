@@ -26,7 +26,13 @@ import LoginPage from './Pages/LoginPage';
 import Payment from './Pages/PaymentPage';
 
 
-const initstate = {}
+// const initstate = {}
+const cartFromLocalStorage = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
+const initstate = {
+  cart: {
+      cartItems: cartFromLocalStorage
+  }
+}
 
 const middleware = [thunk]
 

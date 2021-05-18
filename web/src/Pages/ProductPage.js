@@ -44,6 +44,7 @@ class ProductPage extends Component {
                 console.log(cartItems);
                 localStorage.setItem('cart', JSON.stringify(cartItems));  
                 // window.location.href = "/cart";
+                alert("Product added successfully!");
             }
             else
                 alert("Quantity is higher than the available stock,Please enter a valid quantity");
@@ -62,7 +63,7 @@ class ProductPage extends Component {
                     <>
                         <div className="productpage__left">
                     <div className="left__image">
-                        <img src={product.imageUrl} alt={product.name} />
+                        <img src={product.imageUrl} alt={product.itemName} />
                     </div>
                     <div className="left__info">
                             <p>Name: {product.itemName}</p>
