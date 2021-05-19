@@ -57,6 +57,7 @@ export const login = credentials => dispatch => {
 
 export const logOut = () => dispatch => {
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('cart');
     setAuthorizationToken(false);
     dispatch({
         type: "LOGOUT"
