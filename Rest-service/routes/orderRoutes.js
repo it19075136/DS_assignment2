@@ -4,7 +4,6 @@ const Order = require('../models/orderModel');
 router.post('/add',(req,res)=>{
     const order  = new Order(req.body)
     order.save().then(()=>{res.json('order added')})
-
 })
 
 router.get('/:id',(req,res)=>{

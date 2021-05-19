@@ -1,6 +1,14 @@
 import axios from 'axios'
 
-export const addOrder=(order)=>dispatch => {
+export const addOrder=(cartItems,id)=>dispatch => {
+    console.log('order B');
+    let order  = {
+        orderId:'',
+        userId:id,
+        TotalAmount:0,
+        date:'',
+        item:[...cartItems]
+    }
     axios.post('http://localhost:5000/api/order/add',order).then((res)=>{
         console.log('order added');
         dispatch({type:'ADD_ORDER',payload:order})

@@ -14,8 +14,6 @@ import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-
-
 // const useStyles = makeStyles((theme) => ({
 //     paper: {
 //       marginTop: theme.spacing(8),
@@ -35,7 +33,7 @@ import TextField from '@material-ui/core/TextField';
 //       margin: theme.spacing(3, 0, 2),
 //     },
 //   }));
-class SellerProducts extends Component {
+class sellerProducts extends Component {
     componentDidMount(){
         this.props.getProducts();
         console.log('componentdidmount')
@@ -227,4 +225,4 @@ const mapStateToProps=(state)=>{
     }
 }
 
-export default connect(mapStateToProps,{getProducts,addProduct,updateStateRed}) (SellerProducts)
+export default connect(mapStateToProps,{getProducts,addProduct,updateStateRed}) (sellerProducts)

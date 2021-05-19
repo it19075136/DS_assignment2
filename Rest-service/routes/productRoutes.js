@@ -7,7 +7,7 @@ const Product = require('../models/productModel');
 router.get('/', (req, res) => {
    
         Product.find((err, docs) => {
-                console.log(docs);
+                
             res.json(docs);
         });
 });
@@ -32,22 +32,33 @@ router.post("/add", (req, res) => {
 //@desc   Update product from db
 //@route  POST /api/products/update/:id
 //@access Public
-router.put("/update/:id", (req, res) => {
-        Product.findOneAndUpdate({_id:req.params.id},{itemName:req.body.itemName,description:req.body.description,countInStock:req.body.countInStock,price:req.body.price,date:req.body.date,imageUrl:req.body.imageUrl,sellerId:req.body.sellerId}).then((product) => {
-                Product.findById(req.params.id).then((product) => res.json(product),console.log(product)).catch((err) => res.status(400).json("Error:" + err))
-                console.log(product)
-                // (product.itemName = req.params.itemName),
-                // (product.description = req.params.description),
-                // (product.countInStock = Number(req.params.countInStock)),
-                // (product.price = Number(req.params.price)),
-                // (product.date = Date(req.params.date)),
-                // (product.imageUrl = req.params.date),
-                // (product.sellerId = req.params.sellerId);
-                // product.save().then(() => res.json("Product Updated!"));
-                // console.log(res.data);
-        }).catch(err=>{
-                console.log(err);
-        })
+router.patch("/update/:id", (req, res) => {
+        // Product.findOneAndUpdate({_id:req.params.id},{_id:req.params.id,itemName:req.body.itemName,description:req.body.description,countInStock:Number(req.body.countInStock),price:Number(req.body.price),date:req.body.date,imageUrl:req.body.imageUrl,sellerId:req.body.sellerId}).then((product) => {
+        //         // Product.findById(req.params.id).then((product) => res.json(product),console.log(product)).catch((err) => res.status(400).json("Error:" + err))
+        //         // console.log(product)
+        //         res.json(product)
+        //         // (product.itemName = req.params.itemName),
+        //         // (product.description = req.params.description),
+        //         // (product.countInStock = Number(req.params.countInStock)),
+        //         // (product.price = Number(req.params.price)),
+        //         // (product.date = Date(req.params.date)),
+        //         // (product.imageUrl = req.params.date),
+        //         // (product.sellerId = req.params.sellerId);
+        //         // product.save().then(() => res.json("Product Updated!"));
+        //         // console.log(res.data);
+        // }).catch(err=>{
+        //         console.log(err);
+        // })
+        Product.findByIdAndUpdate(req.params.id).then((product) => {
+                (product.itemName = req.body.itemName),
+                // (product.price = Number(req.body.price)),
+                //   (product.countInStock = Number(req.body.countInStock)),
+                //   (product.description = req.body.description),
+                //   (product.sellerId = req.body.sellerId);
+                //   (product.imageUrl = req.body.imageUrl);
+                //   (product.date = req.body.date);
+                  product.save().then(() => res.json(product));
+              });
 });
 
 //@desc   Delete product
