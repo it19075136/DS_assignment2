@@ -44,7 +44,7 @@ router.post('/:email',(req,res)=>{
             res.json({token});
         }
         else{
-            res.status(404).send("AUTHERROR");
+            res.send("AUTHERROR");
         }
     })
 });
