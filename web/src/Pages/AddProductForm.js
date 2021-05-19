@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
       const [id, setId] = useState(
         {
-            _id:'',
+            _id:productWantTOUpdate._id,
           }      );  
 
     const  handlechangeID =(e)=>{
@@ -103,20 +103,6 @@ const useStyles = makeStyles((theme) => ({
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-          <Grid item xs={12} >
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="_id"
-                label="_id"
-                name="_id"
-                autoComplete="lname"
-                contentEditable='false'
-                onChange={handlechangeID}
-                value={productWantTOUpdate._id}
-              />
-            </Grid>
             <Grid item xs={12} >
               <TextField
                 autoComplete="fname"
@@ -128,7 +114,8 @@ const useStyles = makeStyles((theme) => ({
                 label="Item Name"
                 autoFocus
                 onChange={handlechange}
-                value={productWantTOUpdate.itemName}
+                defaultValue={productWantTOUpdate.itemName}
+                
               />
             </Grid>
             <Grid item xs={12}>
@@ -141,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
                 name="description"
                 autoComplete="description"
                 onChange={handlechange}
-                value={productWantTOUpdate.description}
+                defaultValue={productWantTOUpdate.description}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -155,7 +142,7 @@ const useStyles = makeStyles((theme) => ({
                 id="countInStock"
                 autoComplete="current-password"
                 onChange={handlechange}
-                value={productWantTOUpdate.countInStock}
+                defaultValue={productWantTOUpdate.countInStock}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -169,7 +156,7 @@ const useStyles = makeStyles((theme) => ({
                 id="price"
                 autoComplete="current-password"
                 onChange={handlechange}
-                value={productWantTOUpdate.price}
+                defaultValue={productWantTOUpdate.price}
               />
             </Grid>
             {/* <Grid item xs={12}>
@@ -188,7 +175,6 @@ const useStyles = makeStyles((theme) => ({
           onClick={handleUpdateProduct}
           className='info__button'>
             Update
-          {/* </Button> */}
           </a>
           
         </form>
@@ -253,7 +239,7 @@ const useStyles = makeStyles((theme) => ({
               />
             </Grid>
           </Grid>
-          
+          <Link to='/seller'>
           <a href='/seller'
           type="submit"
           fullWidth
@@ -264,6 +250,7 @@ const useStyles = makeStyles((theme) => ({
           className='info__button'>
             ADD
           </a>
+          </Link>
         </form>
       </div>) }
      

@@ -63,7 +63,6 @@ export default function (state = initstate, action) {
                 ...state,
                 update:true,
                 productWantTOUpdate:action.payload,
-                
             }
         case 'UPDATE_STATE':
             return{
@@ -74,8 +73,13 @@ export default function (state = initstate, action) {
             return{
                 ...state,
                 productWantTOUpdate: null,
-                products: action.payload,
+                products: [state.products.filter(product=> product._id!=action.payload._id),action.payload],
                 update:false,
+            }
+        case 'DELETE_PRODUCT':
+            return{
+                ...state,
+                products:state.products.filter(product=> product._id!=action.payload)
             }
         default:
             return state;
