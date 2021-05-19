@@ -26,7 +26,7 @@ export const updateStateRed=()=>(dispatch)=>{
 }
 export const updateProduct=(product,id)=>dispatch=>{
     console.log(product,id)
-    axios.put(`http://localhost:5000/api/products/update/${id}`,product).then((res)=>{//product include _id but not  include in product module
+    axios.patch(`http://localhost:5000/api/products/update/${id}`,product).then((res)=>{//product include _id but not  include in product module
         dispatch({type:"SELLER_UPDATE_PRODUCT",payload:res.data})
         console.log(res.data)
     }).catch((err)=>{

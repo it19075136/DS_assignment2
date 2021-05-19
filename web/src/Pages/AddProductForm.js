@@ -172,7 +172,7 @@ const useStyles = makeStyles((theme) => ({
           variant="contained"
           color="primary"
           className={classes.submit}
-          onClick={handleUpdateProduct}
+          onClick={handleUpdateProduct }
           className='info__button'>
             Update
           </a>

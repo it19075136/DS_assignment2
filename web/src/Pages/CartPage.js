@@ -25,7 +25,8 @@ const CartPage = (props) => {
     const handleSubmit=()=>{
         if(profile.id){
             console.log(profile);
-            props.addOrder();
+            props.addOrder(cartItems,profile.id);
+            console.log('order added');
             window.location.href="/delivery/payment"
         }
         else{

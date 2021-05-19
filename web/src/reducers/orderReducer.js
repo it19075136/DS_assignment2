@@ -4,6 +4,7 @@ let initialState={
    
 }
 export default function(state=initialState,action){
+    console.log('in in in')
     switch(action.type){
         case 'ADD_ORDER':
             return({
