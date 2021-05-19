@@ -18,36 +18,41 @@ export const addUser = user => dispatch => {
 }
 
 export const login = credentials => dispatch => {
-    if(credentials.id){
-        dispatch({
-            type:"LOGIN",
-            payload: credentials
-        })
-    }
-    else{
-    axios.post(`http://localhost:5000/api/users/${credentials.email}`,credentials).then((res) => {
-        const {token} = res.data;
-        if(token){
-            localStorage.setItem('jwtToken',token);
-            const currentUser = jwt.decode(token);
-            if(res.status === 200){
+    return new Promise((resolve,reject) => {
+        if(credentials.id){
             dispatch({
-                type: "LOGIN",
-                payload: currentUser
+                type:"LOGIN",
+                payload: credentials
             })
-        }
         }
         else{
-            console.log("authError")
-            dispatch({
-                type: "LOGIN",
-                payload: res.data
-            })
+        axios.post(`http://localhost:5000/api/users/${credentials.email}`,credentials).then((res) => {
+            const {token} = res.data;
+            if(token){
+                localStorage.setItem('jwtToken',token);
+                const currentUser = jwt.decode(token);
+                if(res.status === 200){
+                dispatch({
+                    type: "LOGIN",
+                    payload: currentUser
+                })
+            }
+            }
+            else{
+                console.log("authError")
+                dispatch({
+                    type: "LOGIN",
+                    payload: res.data
+                })
+            }
+            resolve("done");
+        }).catch(err => {
+            console.log(err);
+            reject(err);
+        })
         }
-    }).catch(err => {
-        console.log(err);
     })
-    }
+
 }
 
 export const logOut = () => dispatch => {
