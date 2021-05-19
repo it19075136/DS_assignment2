@@ -39,7 +39,9 @@ router.post('/:email',(req,res)=>{
             const token = jsonwebtoken.sign({
                 id: user.id,
                 email: user.email,
-                type: user.type
+                type: user.type,
+                phone: user.phoneNumber,
+                address: user.address
             }, "jwtSecret")
             res.json({token});
         }
