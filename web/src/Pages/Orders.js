@@ -126,7 +126,7 @@ const useStyles = makeStyles((theme) => ({
                     Order Date:<p>{order.date}</p><br/>
                     </Typography>
                     <Typography variant="body2" gutterBottom className={classes.text}>
-                    shipping Address:{order.date}
+                    shipping Address:{profile.address}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" className={classes.text}>
                     OrderNumber:{order.orderId}
