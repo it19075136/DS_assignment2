@@ -13,8 +13,25 @@ class userLogin extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.login(this.state);
-        console.log(this.props.users.profile)
+
+        this.props.login(this.state).then((res)=>{
+
+            console.log(res,this.props.users.profile);
+            let {profile} = this.props.users
+
+            if(profile.type){
+                switch (profile.type) {
+                    case "Buyer":
+                        window.location.href = "/"
+                        break;
+                    default:
+                        window.location.href = "/seller"
+                        break;
+                }
+            }
+        }).catch((err)=>{
+            console.log(err);
+        })    
     }
 
     handleChange = (e) => {
@@ -26,10 +43,10 @@ class userLogin extends Component {
     render() { 
         let { profile,authError } = this.props.users;
         return (
-            authError ? (<span className="error error-text">Invalid credentials</span>):(
-            profile.id ? (window.location.href = "/"):(<div>
+            profile.id ? (profile.type === "Buyer" ? window.location.href = "/": window.location.href = "/seller"  ):(<div>
                 <form onSubmit={this.handleSubmit} className="form">
                 <h3 className="form">Please login</h3>
+                {authError ? (<span>**Invalid credentials</span>):(null)}
                     <div className="form col-3">
                         <input type="text" onChange={this.handleChange} class="form-control" id="email" name="email" placeholder="Email" />
                     </div>
@@ -41,7 +58,7 @@ class userLogin extends Component {
                         <button type="submit" class="btn btn-primary right">Login</button>
                     </div>
                 </form>
-                </div>))        
+                </div>)        
         )
     }
 }
