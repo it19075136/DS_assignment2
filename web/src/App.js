@@ -23,7 +23,7 @@ import setAuthorizationToken from './actions/authActions';
 import { login } from './actions/userActions';
 import jwt from 'jsonwebtoken'
 import LoginPage from './Pages/LoginPage';
-import SellerProducts from './Pages/SellerProducts';
+import SellerProducts from './Pages/sellerProducts';
 import AddProductForm from './Pages/AddProductForm';
 import Checkout from './Pages/Checkout';
 import Payment from './Pages/PaymentPage';
