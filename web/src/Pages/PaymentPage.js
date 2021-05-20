@@ -37,9 +37,6 @@ class Payment extends Component {
     }
 
     componentDidMount(){
-      
-      
-
     }
 
     onChangeNic(e){
@@ -49,21 +46,30 @@ class Payment extends Component {
     }
 
     onChangeCardNumber(e){
+
         this.setState({
             CardNumber : e.target.value
         })
     }
 
     onChangeExpMonth(e){
-        this.setState({
-            ExpirationMonth : e.target.value
-        })
+
+        e.target.value > 12  ? alert("Please enter a number between 1 and 12") : (
+
+            this.setState({
+                ExpirationMonth : e.target.value
+            })
+        ) 
+
+      
     }
 
     onChangeExpYear(e){
+
         this.setState({
             ExpirationYear : e.target.value
         })
+        
     }
 
     onChangeCvc(e){
@@ -74,16 +80,15 @@ class Payment extends Component {
 
     onSubmit(e){
 
+
         const {addPayment,addDelivery} = this.props;
 
         const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-        console.log('cartItems: ', cartItems);
 
         const itemnames = cartItems.map((item) => {
             return item.name;
         })
         
-        console.log('itemnames: ', itemnames);
         const s = cartItems.reduce(
             (s,{price}) => s+price,0
             );
@@ -120,7 +125,6 @@ class Payment extends Component {
             deliveryCharges : this.state.deliveryCharges
         }
         
-        console.log('delivery: ', delivery);
         addPayment(payment);
         addDelivery(delivery);
 
@@ -143,6 +147,8 @@ class Payment extends Component {
                 delivery : "Prompt Express"
             
         })
+
+        
         
         
     }
@@ -168,93 +174,101 @@ class Payment extends Component {
 
     render() {
         const {users,orders} = this.props;
-        console.log('users: ', users);
-        console.log('orders: ', orders);
+   
 
 
         return (
-            <div>
-                <h3>Payment Information</h3>
-                <form onSubmit={this.onSubmit} className="container">
-                
-                     <div className="form-group">
-                            <label>Enter your NIC</label>
-                            <input type="text"
-                               
-                                required
-                                className="form-control"
-                                value={this.state.NIC}
-                                onChange={this.onChangeNic}
-                            />
-                    </div>
+          <div>
+            <h3>Payment Information</h3>
+            <form onSubmit={this.onSubmit} className="container">
+              <div className="form-group">
+                <label>Enter your NIC</label>
+                <input
+                  type="text"
+                  required
+                  className="form-control"
+                  value={this.state.NIC}
+                  onChange={this.onChangeNic}
+                />
+              </div>
 
-                    <br></br>
-                    <div className="form-group">
-                            <label>Card Number</label>
-                            <input type="text"
-                            pattern="[0-9]*"
+              <br></br>
+              <div className="form-group">
+                <label>Card Number</label>
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  required
+                  className="form-control"
+                  value={this.state.CardNumber}
+                  onChange={this.onChangeCardNumber}
+                />
+              </div>
 
-                                required
-                                className="form-control"
-                                value={this.state.CardNumber}
-                                onChange={this.onChangeCardNumber}
-                            />
-                    </div>
-
-                    <br></br>
-                    <div className="form-group">
-                            <label>Expiration Month</label>
-                            <input type="text"
-                                pattern="[0-9]*"
-                                required
-                                className="form-control"
-                                maxLength="2"
-                                value={this.state.ExpirationMonth}
-                                onChange={this.onChangeExpMonth}
-                            />
-                    </div>    
-                    <br></br> 
-                    <div className="form-group">
-                            <label>Expiration Year</label>
-                            <input type="text"
-                                pattern="[0-9]*"
-                                required
-                                className="form-control"
-                                maxLength="4"
-                                value={this.state.ExpirationYear}
-                                onChange={this.onChangeExpYear}
-                            />
-                    </div>    
-                    <br></br>
-                    <div className="form-group">
-                            <label>CVC</label>
-                            <input type="text"
-                                pattern="[0-9]*"
-                                required
-                                className="form-control"
-                                maxLength="3"
-                                value={this.state.CVC}
-                                onChange={this.onChangeCvc}
-                            />
-                    </div>
-                    <br></br>
-                    <select 
-                        value={this.state.delivery} 
-                        onChange={this.handleChangeDelivery} 
-                    >
-                    <option value="Prompt Express">Prompt Express</option>
-                        <option value="DHL">DHL</option>
-                        <option value="TUKTUK">Tuk Tuk</option>
-                    </select>   
-                    <br></br>
-                    <br></br>
-                    <div className="form-group">
-                        <input type="submit" value="Pay Now" className="btn btn-primary" />
-                    </div>
-                </form>
- 
-                
-            </div>
+              <br></br>
+              <div className="form-group">
+                <label>Expiration Month</label>
+                <input
+                  type="text"
+                  pattern="[1-9]*"
+                  required
+                  className="form-control"
+                  maxLength="2"
+                  min="1"
+                  max="12"
+                  value={this.state.ExpirationMonth}
+                  onChange={this.onChangeExpMonth}
+                />
+              </div>
+              <br></br>
+              <div className="form-group">
+                <label>Expiration Year</label>
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  required
+                  className="form-control"
+                  maxLength="4"
+                  min="2020"
+                  max="2050"
+                  value={this.state.ExpirationYear}
+                  onChange={this.onChangeExpYear}
+                />
+              </div>
+              <br></br>
+              <div className="form-group">
+                <label>CVC</label>
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  required
+                  className="form-control"
+                  maxLength="3"
+                  min="1"
+                  value={this.state.CVC}
+                  onChange={this.onChangeCvc}
+                />
+              </div>
+              <br></br>
+              <select
+                value={this.state.delivery}
+                onChange={this.handleChangeDelivery}
+              >
+                <option value="Prompt Express">Prompt Express</option>
+                <option value="DHL">DHL</option>
+                <option value="TUKTUK">Tuk Tuk</option>
+              </select>
+              <br></br>
+              <br></br>
+              <div className="form-group">
+                <input
+                  type="submit"
+                  value="Pay Now"
+                  className="btn btn-primary"
+                />
+              </div>
+            </form>
+          </div>
         );
     }
 }
