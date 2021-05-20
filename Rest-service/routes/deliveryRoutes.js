@@ -18,11 +18,15 @@ router.get("/", (req, res) => {
 // //update delivery
 router.post("/update/:id", (req, res) => {
   Delivery.findByIdAndUpdate(req.params.id).then((delivery) => {
-    (delivery.user_id = req.body.user_id),
-    (delivery.quantity = Number(req.body.quantity)),
+      (delivery.user_id = req.body.user_id),
+      (delivery.quantity = Number(req.body.quantity)),
       (delivery.amount = Number(req.body.amount)),
       (delivery.deliveryItems = req.body.deliveryItems),
-      (delivery.isCancel = req.body.isCancel);
+      (delivery.isCancel = req.body.isCancel),
+      (delivery.order_id = req.body.order_id),
+      (delivery.address = req.body.address),
+     ( delivery.deliveryMethod =   req.body.deliveryMethod),
+      (delivery.deliveryCharges = req.body.deliveryCharges)
 
     delivery.save().then(() => res.json("Delivery Updated!"));
   });

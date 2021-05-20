@@ -83,12 +83,20 @@ const useStyles = makeStyles((theme) => ({
   const handlesubmit=(e)=>{
     e.preventDefault();
     console.log(state)
-    props.addProduct(state);
+    props.addProduct(state).then((res)=>{
+      window.location.href="/seller"
+    }).catch((err)=>{
+      console.log(err);
+  }) 
   }
   const handleUpdateProduct=(e)=>{
     e.preventDefault();
       console.log(state)
-    props.updateProduct(state,id);
+    props.updateProduct(state,id).then((res)=>{
+      window.location.href="/seller"
+    }).catch((err)=>{
+      console.log(err);
+  }) 
   }
 
   return (
