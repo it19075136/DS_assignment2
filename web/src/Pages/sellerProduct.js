@@ -10,9 +10,18 @@ const sellerProduct = (props) => {
     console.log(product._id);
     const handlesubmit=()=>{
         props.ProductWantTOUpdate(product);
+    //     .then((res)=>{
+    //         window.location.href="/form"
+    // }).catch((err)=>{
+    //     console.log(err)
+    // })
     }
     const handleDelete=()=>{
-        props.deleteProduct(product._id);
+        props.deleteProduct(product._id).then((res)=>{
+                window.location.href="/seller"
+        }).catch((err)=>{
+            console.log(err)
+        })
     }
     return (
         <div className="product">
