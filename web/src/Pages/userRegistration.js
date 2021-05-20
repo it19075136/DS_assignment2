@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addUser, login } from '../actions/userActions'
+import { addUser } from '../actions/userActions'
 import './LoginPage.css'
 import validator from 'validator'
-import hashPassword from 'password-hash'
 
 class userRegistration extends Component {
 
@@ -17,6 +16,7 @@ class userRegistration extends Component {
         type: ''
     }
 
+    Profile = null;
     // errors = {
     //     email: false,
     //     password: false,
@@ -52,17 +52,13 @@ class userRegistration extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-         this.setState({
-            ...this.state,
-            password: hashPassword.generate(this.state.password)
-        });
-
-        this.props.addUser(this.state);
-        // if(this.isValidData(this.state))
-        
-        // else
-        //     alert("Please insert correct details");
-
+        this.props.addUser(this.state).then((res)=>{
+            let {profile,authError} = this.props.users
+            console.log(profile, authError)
+        }).catch((err)=>{
+            console.log(err);
+            this.Profile = null;
+        })
     }
 
     handleChange = (e) => {
@@ -73,13 +69,14 @@ class userRegistration extends Component {
     }
 
     render() {
-        let { profile } = this.props.users;
-        console.log(this.state);
+        let { profile,authError } = this.props.users;
         return (
-            profile.id ? ( window.location.href = '/'):(<div>
+            profile.id ? (profile.type === "Buyer" ? window.location.href = "/": window.location.href = "/seller"  ):(
+                <div>
                 <form onSubmit={this.handleSubmit} className="form">
                 <h3 className="form">Sign Up</h3>
                 <div class="form row g-2">
+                {authError ? (<span>**This Email Already Exists, Please Log in : <a href="/user/login">Log in</a></span>):(null)}
                 <div class="col-3">
                         <input type="text" onChange={this.handleChange} class="form-control" id="firstName" name="firstName" placeholder="First Name" />
                     </div>                    
@@ -105,7 +102,7 @@ class userRegistration extends Component {
                     {this.state.type === "Buyer" ? 
                     (<div class="form form-floating col-6">
   <textarea class="form-control" placeholder="Add your shipping address here" name="address" id="address" onChange={this.handleChange}></textarea>
-  <label for="address">Shipping address</label>
+  <label htmlFor="address">Shipping address</label>
 </div>):(null)}            
 <div class="form row g-2">
 
@@ -120,7 +117,8 @@ class userRegistration extends Component {
                     </div>
                     </div>
                 </form>
-            </div>)          
+            </div>
+            )          
 
         )
     }
@@ -131,4 +129,4 @@ const mapStateToProps = (state) => ({
     users: state.users
 })
 
-export default connect(mapStateToProps,{ addUser, login })(userRegistration)
+export default connect(mapStateToProps,{ addUser })(userRegistration)

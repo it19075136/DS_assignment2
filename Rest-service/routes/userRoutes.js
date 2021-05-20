@@ -2,6 +2,8 @@ const router = require('express').Router();
 const uuid = require('uuid');
 const User = require('../models/userModel');
 const jsonwebtoken = require('jsonwebtoken');
+const passwordHash = require('password-hash');
+const { reset } = require('nodemon');
 
 // get users -- done
 router.get('/',(req,res)=>{
@@ -16,14 +18,29 @@ router.post('/',(req,res)=>{
     const user = new User(req.body);
     const token = jsonwebtoken.sign({
         id: user.id,
-        email: user.email
+        email: user.email,
+        type: user.type,
+        phone: user.phoneNumber,
+        address: user.address
     }, "jwtSecret")
-    user.save().then((u) => {
-        res.json({token, u});
-    })
-    .catch((err)=>{
+
+    User.findOne({
+        email: user.email
+    }).then((u)=>{
+        if(u){
+            res.json("ALREADY_EXISTS");
+        }
+        else{
+            user.save().then((u) => {
+                res.json({token, u});
+            })
+            .catch((err)=>{
+                res.json(err);
+            })}
+        }
+    ).catch((err)=>{
         res.json(err);
-    })
+    });
 })
 
 // modify user
@@ -35,7 +52,7 @@ router.post('/:email',(req,res)=>{
     User.findOne({
         email: req.body.email
     }).then(user=>{
-        if(user.password === req.body.password){
+        if(passwordHash.verify(req.body.password,user.password)){
             const token = jsonwebtoken.sign({
                 id: user.id,
                 email: user.email,

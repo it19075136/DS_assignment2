@@ -8,11 +8,22 @@ let initstate = {
 export default function (state = initstate, action) {
     switch (action.type) {
         case "ADD_USER":
+            console.log(action.payload)
+            if(action.payload === "ALREADY_EXISTS"){  
+                console.log("auth Error") 
+            return {
+                ...state,
+                authError: true
+            }
+        }
+        else{
             return {
                 ...state,
                 users: [action.payload, ...state.users],
-                profile: action.currentUser
+                profile: action.currentUser,
+                authError: false
             }
+        }
         case "LOGIN":
             if (action.payload === "AUTHERROR") {
                 console.log("authError")
