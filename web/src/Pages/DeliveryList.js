@@ -47,6 +47,7 @@ class DeliveryList extends Component {
 
     render() {
         const {deliveries} = this.state;
+        console.log('deliveries: ', deliveries);
 
 
         return (
@@ -57,7 +58,7 @@ class DeliveryList extends Component {
               <thead className="thead-light">
                 <tr>
                   <th>Items</th>
-                  <th>User Id</th>
+                  <th>Order Id</th>
                   <th>Amount</th>
                   <th>isCancel</th>
                   <th>Quantity</th>
@@ -70,7 +71,7 @@ class DeliveryList extends Component {
                 
                   <tr>
                     <td>{item.deliveryItems.toString()}</td>
-                    <td>{item.user_id}</td>
+                    <td>{item.order_id}</td>
                     <td>Rs {item.amount}.00</td>
                     <td>{item.isCancel ? 'true' : 'false'}</td>
                     <td>{item.quantity}</td>
@@ -104,10 +105,15 @@ class EditDelivery extends Component {
       this.onSubmit = this.onSubmit.bind(this);
 
       this.state = {
-          quantity : '',
-          amount : '',
-          deliveryItems : [],
-          isCancel : false
+        order_id : 'order_id',
+        user_id : '',
+        quantity : '',
+        amount : '',
+        deliveryItems : '',
+        isCancel : false,
+        address: '',
+        deliveryMethod : '',
+        deliveryCharges : ''
       }
   }
 
@@ -120,7 +126,12 @@ class EditDelivery extends Component {
         quantity : editDelivery.quantity,
         amount : editDelivery.amount,
         deliveryItems : editDelivery.deliveryItems.toString(),
-        isCancel : false
+        isCancel : false,
+        order_id : 'order_id',
+        user_id : editDelivery.user_id,
+        address : editDelivery.address,
+        deliveryMethod : editDelivery.delivery,
+        deliveryCharges :editDelivery.deliveryCharges
       }
     )
     
@@ -154,13 +165,19 @@ class EditDelivery extends Component {
           quantity : this.state.quantity,
           amount : this.state.amount,
           deliveryItems : deliveryArray,
-          isCancel : false
+          isCancel : false,
+          order_id : 'order_id',
+          user_id : this.state.user_id,
+          address : this.state.address,
+          deliveryMethod : this.state.delivery,
+          deliveryCharges :this.state.deliveryCharges
       }
 
       deliveryUpdate._id = delivery.editDelivery._id;
-
+      
       updateDelivery(deliveryUpdate);
       setFinal();
+      window.location.reload();
   }
 
   goBack(){

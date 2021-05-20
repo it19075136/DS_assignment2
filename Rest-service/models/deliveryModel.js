@@ -9,7 +9,10 @@ const deliverySchema = new Schema ({
     amount : {type:Number, required:true},
     deliveryItems : {type:Array, "default" : [] },
     isCancel : {type : Boolean, required:true},
-    address: {type : String, required: false}
+    address: {type : String, required: false},
+    order_id : { type : String, required : false},
+    deliveryMethod : {type : String,  required : false},
+    deliveryCharges : {type : Number, required : false}
 
 },{
     timestamps:true,
