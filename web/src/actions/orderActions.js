@@ -1,20 +1,24 @@
 import axios from 'axios'
 
-export const addOrder=(cartItems,id)=>dispatch => {
-    console.log('order B');
-    let order  = {
-        orderId:'',
-        userId:id,
-        TotalAmount:0,
-        date:'',
-        item:[...cartItems]
-    }
-    axios.post('http://localhost:5000/api/order/add',order).then((res)=>{
-        console.log('order added');
-        dispatch({type:'ADD_ORDER',payload:order})
-    }).catch(err=>{
-        console.log(err)
-    });
+export const addOrder=(cartItems,id,TotalAmount)=>dispatch => {
+    return new Promise((resolve,reject)=>{
+        console.log('order B');
+        let order  = {
+            orderId:'',
+            userId:id,
+            TotalAmount:TotalAmount,
+            date:'',
+            item:[...cartItems],
+        }
+        axios.post('http://localhost:5000/api/order/add',order).then((res)=>{
+            console.log('order added');
+            dispatch({type:'ADD_ORDER',payload:order})
+            resolve("done");
+        }).catch(err=>{
+            console.log(err)
+            reject(err)
+        });
+    })
 }
 export const getOrder=(userid)=>dispatch => {
     if(userid){
