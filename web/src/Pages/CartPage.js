@@ -25,9 +25,12 @@ const CartPage = (props) => {
     const handleSubmit=()=>{
         if(profile.id){
             console.log(profile);
-            props.addOrder(cartItems,profile.id);
-            console.log('order added');
-            window.location.href="/delivery/payment"
+            props.addOrder(cartItems,profile.id,getCartSubTotal()).then((res)=>{
+                console.log('order added');
+                window.location.href="/delivery/payment"
+            }).catch((err)=>{
+                console.log(err)
+            })
         }
         else{
             alert("Please login in order to proceed!");
