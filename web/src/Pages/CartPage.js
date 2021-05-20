@@ -19,7 +19,6 @@ const CartPage = (props) => {
     //     TotalAmount:'',
     //     date:''
     // }
-
     const {profile} = props.users;
 
     const handleSubmit=()=>{
