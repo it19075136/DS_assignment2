@@ -8,7 +8,8 @@ export const addOrder=(cartItems,id,TotalAmount)=>dispatch => {
             userId:id,
             TotalAmount:TotalAmount,
             date:'',
-            item:[...cartItems],
+            // item:[cartItems ? cartItems.map()],
+            // item:[...cartItems],
         }
         axios.post('http://localhost:5000/api/order/add',order).then((res)=>{
             console.log('order added');
