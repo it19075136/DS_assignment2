@@ -27,6 +27,7 @@ import sellerProducts from './Pages/sellerProducts';
 import AddProductForm from './Pages/AddProductForm';
 import Checkout from './Pages/Checkout';
 import Payment from './Pages/PaymentPage';
+import UserProfile from './Pages/userProfile';
 
 
 // const initstate = {}
@@ -59,6 +60,7 @@ function App() {
         <Backdrop   show={sideToggle} click={() => setSideToggle(false)}/>
         <Route exact path="/user/registration" component={userRegistration} />
         <Route exact path="/user/login" component={LoginPage} />
+        <Route exact path="/user/profile" component={UserProfile} />
         <Route exact path="/" component={HomePage} />
         <Route exact path="/product/:id" component={ProductPage} />
         <Route exact path="/cart" component={CartPage} />
