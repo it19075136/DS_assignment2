@@ -1,10 +1,15 @@
 import axios from 'axios'
 import setAuthorizationToken from './authActions';
 import jwt from 'jsonwebtoken';
+import hashPassword from 'password-hash'
 
 export const addUser = user => dispatch => {
+    return new Promise((resolve,reject) => {
+    user.password = hashPassword.generate(user.password);
+    console.log(user);
     axios.post('http://localhost:5000/api/users',user).then((res)=>{
         const {token} = res.data;
+    if(token){    
         localStorage.setItem('jwtToken',token);
         setAuthorizationToken(token);
         dispatch({
@@ -12,8 +17,17 @@ export const addUser = user => dispatch => {
             payload: user,
             currentUser: jwt.decode(token)
         })
+    }
+    else
+        dispatch({
+            type:"ADD_USER",
+            payload: res.data
+        })
+        resolve("done");
     }).catch(err=>{
         console.log(err);
+        reject(err);
+    });
     });
 }
 
