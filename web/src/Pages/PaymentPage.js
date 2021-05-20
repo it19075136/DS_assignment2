@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Dropdown} from 'react-bootstrap';
 import {addPayment} from '../actions/paymentAction';
+import {addDelivery} from '../actions/deliveryActions';
 
 
 
@@ -36,6 +37,7 @@ class Payment extends Component {
     }
 
     componentDidMount(){
+      
       
 
     }
@@ -72,20 +74,22 @@ class Payment extends Component {
 
     onSubmit(e){
 
-        const {addPayment} = this.props;
+        const {addPayment,addDelivery} = this.props;
 
         const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        console.log('cartItems: ', cartItems);
 
         const itemnames = cartItems.map((item) => {
             return item.name;
         })
-
+        
+        console.log('itemnames: ', itemnames);
         const s = cartItems.reduce(
             (s,{price}) => s+price,0
             );
 
         e.preventDefault();
-        const {users} = this.props;
+        const {users, orders} = this.props;
 
         const payment = {
             itemNames : itemnames,
@@ -95,15 +99,32 @@ class Payment extends Component {
             totalAmount: s,
             deliveryCharges : this.state.deliveryCharges,
             NIC : this.state.NIC,
-            PhoneNumber :'',
+            PhoneNumber : users.profile.phone,
             CardNumber : this.state.CardNumber,
             ExpirationMonth : this.state.ExpirationMonth,
             ExpirationYear :  this.state.ExpirationYear,
             CVC :this.state.CVC,
-            delivery : this.state.delivery            
+            delivery : this.state.delivery,
+            address : users.profile.address            
         }
 
+        const delivery = { 
+            order_id : 'order_id',
+            user_id : users.profile.id,
+            quantity : itemnames.length,
+            amount : s,
+            deliveryItems : itemnames,
+            isCancel : false,
+            address: users.profile.address,
+            deliveryMethod : this.state.delivery,
+            deliveryCharges : this.state.deliveryCharges
+        }
+        
+        console.log('delivery: ', delivery);
         addPayment(payment);
+        addDelivery(delivery);
+
+
 
         this.setState({
             
@@ -146,6 +167,10 @@ class Payment extends Component {
 
 
     render() {
+        const {users,orders} = this.props;
+        console.log('users: ', users);
+        console.log('orders: ', orders);
+
 
         return (
             <div>
@@ -237,8 +262,9 @@ class Payment extends Component {
 const mapStateToProps = (state) => ({
     // delivery : state.delivery
     users : state.users,
-    cartItems : state.cartItems
+    cartItems : state.cartItems,
+    orders : state.orders
 })
 
-export default connect(mapStateToProps, {addPayment}) (Payment)
+export default connect(mapStateToProps, {addPayment,addDelivery}) (Payment)
 

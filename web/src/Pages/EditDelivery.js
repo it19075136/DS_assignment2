@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {updateDelivery} from '../actions/deliveryActions';
 
 class EditDelivery extends Component {
     constructor(props){
@@ -43,6 +45,8 @@ class EditDelivery extends Component {
 
     onSubmit(e){
         e.preventDefault();
+
+        const {updateDelivery} = this.props;
 
         const deliveryArray = this.state.deliveryItems.split(',');
         const delivery  = {
@@ -108,4 +112,9 @@ class EditDelivery extends Component {
     }
 }
 
-export default EditDelivery;
+const mapStateToProps = (state) => ({
+    updatedDelivery: state.updatedDelivery
+  
+  })
+
+  export default connect(mapStateToProps, {updateDelivery}) (EditDelivery);

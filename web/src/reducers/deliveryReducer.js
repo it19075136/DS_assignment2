@@ -10,7 +10,7 @@ export default function (state= initstate, action){
         case "ADD_DELIVERY":
             return {
                 ...state,
-                delivery : [ action.payload, ...state.delivery ]
+                delivery : action.payload 
             }
         case "DELETE_DELIVERY":
             return {
