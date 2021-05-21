@@ -26,7 +26,7 @@ const CartPage = (props) => {
             console.log(profile);
             props.addOrder(cartItems,profile.id,getCartSubTotal()).then((res)=>{
                 console.log('order added');
-                window.location.href="/delivery/payment"
+                // window.location.href="/delivery/payment"
             }).catch((err)=>{
                 console.log(err)
             })
