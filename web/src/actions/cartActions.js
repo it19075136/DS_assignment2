@@ -2,22 +2,27 @@ import * as actionTypes from '../constants/cartConstants';
 import axios from 'axios';
 
 export const addToCart = (id , qty) => (dispatch, getState) => {
-    axios.get(`http://localhost:5000/api/products/${id}`).then((res) => {
-        console.log(res.data.itemName);
-            dispatch({
-                type: actionTypes.ADD_TO_CART,
-                payload: {    
-                    product: res.data._id,
-                    name: res.data.itemName,
-                    imageUrl: res.data.imageUrl,
-                    price:res.data.price,
-                    countInStock: res.data.countInStock,
-                    qty    
-                }
-            });
-    }).catch(err => {
-        console.log(err);
+    return new Promise((resolve,reject) => {
+        axios.get(`http://localhost:5000/api/products/${id}`).then((res) => {
+            console.log(res.data.itemName);
+                dispatch({
+                    type: actionTypes.ADD_TO_CART,
+                    payload: {    
+                        product: res.data._id,
+                        name: res.data.itemName,
+                        imageUrl: res.data.imageUrl,
+                        price:res.data.price,
+                        countInStock: res.data.countInStock,
+                        qty    
+                    }
+                });
+                resolve("Added item to cart");
+        }).catch(err => {
+            console.log(err);
+            reject("Adding failed");
+        })
     })
+
 };
 
 
