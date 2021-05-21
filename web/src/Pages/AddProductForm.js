@@ -45,26 +45,15 @@ const useStyles = makeStyles((theme) => ({
 
   const [state, setState] = useState(
     {
-        itemName:'',
-        description:'',
+        itemName:null,
+        description:null,
         countInStock:0,
         price:0,
-        date:'',
-        imageUrl:'',
+        date:null,
+        imageUrl:null,
         sellerId:profile.id
       }      );
 
-      const [id, setId] = useState(
-        {
-            _id:productWantTOUpdate._id,
-          }      );  
-
-    const  handlechangeID =(e)=>{
-      setId({
-        ...id,
-        [e.target.name]:[e.target.value]
-      })
-    }    
 //    state = {
 //     itemName:'',
 //     description:'',
@@ -91,9 +80,11 @@ const useStyles = makeStyles((theme) => ({
   }
   const handleUpdateProduct=(e)=>{
     e.preventDefault();
-      console.log(state)
-    props.updateProduct(state,id).then((res)=>{
+      console.log(state, productWantTOUpdate._id)
+    props.updateProduct(state,productWantTOUpdate._id).then((res)=>{
+      alert("Update Successful");
       window.location.href="/seller"
+      console.log(res);
     }).catch((err)=>{
       console.log(err);
   }) 

@@ -14,12 +14,13 @@ export const addProduct=product=>dispatch=>{
         })
     })
 }
+
 export const ProductWantTOUpdate=(product)=>(dispatch)=>{
-    // return new Promise((resolve,reject)=>{
+        console.log("updating product id", product._id);
         dispatch({type:'PRODUCT_WANT_TO_UPDATE',payload:product});
-    //     resolve("ProductWantTOUpdate reducer")
-    // })
+
 }
+
 export const deleteProduct=(productId)=>(dispatch)=>{
     return new Promise((resolve,reject)=>{
         axios.delete(`http://localhost:5000/api/products/${productId}`).then((res)=>{
@@ -38,7 +39,7 @@ export const updateStateRed=()=>(dispatch)=>{
 export const updateProduct=(product,id)=>dispatch=>{
     return new Promise((resolve,reject)=>{
         console.log(product,id)
-        axios.patch(`http://localhost:5000/api/products/update/${id}`,product).then((res)=>{//product include _id but not  include in product module
+        axios.post(`http://localhost:5000/api/products/update/${id}`,product).then((res)=>{//product include _id but not  include in product module
             dispatch({type:"SELLER_UPDATE_PRODUCT",payload:res.data})
             console.log(res.data)
             resolve("update product")
@@ -48,17 +49,3 @@ export const updateProduct=(product,id)=>dispatch=>{
         })
     })
 }
-// export const addUser = user => dispatch => {
-//     axios.post('http://localhost:5000/api/users',user).then((res)=>{
-//         const {token} = res.data;
-//         localStorage.setItem('jwtToken',token);
-//         setAuthorizationToken(token);
-//         dispatch({
-//             type: "ADD_USER",
-//             payload: user,
-//             currentUser: jwt.decode(token)
-//         })
-//     }).catch(err=>{
-//         console.log(err);
-//     });
-// }

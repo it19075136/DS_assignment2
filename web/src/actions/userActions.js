@@ -76,4 +76,7 @@ export const logOut = () => dispatch => {
     dispatch({
         type: "LOGOUT"
     })
+    dispatch({
+        type:"REMOVE_CART"
+    })
 }

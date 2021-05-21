@@ -39,12 +39,15 @@ class ProductPage extends Component {
         
         const addItemToCart = (id) => {
             console.log(id);
-            if(this.state.qty <= product.countInStock ){
-                this.props.addToCart(id,this.state.qty);
-                console.log(cartItems);
-                localStorage.setItem('cart', JSON.stringify(cartItems));  
-                // window.location.href = "/cart";
-                alert("Product added successfully!");
+            if(this.state.qty <= product.countInStock && this.state.qty > 0){
+                this.props.addToCart(id,this.state.qty).then((res)=>{
+                    let {cartItems} = this.props.cart;
+                    console.log(cartItems, res);
+                    localStorage.setItem('cart', JSON.stringify(cartItems));
+                    alert("Product added successfully!");
+                    window.location.href = "/cart";  
+                })
+
             }
             else
                 alert("Quantity is higher than the available stock,Please enter a valid quantity");
