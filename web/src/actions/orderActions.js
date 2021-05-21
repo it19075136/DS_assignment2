@@ -4,9 +4,9 @@ export const addOrder=(cartItems,id,TotalAmount)=>dispatch => {
     return new Promise((resolve,reject)=>{
         console.log('order B');
         let order  = {
-            orderId:'',
             userId:id,
             TotalAmount:TotalAmount,
+            item: [],
             date:new Date(),
             status:'payment not done'
             // item:[cartItems ? cartItems.map()],
