@@ -3,10 +3,6 @@ const schema = mongoose.Schema;
 
 //-----create schema to order----//
 const orderSchema = new schema({
-    userId:{
-        type:String,
-        require:true
-    },
     item:{
         type:Array,
         require:true,
@@ -35,6 +31,10 @@ const orderSchema = new schema({
             type:String,
             required:true
         }
+    },
+    userId:{
+        type:String,
+        require:true
     },
     TotalAmount:{
         type:Number,
