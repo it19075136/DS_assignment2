@@ -47,7 +47,10 @@ const orderSchema = new schema({
     },
     date:{
         type: Date,
-        default: Date.now(),
+    },
+    status:{
+        type:String,
+        require:true
     }
 });
 

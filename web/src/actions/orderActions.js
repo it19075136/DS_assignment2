@@ -7,7 +7,8 @@ export const addOrder=(cartItems,id,TotalAmount)=>dispatch => {
             orderId:'',
             userId:id,
             TotalAmount:TotalAmount,
-            date:'',
+            date:new Date(),
+            status:'payment not done'
             // item:[cartItems ? cartItems.map()],
             // item:[...cartItems],
         }
