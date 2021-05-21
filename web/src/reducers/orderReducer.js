@@ -1,6 +1,6 @@
 let initialState={
-    orders:[{orderId:'O03',userId:'U02',item:[{itemId:'I01',itemName:'car',itemcolor:'blue',qty:2,amount:5000,imgUrl:''},{itemId:'I02',itemName:'van',itemcolor:'red',qty:3,amount:3000,imgUrl:''}],TotalAmount:19000,date:''},
-    {orderId:'O02',userId:'U02',item:[{itemId:'I01',itemName:'car',itemcolor:'blue',qty:2,amount:5000,imgUrl:''},{itemId:'I02',itemName:'van',itemcolor:'red',qty:3,amount:3000,imgUrl:''}],TotalAmount:19000,date:''}]
+    orders:[{item:[{itemId:'I01',itemName:'car',itemcolor:'blue',qty:2,amount:5000,imgUrl:''},{itemId:'I02',itemName:'van',itemcolor:'red',qty:3,amount:3000,imgUrl:''}],userId:'U02',TotalAmount:19000,date:'',status:'payment Pending'},
+    {item:[{itemId:'I01',itemName:'car',itemcolor:'blue',qty:2,amount:5000,imgUrl:''},{itemId:'I02',itemName:'van',itemcolor:'red',qty:3,amount:3000,imgUrl:''}],userId:'U02',TotalAmount:19000,date:''}]
    
 }
 export default function(state=initialState,action){
