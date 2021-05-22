@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export const addToCart = (id , qty) => (dispatch, getState) => {
     return new Promise((resolve,reject) => {
-        axios.get(`http://localhost:5000/api/products/${id}`).then((res) => {
+        axios.get(`http://192.168.8.183:8280/products/${id}`).then((res) => {
             console.log(res.data.itemName);
                 dispatch({
                     type: actionTypes.ADD_TO_CART,

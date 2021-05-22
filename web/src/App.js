@@ -44,7 +44,7 @@ const store = createStore(rootReducer,initstate,compose(applyMiddleware(
 ));
 
 if(localStorage.jwtToken){
-  setAuthorizationToken(localStorage.jwtToken);
+  // setAuthorizationToken(localStorage.jwtToken);
   store.dispatch(login(jwt.decode(localStorage.jwtToken)));
 }
 function App() {

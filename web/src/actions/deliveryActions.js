@@ -3,7 +3,7 @@ import axios from 'axios';
 export function addDelivery(values) {
   return (dispatch) => {
     axios
-      .post("http://localhost:5000/api/delivery/add", values)
+      .post("http://192.168.8.183:8280/delivery/add", values)
       .then((res) => {
         dispatch({
           type: "ADD_DELIVERY",
@@ -21,7 +21,7 @@ export function deleteDelivery(values) {
     console.log('values action: ', values);
   return (dispatch) => {
     axios
-      .delete(`http://localhost:5000/api/delivery/${values}`)
+      .delete(`http://192.168.8.183:8280/delivery/${values}`)
       .then((res) => {
         dispatch({
           type: "DELETE_DELIVERY",
@@ -48,7 +48,7 @@ export function editDeliveryCache(values) {
 export function updateDelivery (value) {
   console.log('value: ', value);
   return (dispatch) => {
-    axios.post(`http://localhost:5000/api/delivery/update/${value._id}`,value)
+    axios.post(`http://192.168.8.183:8280/delivery/update/${value._id}`,value)
     .then((res) => {
       dispatch({
         type:'UPDATE_DELIVERY',
