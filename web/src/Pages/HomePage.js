@@ -9,28 +9,21 @@ import { getProducts} from '../actions/productActions';
 
 class HomePage extends Component {
 
-    // const dispatch = useDispatch();
     state = {
         productList: []
     }
-    
-    // const getProducts = useSelector((state) => state.products);
-    // useEffect(() => {
-    //     dispatch(listProducts())
-    // }, [dispatch])
     componentDidMount(){
         this.props.getProducts();
 
     }
 
  render(){
-    // console.log("test")
-    // this.props.getProducts();
     let { products,loading, error } = this.props.products;
 
     let productList = this.state.productList;
 
     const searchHandler = (e) => {
+        // Handle the search function start from here
         this.setState({
             ...this.state,
             productList: products ? products.filter(product => product.itemName.toLowerCase().includes(e.target.value.toLowerCase()) || product.description.toLowerCase().includes(e.target.value.toLowerCase())) : "not found"
@@ -45,9 +38,13 @@ class HomePage extends Component {
            <form class="searchbar">
       <input class="form-control" type="search" placeholder="Search anything here.." aria-label="Search" onChange={searchHandler} />
     </form>
+            {/* From here display all the products available and if product is not 
+            enterd it display as loading... */}
             <h2 className="homepage__title">Latest Product</h2>
             <div className="homepage__products">
                 {loading ? <h2> Loading...</h2> : error ? <h2> {error} </h2> : productList.map((product) => (
+                    // Reuse Produc class in this Home page
+                    //Reausability
                     <Product 
                     key={product._id}
                     productId={product._id} 

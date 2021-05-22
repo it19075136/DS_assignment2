@@ -50,6 +50,7 @@ export const getProductDetails = (id) => (dispatch) => {
     }
 }
 
+// remove product details 
 export const removeProductDetails = () => (dispatch) => {
     dispatch({
         type: actionType.GET_PRODUCT_DETAILS_RESET
