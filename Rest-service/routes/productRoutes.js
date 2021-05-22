@@ -5,7 +5,6 @@ const Product = require('../models/productModel');
 //@route  GET /api/products
 //@access Public
 router.get('/', (req, res) => {
-
         Product.find((err, docs) => {
                 res.json(docs);
         });
@@ -16,8 +15,8 @@ router.get('/', (req, res) => {
 //@access Public
 router.get('/:id', (req, res) => {
         Product.findById(req.params.id)
-                .then((product) => res.json(product))
-                .catch((err) => res.status(400).json("Error:" + err))
+               .then((product) => res.json(product))
+               .catch((err) => res.status(400).json("Error:" + err))
 });
 
 //@desc   Add product to db

@@ -26,9 +26,10 @@ import LoginPage from './Pages/LoginPage';
 import sellerProducts from './Pages/sellerProducts';
 import Payment from './Pages/PaymentPage';
 import UserProfile from './Pages/userProfile';
+import AddProductForm from './Pages/AddProductForm';
 
 
-// const initstate = {}
+// If the page is refresh the qty will keep as it is
 const cartFromLocalStorage = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
 const initstate = {
   cart: {
@@ -56,6 +57,7 @@ function App() {
         <Navbar click={() => setSideToggle(true)}/>
         <SideDrawer show={sideToggle} click={() => setSideToggle(false)}/>
         <Backdrop   show={sideToggle} click={() => setSideToggle(false)}/>
+        {/* Routes were defined from here */}
         <Route exact path="/user/registration" component={userRegistration} />
         <Route exact path="/user/login" component={LoginPage} />
         <Route exact path="/user/profile" component={UserProfile} />
@@ -68,6 +70,7 @@ function App() {
         <Route exact path="/delivery/edit" component={EditDelivery}/>
         <Route exact path="/delivery/list" component={DeliveryList}/>
         <Route exact path="/seller" component={sellerProducts}/>
+        <Route exact path="/form" component={AddProductForm}/>
         <Route exact path="/delivery/payment" component ={Payment} />
       </BrowserRouter>
     </Provider>

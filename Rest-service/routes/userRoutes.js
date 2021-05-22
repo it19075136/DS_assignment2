@@ -1,32 +1,30 @@
-const router = require('express').Router();
-const uuid = require('uuid');
-const User = require('../models/userModel');
+const router = require('express').Router(); //importing express module's router to handle server calls
+const uuid = require('uuid'); // importing uuid module
+const User = require('../models/userModel'); // importing user model based on mongoose schema
 const jsonwebtoken = require('jsonwebtoken');
 const passwordHash = require('password-hash');
 
-// get users -- done
+// get users
 router.get('/',(req,res)=>{
-    User.find((err,docs)=>{
-        res.json(docs);
+    User.find((err,docs)=>{ //using the User schema's find funcion to find all the docs in user collection
+        res.json(docs); //setting the response with retrieved docs
     })
 });
 
 // get user by id
 router.get('/:id',(req,res)=>{
-    console.log(req.params.id);
     User.findOne({
-        id: req.params.id      
+        id: req.params.id   //getting the id param from the request to filter by id    
     }).then((u) => {
-    console.log(u);
     res.json(u);
     }).catch((err) => res.json("Error:" + err));
 });
 
-// post user -- done
+// add user
 router.post('/',(req,res)=>{
-    req.body.id = uuid.v4();
-    const user = new User(req.body);
-    const token = jsonwebtoken.sign({
+    req.body.id = uuid.v4(); //using uuid to generate unique user id and set it to the request body
+    const user = new User(req.body); //creating a new user object with the request body
+    const token = jsonwebtoken.sign({ //creating json Web Token with required details for user management
         id: user.id,
         email: user.email,
         type: user.type,
@@ -35,7 +33,7 @@ router.post('/',(req,res)=>{
     }, "jwtSecret")
 
     User.findOne({
-        email: user.email
+        email: user.email //finding the user by email
     }).then((u)=>{
         if(u){
             res.json("ALREADY_EXISTS");
@@ -55,7 +53,7 @@ router.post('/',(req,res)=>{
 
 // modify user
 router.put('/:id',(req,res)=>{
-    User.findOneAndUpdate(
+    User.findOneAndUpdate( //using find one and update to find a relevant doc and update it with new data
     {
         id: req.params.id
     },
@@ -101,7 +99,7 @@ router.delete('/:id',(req,res)=>{
     })
 });
 
-// login user by email -- done
+// login user by email
 router.post('/:email',(req,res)=>{
     User.findOne({
         email: req.body.email
@@ -122,4 +120,4 @@ router.post('/:email',(req,res)=>{
     })
 });
 
-module.exports = router;
+module.exports = router; //exporting the configured router object

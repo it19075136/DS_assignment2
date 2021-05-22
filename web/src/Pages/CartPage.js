@@ -9,6 +9,7 @@ import { updatCountInStock } from '../actions/sellerActions'
 const CartPage = (props) => {
     const {profile} = props.users;
 
+
     const handleSubmit=()=>{
         if(profile.id){
             console.log(profile);
@@ -51,21 +52,29 @@ const CartPage = (props) => {
         }   
     
     }
+
+
     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
+    //Get all qty count
     const getCartCount = () => {
         return cartItems.reduce((qty, item) => Number(item.qty) + qty, 0)
     };
 
+    //Get sub total amount
     const getCartSubTotal = () => {
         return cartItems.reduce((price, item) => (item.price * item.qty) + price, 0)
     }
+
+
     return (
         <div className="cartpage">
             <div className="cartpage__left">
                 <h2>Shopping Cart</h2> 
+                {/* Reusable cart items */}
                 {cartItems.length === 0 ? (
-                    <div>
+                    <div>   
+                        {/* If the cart is empty this will appear  */}
                         Your cart is empty <Link to="/">Go Back</Link>
                     </div>
                 ) : (
@@ -78,25 +87,19 @@ const CartPage = (props) => {
             </div>
             <div className="cartpage__right">
                 <div className="cartpage__info">
+                    {/* Get Item count  */}
                     <p>Subtotal ({getCartCount()}) items</p>
+                    {/* Get Sub Total it fixed to two decimal places */}
                     <p>LKR {getCartSubTotal().toFixed(2)}</p>
                 </div>
                 <div className="btn__checkout">
-                    {/* <button onClick={handleSubmit}>Proceed To Checkout</button> */}
                     <button onClick={handleSubmit} hidden={cartItems.length === 0}>Proceed To Checkout</button>
                 </div>
             </div>
         </div>
     )
 }
-// const mapStateToProps=(state)=>{
-//     return{
-//         Items:state.cart.cartItems
-//     }
-// }
 
-
-// export default connect(null,{addOrder}) (CartPage)
 const mapsStatetoprops = state => ({
     cart: state.cart,
     users: state.users
