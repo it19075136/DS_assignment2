@@ -14,9 +14,9 @@ export const addOrder = (cartItems, id, TotalAmount) => dispatch => {
         axios.post('http://192.168.8.183:8280/orders/add', order).then((res) => {
             console.log('order added');
             console.log(order)
-            console.log(res.data)
+            console.log('res.data',res.data)
             dispatch({ type: 'ADD_ORDER', payload: order })
-            resolve("order added")
+            resolve(res.data)
 
             // const itemLists = cartItems.map(cartItem => { return { itemId: cartItem.product, countInStock: Number(cartItem.countInStock) - Number(cartItem.qty) } });
             // for (let index = 0; index < itemLists.length; index++) {

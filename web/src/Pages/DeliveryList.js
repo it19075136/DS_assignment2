@@ -48,12 +48,10 @@ class DeliveryList extends Component {
 
     render() {
         const {deliveries} = this.state;
-        console.log('deliveries: ', deliveries);
-
-
+        let { profile,authError } = this.props.users;
         return (
           <div>
-            <h1>Delivery List Page</h1>
+            <h1 className="payment-text">Delivery List</h1>
             {/* <button onClick={() => window.location.href ="/delivery"}>Add a new delivery</button> */}
             <table className="table delivery-table">
               <thead className="thead-light">
@@ -71,7 +69,7 @@ class DeliveryList extends Component {
                 {deliveries.map((item) => 
                 
                   <tr>
-                    <td>{item.deliveryItems.toString()}</td>
+                    <td>{item.deliveryItems.toString().length > 20 ? item.deliveryItems.toString().substring(0,50)+"..." : item.deliveryItems.toString() } </td>
                     <td>{item.order_id}</td>
                     <td>Rs {item.amount}.00</td>
                     <td>{item.isCancel ? 'true' : 'false'}</td>
@@ -92,6 +90,7 @@ class DeliveryList extends Component {
               </tbody>
             </table>
           </div>
+          
         );
     }
 }
@@ -272,8 +271,12 @@ class Parent extends React.PureComponent {
 
   render() {
     const { final, item } = this.state;
+    let { profile,authError } = this.props.users;
+    console.log('profile: ', profile);
+
    
     return (
+      profile.id ? (profile.type === "Buyer" ? window.location.href = "/":  
       <div > 
         {final ? (
             <EditDelivery item = {item} {...this.props} setFinal={() => this.setFinal()} />
@@ -281,6 +284,7 @@ class Parent extends React.PureComponent {
             <DeliveryList {...this.props}  setFinal={() => this.setFinal()} />
         )}
       </div>
+      ):( window.location.href = "/user/login" )
     );
   }
 }
@@ -288,7 +292,9 @@ class Parent extends React.PureComponent {
 const mapStateToProps = (state) => ({ //Mapping initial states to props
   delivery : state.delivery,
   editDelivery : state.editDelivery,
-  updatedDelivery : state.updatedDelivery
+  updatedDelivery : state.updatedDelivery,
+  orders : state.orders,
+  users : state.users
 
 })
 
