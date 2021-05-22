@@ -7,6 +7,7 @@ var nodemailer = require('nodemailer');
 
 router.post("/add", (req,res) => {
     const newPayment = new Payment(req.body);
+    console.log('newPayment: ', newPayment);
 
     newPayment.save().then(() => res.json("Payment Added!"));
 
