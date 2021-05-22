@@ -3,8 +3,9 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {deleteDelivery, editDeliveryCache, updateDelivery} from '../actions/deliveryActions';
 import { Link } from 'react-router-dom'
+import './DeliveryList.css'
 
-
+//  PARENT CLASS IS CONTROLLING THE BEHAVIOUR OF DELIVERYLIST CLASS AND EDITDELIVERY CLASS
 
 class DeliveryList extends Component {
 
@@ -20,7 +21,7 @@ class DeliveryList extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/api/delivery/')
+        axios.get('http://localhost:5000/api/delivery/')  // Getting all the deliveries and assigning them to the states
         .then(response => {
             this.setState({ deliveries:response.data })
         })
@@ -34,7 +35,7 @@ class DeliveryList extends Component {
   
       const {deleteDelivery} = this.props;
       
-      // deleteDelivery(value);
+        deleteDelivery(value);
 
     }
 
@@ -53,8 +54,8 @@ class DeliveryList extends Component {
         return (
           <div>
             <h1>Delivery List Page</h1>
-            <button onClick={() => window.location.href ="/delivery"}>Add a new delivery</button>
-            <table className="table">
+            {/* <button onClick={() => window.location.href ="/delivery"}>Add a new delivery</button> */}
+            <table className="table delivery-table">
               <thead className="thead-light">
                 <tr>
                   <th>Items</th>
@@ -65,7 +66,7 @@ class DeliveryList extends Component {
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 {/* {this.exerciseLis()} */}
                 {deliveries.map((item) => 
                 
@@ -81,10 +82,10 @@ class DeliveryList extends Component {
                          () => this.deleteDelivery(item._id)
                          }
                          >delete</a> */}
-                         <button onClick={() => this.deleteDelivery(item._id)}>Delete</button>
+                         <button  className="btn btn-danger"  onClick={() => this.deleteDelivery(item._id)}>Delete</button>
                     </td>
                     <td>
-                      <button onClick={() => this.editDelivery(item)} >Edit</button>
+                      <button className="btn btn-success" onClick={() => this.editDelivery(item)} >Edit</button>
                     </td>
                   </tr>
                 )}
@@ -254,9 +255,6 @@ class Parent extends React.PureComponent {
     };
   }
 
-  componentDidMount() {
-   
-  }
 
   setItem(item){
     this.setState({
@@ -265,7 +263,7 @@ class Parent extends React.PureComponent {
     
   }
 
-  setFinal() {
+  setFinal() {  //This method decide which child class to show and hide
     const { final } = this.state;
     this.setState({
       final: !final
@@ -276,7 +274,7 @@ class Parent extends React.PureComponent {
     const { final, item } = this.state;
    
     return (
-      <div >
+      <div > 
         {final ? (
             <EditDelivery item = {item} {...this.props} setFinal={() => this.setFinal()} />
         ) : (     
@@ -287,11 +285,11 @@ class Parent extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ //Mapping initial states to props
   delivery : state.delivery,
   editDelivery : state.editDelivery,
   updatedDelivery : state.updatedDelivery
 
 })
 
-export default connect(mapStateToProps, {deleteDelivery,editDeliveryCache,updateDelivery}) (Parent);
+export default connect(mapStateToProps, {deleteDelivery,editDeliveryCache,updateDelivery}) (Parent); // connecting reducers to parent class
