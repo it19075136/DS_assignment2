@@ -16,7 +16,10 @@ const paymentSchema = new Schema({
     ExpirationYear : {type:Number, required:false },
     CVC : {type:Number, required:false},
     delivery : {type : String, required:false},
-    deliveryCharges : {type : Number, required :false}
+    deliveryCharges : {type : Number, required :false},
+    paymentMethod : {type : String, required:false},
+    pinNumber : {type:Number, required:false}
+
 },{
     timestamps:true
 });

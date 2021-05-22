@@ -17,6 +17,11 @@ class Payment extends Component {
         this.onChangeExpYear = this.onChangeExpYear.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChangeDelivery = this.handleChangeDelivery.bind(this);
+        this.handlePaymentMethod = this.handlePaymentMethod.bind(this);
+        this.onChangeCardNumber = this.onChangeCardNumber.bind(this);
+        this.onChangePinNumber = this.onChangePinNumber.bind(this);
+        this.onChangeMobileNumber = this.onChangeMobileNumber.bind(this);
+
 
         this.state = {
             itemName :'',
@@ -32,7 +37,9 @@ class Payment extends Component {
             ExpirationYear : '',
             CVC :'',
             delivery : "Prompt Express", // default value for the delivery,
-            orderId : ''
+            orderId : '',
+            paymentMethod : 'card',
+            pinNumber : ''
         }
     }
 
@@ -40,7 +47,6 @@ class Payment extends Component {
       const search = this.props.location.search; // returns the URL query String
       const params = new URLSearchParams(search); 
       const orderID = params.get('id'); 
-      console.log('orderID: ', orderID);
 
       this.setState({
         orderId : orderID
@@ -104,26 +110,28 @@ class Payment extends Component {
 
         e.preventDefault();
         const {users, orders} = this.props;
-        console.log(' this.props: ',  this.props);
 
         const payment = {
-            itemNames : itemnames,
-            userID : users.profile.id, 
-            userMail : users.profile.email,
-            noOfItems : itemnames.length,
-            totalAmount: s,
+          itemNames : itemnames,
+          userID : users.profile.id, 
+          userMail : users.profile.email,
+          noOfItems : itemnames.length,
+          totalAmount: s,
             deliveryCharges : this.state.deliveryCharges,
             NIC : this.state.NIC,
-            PhoneNumber : users.profile.phone,
+            PhoneNumber : this.state.PhoneNumber,
             CardNumber : this.state.CardNumber,
             ExpirationMonth : this.state.ExpirationMonth,
             ExpirationYear :  this.state.ExpirationYear,
             CVC :this.state.CVC,
             delivery : this.state.delivery,
-            address : users.profile.address            
-        }
-
-        const delivery = { 
+            address : users.profile.address,
+            paymentMethod : this.state.paymentMethod,
+            pinNumber : this.state.pinNumber
+            
+          }
+          
+          const delivery = { 
             order_id : this.state.orderId,
             user_id : users.profile.id,
             quantity : itemnames.length,
@@ -133,18 +141,19 @@ class Payment extends Component {
             address: users.profile.address,
             deliveryMethod : this.state.delivery,
             deliveryCharges : this.state.deliveryCharges
-        }
-        
-        addPayment(payment);  //adding info to the payment Db
-        addDelivery(delivery); //adding info to the delivery DB
-
-        alert("Payment Successful");
-
-        window.location.href = "/"; //Upon payment completion redirecting user to the cart page
-
-
-
-        this.setState({
+          }
+          
+          addPayment(payment);  //adding info to the payment Db
+          addDelivery(delivery); //adding info to the delivery DB
+          
+          console.log('payment: ', payment);
+          alert("Payment Successful");
+          
+          // window.location.href = "/"; //Upon payment completion redirecting user to the cart page
+          
+          
+          
+          this.setState({
             
                 itemName :'',
                 userID : '', 
@@ -185,14 +194,56 @@ class Payment extends Component {
         
     }
 
+    handlePaymentMethod(e){
+      let method = null;
+        if(e.target.value == 'card'){  //assigning method according to the values
+            method = 'card';
+        }else if (e.target.value == 'mobile'){
+            method = 'mobile';
+        }
+        this.setState({
+          paymentMethod: method
+            
+        })
+
+    }
+
+    onChangeMobileNumber(e){
+      this.setState({
+        PhoneNumber : e.target.value
+      })
+    }
+
+    onChangePinNumber(e){
+      this.setState({
+        pinNumber : e.target.value
+      })
+    }
+
 
     render() {
         const {users,orders} = this.props; //Below are input fields to get the required information
-        console.log('orders final: ', orders);
         return (
           <div>
-            <h3 className="payment-text">Payment Information</h3>   
+            <h3 className="payment-text">Payment Information</h3> 
             <form onSubmit={this.onSubmit} className="container">  
+            <label>Choose a Payment Method</label>  
+
+            <br></br>
+              <select
+                value={this.state.paymentMethod}
+                onChange={this.handlePaymentMethod}
+              >
+                <option value="card">Card Payments</option>
+                <option value="mobile">Mobile Payment</option>
+              </select>
+              <br></br>
+              <br></br>
+             
+              
+          {this.state.paymentMethod === 'card' ? 
+
+            <div>
               <div className="form-group nic-card">
                 <label>Enter your NIC</label>
                 <input
@@ -203,6 +254,8 @@ class Payment extends Component {
                   onChange={this.onChangeNic}
                 />
               </div>
+
+
 
               <br></br>
               <div className="form-group nic-card">
@@ -261,6 +314,45 @@ class Payment extends Component {
                   onChange={this.onChangeCvc}
                 />
               </div>
+              <br></br>
+              </div>
+              : 
+              <div>
+              
+
+              <br></br>
+              <div className="form-group nic-card">
+                <label>Mobile Number</label>
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  required
+                  className="form-control"
+                  // value={ users.profile.phone}
+                  onChange={this.onChangeMobileNumber}
+                />
+              </div>
+
+             
+
+              <br></br>
+              <div className="form-group month-year">
+                <label>Four Digit Pin Number</label>
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  required
+                  className="form-control"
+                  maxLength="4"
+                  value={this.state.pinNumber}
+                  onChange={this.onChangePinNumber}
+                />
+              </div>
+              <br></br>
+
+              </div>
+              }
+              <label>Choose a delivery method</label>
               <br></br>
               <select
                 value={this.state.delivery}
