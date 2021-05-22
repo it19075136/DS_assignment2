@@ -1,5 +1,4 @@
-let initstate = {
-    formSubmitted: false,
+let initstate = { //initstate object which store's temporary data related to users
     users: [],
     profile: {},
     currentUser: {},
@@ -7,12 +6,10 @@ let initstate = {
 }
 
 export default function (state = initstate, action) {
-    switch (action.type) {
+    switch (action.type) { //checking the action type which was dispatched from the action
         case "ADD_USER":
-            console.log(action.payload)
             if(action.payload === "ALREADY_EXISTS"){  
-                console.log("auth Error") 
-            return {
+            return { //returning the state after modifying it
                 ...state,
                 authError: true
             }
@@ -31,7 +28,6 @@ export default function (state = initstate, action) {
                 return {
                     ...state,
                     authError: true,
-                    formSubmitted: false // after update user formsubmition reset    
                 }
             }
             else {
@@ -39,21 +35,18 @@ export default function (state = initstate, action) {
                     ...state,
                     authError: false,
                     profile: action.payload,
-                    formSubmitted: false // after update user formsubmition reset
                 }
             }
         case "LOGOUT":
                 return {
                     ...state,
                     authError: false,
-                    formSubmitted: false, // after update user formsubmition reset 
                     profile: {}
                 }
         case "UPDATE_USER":
             return {
                 ...state,
                 profile: action.payload.user,
-                formSubmitted: false // after update user formsubmition reset
             }
         case "GET_USER":
             return {
