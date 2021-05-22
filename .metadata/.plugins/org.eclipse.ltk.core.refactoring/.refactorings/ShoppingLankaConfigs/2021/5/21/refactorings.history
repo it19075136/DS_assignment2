@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;ShoppingLankaConfigs/src/main/synapse-config/api/ShoppingLankaAPI.xml&apos; to &apos;ShoppingLankaUsersAPI.xml&apos;" description="Rename resource &apos;ShoppingLankaAPI.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/synapse-config/api/ShoppingLankaAPI.xml" name="ShoppingLankaUsersAPI.xml" stamp="1621700814135" updateReferences="true"/>
+</session>
