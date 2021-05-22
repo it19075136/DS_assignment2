@@ -49,3 +49,21 @@ export const updateProduct=(product,id)=>dispatch=>{
         })
     })
 }
+export const updatCountInStock=item=>dispatch=>{
+    return new Promise((resolve,reject)=>{
+        // items.forEach(item => {
+        axios.post(`http://localhost:5000/api/products/updateCountInStock/${item.itemId}`,item.countInStock).then((res)=>{
+            // console.log('get products')
+            console.log("qua updated product added")
+            // dispatch({type:'SELLER_UPDATE_PRODUCT',payload:product})
+            resolve("product update product added")
+            console.log(res);
+        }).catch((err)=>{
+            console.log(err)
+            reject(err)
+            
+        })
+    // });
+    
+    })
+}

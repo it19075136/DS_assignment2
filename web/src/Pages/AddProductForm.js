@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
 import { addProduct } from '../actions/sellerActions';
-import {updateProduct} from '../actions/sellerActions'; 
+import { updateProduct } from '../actions/sellerActions';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -35,65 +35,56 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- function AddProductForm(props) {
+function AddProductForm(props) {
   const classes = useStyles();
 
-  let {profile} = props.users;
+  let { profile } = props.users;
   const update = props.update;
   console.log(update);
   const productWantTOUpdate = props.productWantTOUpdate;
 
   const [state, setState] = useState(
     {
-        itemName:null,
-        description:null,
-        countInStock:0,
-        price:0,
-        date:null,
-        imageUrl:null,
-        sellerId:profile.id
-      }      );
+      itemName: null,
+      description: null,
+      countInStock: 0,
+      price: 0,
+      date: new Date(),
+      imageUrl: null,
+      sellerId: profile.id
+    });
 
-//    state = {
-//     itemName:'',
-//     description:'',
-//     countInStock:0,
-//     price:0,
-//     date:'',
-//     imageUrl:'',
-//     sellerId:profile.id
-//   }
- const handlechange=(e)=>{
+  const handlechange = (e) => {
     setState({
-        ...state,
-        [e.target.name]:e.target.value
-      })
+      ...state,
+      [e.target.name]: e.target.value
+    })
   }
-  const handlesubmit=(e)=>{
+  const handlesubmit = (e) => {
     e.preventDefault();
     console.log(state)
-    props.addProduct(state).then((res)=>{
-      window.location.href="/seller"
-    }).catch((err)=>{
+    props.addProduct(state).then((res) => {
+      window.location.href = "/seller"
+    }).catch((err) => {
       console.log(err);
-  }) 
+    })
   }
-  const handleUpdateProduct=(e)=>{
+  const handleUpdateProduct = (e) => {
     e.preventDefault();
-      console.log(state, productWantTOUpdate._id)
-    props.updateProduct(state,productWantTOUpdate._id).then((res)=>{
+    console.log(state, productWantTOUpdate._id)
+    props.updateProduct(state, productWantTOUpdate._id).then((res) => {
       alert("Update Successful");
-      window.location.href="/seller"
+      window.location.href = "/seller"
       console.log(res);
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log(err);
-  }) 
+    })
   }
 
   return (
-    
+
     <Container component="main" maxWidth="xs">
-      {update==true ? (<div className={classes.paper}>
+      {update == true ? (<div className={classes.paper}>
         <Avatar className={classes.avatar}>
           {/* <LockOutlinedIcon /> */}
         </Avatar>
@@ -114,7 +105,7 @@ const useStyles = makeStyles((theme) => ({
                 autoFocus
                 onChange={handlechange}
                 defaultValue={productWantTOUpdate.itemName}
-                
+
               />
             </Grid>
             <Grid item xs={12}>
@@ -158,28 +149,21 @@ const useStyles = makeStyles((theme) => ({
                 defaultValue={productWantTOUpdate.price}
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid> */}
           </Grid>
           <a href='/seller'
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          onClick={handleUpdateProduct }
-          className='info__button'>
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick={handleUpdateProduct}
+            className='info__button'>
             Update
           </a>
-          
+
         </form>
-      </div>):(<div className={classes.paper}>
+      </div>) : (<div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          {/* <LockOutlinedIcon /> */}
         </Avatar>
         <Typography component="h1" variant="h5">
           add Product
@@ -239,27 +223,27 @@ const useStyles = makeStyles((theme) => ({
             </Grid>
           </Grid>
           <Link to='/seller'>
-          <a href='/seller'
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submit}
-          onClick={handlesubmit}
-          className='info__button'>
-            ADD
+            <a href='/seller'
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              onClick={handlesubmit}
+              className='info__button'>
+              ADD
           </a>
           </Link>
         </form>
-      </div>) }
-     
-      
+      </div>)}
+
+
     </Container>
   );
 }
 const mapStateToProps = (state) => ({
-    users: state.users,
-    update:state.products.update,
-    productWantTOUpdate:state.products.productWantTOUpdate
+  users: state.users,
+  update: state.products.update,
+  productWantTOUpdate: state.products.productWantTOUpdate
 })
-export default connect(mapStateToProps,{addProduct,updateProduct})(AddProductForm)
+export default connect(mapStateToProps, { addProduct, updateProduct })(AddProductForm)

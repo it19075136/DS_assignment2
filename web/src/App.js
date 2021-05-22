@@ -24,8 +24,6 @@ import { login } from './actions/userActions';
 import jwt from 'jsonwebtoken'
 import LoginPage from './Pages/LoginPage';
 import sellerProducts from './Pages/sellerProducts';
-import AddProductForm from './Pages/AddProductForm';
-import Checkout from './Pages/Checkout';
 import Payment from './Pages/PaymentPage';
 import UserProfile from './Pages/userProfile';
 
@@ -70,8 +68,6 @@ function App() {
         <Route exact path="/delivery/edit" component={EditDelivery}/>
         <Route exact path="/delivery/list" component={DeliveryList}/>
         <Route exact path="/seller" component={sellerProducts}/>
-      <Route exact path="/checkout" component={Checkout}/>
-      <Route exact path="/form" component={AddProductForm}/>
         <Route exact path="/delivery/payment" component ={Payment} />
       </BrowserRouter>
     </Provider>
