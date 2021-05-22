@@ -1,36 +1,40 @@
-import axios from 'axios'
-import setAuthorizationToken from './authActions';
-import jwt from 'jsonwebtoken';
-import hashPassword from 'password-hash'
+import axios from 'axios' //importing axios module
+import setAuthorizationToken from './authActions'; // importing setAuthorizationToken action
+import jwt from 'jsonwebtoken'; //importing json web token module
+import hashPassword from 'password-hash' //importing password-hash module
 
+
+// add new user action
 export const addUser = user => dispatch => {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve,reject) => { //creating a new promise
     user.password = hashPassword.generate(user.password);
     console.log(user);
-    axios.post('http://localhost:5000/api/users',user).then((res)=>{
-        const {token} = res.data;
-    if(token){    
-        localStorage.setItem('jwtToken',token);
-        setAuthorizationToken(token);
-        dispatch({
-            type: "ADD_USER",
+    axios.post('http://localhost:5000/api/users',user).then((res)=>{ // calling the post server call of the set url while passing the user object param as data
+        const {token} = res.data; //destructuring the token object returned from the response data
+    if(token){  // checking if the token is not null
+        localStorage.setItem('jwtToken',token);  // setting the token with the key jwtToken in the localstorage of the browser
+        setAuthorizationToken(token); //invoking the imported setAuthorizationToken method 
+        dispatch({ //setting the dispatch action type and payload which will be invoked as a callback
+            type: "ADD_USER", 
             payload: user,
             currentUser: jwt.decode(token)
         })
     }
     else
-        dispatch({
+        dispatch({ //setting the dispatch action type and payload which will be invoked as a callback
             type:"ADD_USER",
             payload: res.data
         })
-        resolve("done");
+        resolve("done"); //resolving the promise
     }).catch(err=>{
         console.log(err);
-        reject(err);
+        reject(err); //rejecting the promise with error
     });
     });
 }
 
+
+// login() action
 export const login = credentials => dispatch => {
     return new Promise((resolve,reject) => {
         if(credentials.id){
@@ -69,6 +73,60 @@ export const login = credentials => dispatch => {
 
 }
 
+// delete user action
+export const deleteUser = (id) => dispatch => {
+    console.log(id);
+    return new Promise((resolve,reject) => {
+        axios.delete(`http://localhost:5000/api/users/${id}`).then((res)=>{
+            localStorage.removeItem('jwtToken'); //removing the token using it's key
+            localStorage.removeItem('cart'); //removing the cart using it's key
+            setAuthorizationToken(false);
+            dispatch({
+                type: "LOGOUT"
+            })
+            dispatch({
+                type:"REMOVE_CART"
+            })
+            resolve("done");
+        }).catch((err)=>{
+            console.log(err);
+            reject(err);
+        })
+    })
+}
+
+
+// update user action
+export const updateUser = (id,user) => dispatch => {
+    console.log(id,user);
+    return new Promise((resolve,reject) => {
+        axios.put(`http://localhost:5000/api/users/${id}`,user).then((res)=>{
+            const {token, newUser} = res.data;
+            if(token){
+                localStorage.setItem('jwtToken',token);
+                const currentUser = jwt.decode(token);
+                if(res.status === 200){ //checking if the status property of the response header is 200(success)
+                dispatch({
+                    type: "LOGIN",
+                    payload: currentUser
+                })
+            }
+            }   
+            console.log(res);
+            dispatch({
+                type:"GET_USER",
+                payload: newUser
+            });
+            resolve("done");
+        }).catch((err)=>{
+            console.log(err);
+            reject(err);
+        })
+    });
+}
+
+
+// logout() action
 export const logOut = () => dispatch => {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('cart');
@@ -79,4 +137,24 @@ export const logOut = () => dispatch => {
     dispatch({
         type:"REMOVE_CART"
     })
+}
+
+
+// get user by id action
+export const getUserById = (id) => dispatch => {
+    console.log(id);
+    return new Promise((resolve,reject)=>{
+        axios.get(`http://localhost:5000/api/users/${id}`).then((res) => {
+            console.log(res.data);
+            dispatch({
+                type:"GET_USER",
+                payload: res.data
+            });
+            resolve("done");
+        }).catch((err) => {
+            console.log(err);
+            reject("error");
+        })
+    })
+
 }

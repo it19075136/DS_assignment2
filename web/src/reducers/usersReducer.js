@@ -1,17 +1,15 @@
-let initstate = {
-    formSubmitted: false,
+let initstate = { //initstate object which store's temporary data related to users
     users: [],
     profile: {},
+    currentUser: {},
     authError: false
 }
 
 export default function (state = initstate, action) {
-    switch (action.type) {
+    switch (action.type) { //checking the action type which was dispatched from the action
         case "ADD_USER":
-            console.log(action.payload)
             if(action.payload === "ALREADY_EXISTS"){  
-                console.log("auth Error") 
-            return {
+            return { //returning the state after modifying it
                 ...state,
                 authError: true
             }
@@ -30,7 +28,6 @@ export default function (state = initstate, action) {
                 return {
                     ...state,
                     authError: true,
-                    formSubmitted: false // after update user formsubmition reset    
                 }
             }
             else {
@@ -38,34 +35,23 @@ export default function (state = initstate, action) {
                     ...state,
                     authError: false,
                     profile: action.payload,
-                    formSubmitted: false // after update user formsubmition reset
                 }
             }
         case "LOGOUT":
                 return {
                     ...state,
                     authError: false,
-                    formSubmitted: false, // after update user formsubmition reset 
                     profile: {}
                 }
         case "UPDATE_USER":
             return {
                 ...state,
                 profile: action.payload.user,
-                formSubmitted: false // after update user formsubmition reset
             }
-        case "UPDATE_PROFILE_PICTURE":
+        case "GET_USER":
             return {
                 ...state,
-                profile: {
-                    ...state.profile,
-                    profileImage: action.payload.image
-                }
-            }
-        case "FORM_SUBMITION_STATUS":
-            return {
-                ...state,
-                formSubmitted: action.payload.status
+                currentUser: action.payload
             }
         default:
             return state;
