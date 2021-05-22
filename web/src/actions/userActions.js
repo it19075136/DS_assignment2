@@ -69,6 +69,55 @@ export const login = credentials => dispatch => {
 
 }
 
+export const deleteUser = (id) => dispatch => {
+    console.log(id);
+    return new Promise((resolve,reject) => {
+        axios.delete(`http://localhost:5000/api/users/${id}`).then((res)=>{
+            localStorage.removeItem('jwtToken');
+            localStorage.removeItem('cart');
+            setAuthorizationToken(false);
+            dispatch({
+                type: "LOGOUT"
+            })
+            dispatch({
+                type:"REMOVE_CART"
+            })
+            resolve("done");
+        }).catch((err)=>{
+            console.log(err);
+            reject(err);
+        })
+    })
+}
+
+export const updateUser = (id,user) => dispatch => {
+    console.log(id,user);
+    return new Promise((resolve,reject) => {
+        axios.put(`http://localhost:5000/api/users/${id}`,user).then((res)=>{
+            const {token, newUser} = res.data;
+            if(token){
+                localStorage.setItem('jwtToken',token);
+                const currentUser = jwt.decode(token);
+                if(res.status === 200){
+                dispatch({
+                    type: "LOGIN",
+                    payload: currentUser
+                })
+            }
+            }   
+            console.log(res);
+            dispatch({
+                type:"GET_USER",
+                payload: newUser
+            });
+            resolve("done");
+        }).catch((err)=>{
+            console.log(err);
+            reject(err);
+        })
+    });
+}
+
 export const logOut = () => dispatch => {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('cart');

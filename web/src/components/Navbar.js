@@ -2,7 +2,7 @@ import './Navbar.css';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux'
 import { getOrder } from '../actions/orderActions';
-import { logOut } from '../actions/userActions'
+import { logOut,getUserById } from '../actions/userActions'
 import {useSelector} from 'react-redux'
 
 const Navbar = (props) => {
@@ -18,6 +18,10 @@ const Navbar = (props) => {
 
     const handleLogout = () => {
         props.logOut();
+    }
+
+    const handleProfile = () => {
+        props.getUserById(profile.id);
     }
 
     const handleSubmit=()=>{
@@ -48,7 +52,7 @@ const Navbar = (props) => {
                         {profile.id ? ( 
                         <ul className="navbar__links">
                         <li><Link to="/orders" onClick={handleSubmit}>orders</Link></li>
-                        <li><Link to="/user/profile">My Profile</Link></li>
+                        <li><Link to="/user/profile" onClick={handleProfile}>My Profile</Link></li>
                         <li><Link onClick={handleLogout}>Log out</Link></li>
                         </ul>):
                         (<ul className="navbar__links">
@@ -77,5 +81,5 @@ const mapStateToProps = (state) => ({
     users: state.users
 })
 
-export default connect(mapStateToProps,{ logOut,getOrder })(Navbar)
+export default connect(mapStateToProps,{ logOut,getUserById,getOrder })(Navbar)
 
