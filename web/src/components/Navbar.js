@@ -52,6 +52,7 @@ const Navbar = (props) => {
                         {profile.id ? ( 
                         <ul className="navbar__links">
                         <li><Link to="/orders" onClick={handleSubmit}>orders</Link></li>
+                        {profile.type === "Buyer" ? (null) :( <li><Link to="/delivery/list">delivery</Link></li>) }
                         <li><Link to="/user/profile" onClick={handleProfile}>My Profile</Link></li>
                         <li><Link onClick={handleLogout}>Log out</Link></li>
                         </ul>):
