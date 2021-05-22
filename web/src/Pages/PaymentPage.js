@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Dropdown} from 'react-bootstrap';
-import {addPayment} from '../actions/paymentAction';
+import {addPayment} from '../actions/paymentAction'; //importing reducers 
 import {addDelivery} from '../actions/deliveryActions';
+import './PaymentPage.css'; //importing the CSS file 
 
 
 
@@ -11,7 +10,7 @@ class Payment extends Component {
     constructor(props){
         super(props);
 
-        this.onChangeNic = this.onChangeNic.bind(this);
+        this.onChangeNic = this.onChangeNic.bind(this);  //binding functions for 'this' keyword to work
         this.onChangeCardNumber = this.onChangeCardNumber.bind(this);
         this.onChangeCvc = this.onChangeCvc.bind(this);
         this.onChangeExpMonth = this.onChangeExpMonth.bind(this);
@@ -23,20 +22,17 @@ class Payment extends Component {
             itemName :'',
             userID : '', 
             userMail : '',
-            noOfItems : '',//make this optional
+            noOfItems : '',
             totalAmount: '',
-            deliveryCharges : 300,
+            deliveryCharges : 300,  //setting the default value for charges
             NIC : '',
             PhoneNumber : '',
             CardNumber : '',
             ExpirationMonth : '',
             ExpirationYear : '',
             CVC :'',
-            delivery : "Prompt Express"
+            delivery : "Prompt Express" // default value for the delivery
         }
-    }
-
-    componentDidMount(){
     }
 
     onChangeNic(e){
@@ -54,7 +50,7 @@ class Payment extends Component {
 
     onChangeExpMonth(e){
 
-        e.target.value > 12  ? alert("Please enter a number between 1 and 12") : (
+        e.target.value > 12  ? alert("Please enter a number between 1 and 12") : (  //validations for the input fields
 
             this.setState({
                 ExpirationMonth : e.target.value
@@ -83,13 +79,13 @@ class Payment extends Component {
 
         const {addPayment,addDelivery} = this.props;
 
-        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];  // getting cart item information from the local storage
 
         const itemnames = cartItems.map((item) => {
             return item.name;
         })
         
-        const s = cartItems.reduce(
+        const s = cartItems.reduce(  //calculating the item prices
             (s,{price}) => s+price,0
             );
 
@@ -100,7 +96,7 @@ class Payment extends Component {
             itemNames : itemnames,
             userID : users.profile.id, 
             userMail : users.profile.email,
-            noOfItems : itemnames.length,//make this optional
+            noOfItems : itemnames.length,
             totalAmount: s,
             deliveryCharges : this.state.deliveryCharges,
             NIC : this.state.NIC,
@@ -125,8 +121,12 @@ class Payment extends Component {
             deliveryCharges : this.state.deliveryCharges
         }
         
-        addPayment(payment);
-        addDelivery(delivery);
+        addPayment(payment);  //adding info to the payment Db
+        addDelivery(delivery); //adding info to the delivery DB
+
+        alert("Payment Successful");
+
+        window.location.href = "/"; //Upon payment completion redirecting user to the cart page
 
 
 
@@ -155,7 +155,7 @@ class Payment extends Component {
 
     handleChangeDelivery(e){
         let charges = null;
-        if(e.target.value == 'Prompt Express'){
+        if(e.target.value == 'Prompt Express'){  //assigning charges to according to the values
             charges = 300;
         }else if (e.target.value == 'DHL'){
             charges = 550;
@@ -173,15 +173,12 @@ class Payment extends Component {
 
 
     render() {
-        const {users,orders} = this.props;
-   
-
-
+        const {users,orders} = this.props; //Below are input fields to get the required information
         return (
           <div>
-            <h3>Payment Information</h3>
-            <form onSubmit={this.onSubmit} className="container">
-              <div className="form-group">
+            <h3 className="payment-text">Payment Information</h3>   
+            <form onSubmit={this.onSubmit} className="container">  
+              <div className="form-group nic-card">
                 <label>Enter your NIC</label>
                 <input
                   type="text"
@@ -193,7 +190,7 @@ class Payment extends Component {
               </div>
 
               <br></br>
-              <div className="form-group">
+              <div className="form-group nic-card">
                 <label>Card Number</label>
                 <input
                   type="text"
@@ -206,7 +203,7 @@ class Payment extends Component {
               </div>
 
               <br></br>
-              <div className="form-group">
+              <div className="form-group month-year">
                 <label>Expiration Month</label>
                 <input
                   type="text"
@@ -221,7 +218,7 @@ class Payment extends Component {
                 />
               </div>
               <br></br>
-              <div className="form-group">
+              <div className="form-group month-year">
                 <label>Expiration Year</label>
                 <input
                   type="text"
@@ -242,7 +239,7 @@ class Payment extends Component {
                   type="text"
                   pattern="[0-9]*"
                   required
-                  className="form-control"
+                  className="form-control cvc"
                   maxLength="3"
                   min="1"
                   value={this.state.CVC}
@@ -273,12 +270,12 @@ class Payment extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({  // assigning initial stated to props
     // delivery : state.delivery
     users : state.users,
     cartItems : state.cartItems,
     orders : state.orders
 })
 
-export default connect(mapStateToProps, {addPayment,addDelivery}) (Payment)
+export default connect(mapStateToProps, {addPayment,addDelivery}) (Payment)  // connecting reducers 
 
