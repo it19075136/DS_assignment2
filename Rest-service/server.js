@@ -1,10 +1,10 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const port = process.env.PORT || 5000;
-const mongoose = require('mongoose');
-const Db = require('./database/dbConfig').dbKey;
-const userRoutes = require('./routes/userRoutes');
+const express = require('express'); // importing express module
+const cors = require('cors'); // importing cors module
+const bodyParser = require('body-parser'); // importing body-parser module
+const port = process.env.PORT || 5000; //setting the port from the deployed env or assingning 5000 as the port constant
+const mongoose = require('mongoose'); // importing mongoose module
+const Db = require('./database/dbConfig').dbKey; // importing database key
+const userRoutes = require('./routes/userRoutes'); // importing service files
 const deliveryRoutes = require('./routes/deliveryRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const productRoutes = require('./routes/productRoutes');
@@ -25,24 +25,15 @@ app.use(cors()); //using cors middleware as a connect
 
 app.use(bodyParser.json()); // to accept json type requests
 
-app.use('/api/users', userRoutes); //user routes - avantha
+app.use('/api/users', userRoutes); //user service interface
 
-app.use('/api/products', productRoutes); // product routes - pasindu
+app.use('/api/products', productRoutes); // product service interface
 
-app.use('/api/order', orderRoutes); // order/cart routes -thisara
+app.use('/api/order', orderRoutes); // order/cart  service interface
 
-// orderHistory routes +
+app.use('/api/delivery', deliveryRoutes); // delivery service interface
 
-// delivery routes - dilmika
-app.use('/api/delivery', deliveryRoutes);
-
-// payment routes - dilmika
-app.use('/api/payment', paymentRoutes);
-
-
-// app.use('/',(req,res) => { // setting router
-//     res.json("Hi people");
-// });
+app.use('/api/payment', paymentRoutes); // payment service interface
 
 app.listen(port, () => { // setting the app to listen on the configured port
     console.log(`Listening on port: ${port}`);
