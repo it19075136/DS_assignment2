@@ -11,7 +11,7 @@ export const addOrder = (cartItems, id, TotalAmount) => dispatch => {
             date: new Date(),
             status: 'payment not done'
         }
-        axios.post('http://localhost:5000/api/order/add', order).then((res) => {
+        axios.post('http://192.168.8.183:8280/orders/add', order).then((res) => {
             console.log('order added');
             console.log(order)
             console.log(res.data)
@@ -54,7 +54,7 @@ export const addOrder = (cartItems, id, TotalAmount) => dispatch => {
 }
 export const getOrder = (userid) => dispatch => {
     if (userid) {
-        axios.get(`http://localhost:5000/api/order/${userid}`).then((res) => {
+        axios.get(`http://192.168.8.183:8280/orders/${userid}`).then((res) => {
             console.log('order added');
             console.log(res.data)
             dispatch({ type: 'GET_ORDER', payload: res.data })

@@ -7,7 +7,7 @@ export const getProducts = () => (dispatch) => {
     try{
         dispatch({type: actionType.GET_PRODUCTS_REQUEST});
 
-        axios.get("http://localhost:5000/api/products").then((res) => {
+        axios.get("http://192.168.8.183:8280/products").then((res) => {
             console.log(res.data);
             dispatch({
                 type: actionType.GET_PRODUCTS_SUCCESS,
@@ -32,7 +32,7 @@ export const getProductDetails = (id) => (dispatch) => {
     try{
         dispatch({type: actionType.GET_PRODUCT_DETAILS_REQUEST});
         console.log(id);
-        axios.get(`http://localhost:5000/api/products/${id}`).then((res) => {
+        axios.get(`http://192.168.8.183:8280/products/${id}`).then((res) => {
         dispatch({
                 type: actionType.GET_PRODUCT_DETAILS_SUCCESS,
                 payload: res.data
