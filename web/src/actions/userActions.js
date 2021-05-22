@@ -80,3 +80,21 @@ export const logOut = () => dispatch => {
         type:"REMOVE_CART"
     })
 }
+
+export const getUserById = (id) => dispatch => {
+    console.log(id);
+    return new Promise((resolve,reject)=>{
+        axios.get(`http://localhost:5000/api/users/${id}`).then((res) => {
+            console.log(res.data);
+            dispatch({
+                type:"GET_USER",
+                payload: res.data
+            });
+            resolve("done");
+        }).catch((err) => {
+            console.log(err);
+            reject("error");
+        })
+    })
+
+}

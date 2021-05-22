@@ -12,6 +12,17 @@ router.get('/',(req,res)=>{
     })
 });
 
+// get user by id
+router.get('/:id',(req,res)=>{
+    console.log(req.params.id);
+    User.findOne({
+        id: req.params.id      
+    }).then((u) => {
+    console.log(u);
+    res.json(u);
+    }).catch((err) => res.json("Error:" + err));
+});
+
 // post user -- done
 router.post('/',(req,res)=>{
     req.body.id = uuid.v4();
