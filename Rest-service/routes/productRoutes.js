@@ -43,7 +43,22 @@ router.post("/update/:id", (req, res) => {
                 product.save().then(() => res.json(product)).catch((err) => res.json(err));
         }).catch((err) => res.json(err));
 });
+// router.post("/updateCountInStock/:id", (req, res) => {
+//         Product.findByIdAndUpdate(req.params.id).then((product) => {
+//                 console.log(product);
+//                 (req.body.countInStock != 0 ? product.countInStock = Number(req.body.countInStock) : null),
+//                         product.save().then(() => res.json(product)).catch((err) => res.json(err));
+//         }).catch((err) => res.json(err));
 
+//         //       req.body.forEach(item => {
+//         //         Product.findByIdAndUpdate(item.itemId).then((product) => {
+//         //                 console.log(product);
+//         //                 (item.countInStock != 0 ?product.countInStock = Number(req.body.countInStock):null),
+//         //         product.save()
+//         //               })  
+//         // });
+//         // res.json("product count update")
+// })
 //@desc   Delete product
 //@route  DELETE /api/products
 //@access Public
@@ -55,5 +70,11 @@ router.delete("/:id", (req, res) => {
                         )).catch((err) => res.status(400).json("Error: " + err));
         console.log(res.data);
 })
-
+// router.post("/updateMany",(req,res)=>{
+//         Product.insertMany([...req.body]).then((product)=>{
+//                 res.json(product).catch((err)=>res.json(err))
+//         }).catch((err)=>{
+//                 console.log(err)
+//         })
+// })
 module.exports = router;
