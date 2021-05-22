@@ -1,6 +1,8 @@
 import * as actionTypes from '../constants/cartConstants';
 import axios from 'axios';
 
+//Add item to the cart according to id and the selected qty
+
 export const addToCart = (id , qty) => (dispatch, getState) => {
     return new Promise((resolve,reject) => {
         axios.get(`http://localhost:5000/api/products/${id}`).then((res) => {
@@ -25,6 +27,7 @@ export const addToCart = (id , qty) => (dispatch, getState) => {
 
 };
 
+//Remove items from the cart accorfing to its id
 
 export const removeFromCart = (id) => (dispatch, getState) => {
     dispatch({
