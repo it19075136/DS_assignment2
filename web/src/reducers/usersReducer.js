@@ -2,6 +2,7 @@ let initstate = {
     formSubmitted: false,
     users: [],
     profile: {},
+    currentUser: {},
     authError: false
 }
 
@@ -54,18 +55,10 @@ export default function (state = initstate, action) {
                 profile: action.payload.user,
                 formSubmitted: false // after update user formsubmition reset
             }
-        case "UPDATE_PROFILE_PICTURE":
+        case "GET_USER":
             return {
                 ...state,
-                profile: {
-                    ...state.profile,
-                    profileImage: action.payload.image
-                }
-            }
-        case "FORM_SUBMITION_STATUS":
-            return {
-                ...state,
-                formSubmitted: action.payload.status
+                currentUser: action.payload
             }
         default:
             return state;

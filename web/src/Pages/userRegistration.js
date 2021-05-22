@@ -2,57 +2,35 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addUser } from '../actions/userActions'
 import './LoginPage.css'
-import validator from 'validator'
 
 class userRegistration extends Component {
 
     state = {
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        address:'',
-        email: '',
-        password: '',
-        type: ''
+        user: {
+            firstName: '',
+            lastName: '',
+            phoneNumber: '',
+            address:'',
+            email: '',
+            password: '',
+            type: ''
+        },
+        cPassword: ''
     }
 
     Profile = null;
-    // errors = {
-    //     email: false,
-    //     password: false,
-    //     phone: false,
-    //     emptyFields: false,
-    //     type: false
-    // }
-
-    // isValidData = (state) => {
-    //     let isValid = true;
-    //     if(!validator.isEmail(state.email)){
-    //         isValid = false;
-    //         this.errors.email = true;
-    //     }
-    //     if(!validator.isMobilePhone(state.phoneNumber,"any")){
-    //         isValid = false;
-    //         this.errors.phone = true;
-    //     }
-    //     if(!validator.equals(state.password,document.getElementById("Cpassword").value)){
-    //         isValid = false;
-    //         this.errors.password = true;
-    //     }
-    //     if(validator.isEmpty(state.firstName) || validator.isEmpty(state.lastName) || validator.isEmpty(state.password)){
-    //         isValid = false;
-    //         this.errors.emptyFields = true;
-    //     }
-    //     if(validator.isEmpty(state.type)){
-    //         isValid = false;
-    //         this.errors.type = true;
-    //     }
-    //     return isValid;
-    // }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.addUser(this.state).then((res)=>{
+        if(this.state.user.firstName === "" || this.state.user.lastName === "" || this.state.user.email === "" || (this.state.user.type != "Buyer" &&  this.state.user.type != "Seller") || this.state.user.phoneNumber === "")
+        alert("Please fill all the fields")
+    else{
+    if(this.state.user.type === "Buyer"  && this.state.user.address === "")
+        alert("Please enter your shipping address");
+    else if(this.state.user.password != this.state.cPassword)
+        alert("Your passwords doesn't match,please check!");
+    else{
+        this.props.addUser(this.state.user).then((res)=>{
             let {profile,authError} = this.props.users
             console.log(profile, authError)
         }).catch((err)=>{
@@ -60,10 +38,23 @@ class userRegistration extends Component {
             this.Profile = null;
         })
     }
+    }
+    }
 
     handleChange = (e) => {
         this.setState({
-            [e.target.name] : e.target.value 
+            ...this.state,
+            user: {
+                ...this.state.user,
+                [e.target.name] : e.target.value }
+        })
+        console.log(this.state);
+    }
+
+    handleCPwd = (e) => {
+        this.setState({
+            ...this.state,
+            cPassword : e.target.value 
         })
         console.log(this.state);
     }
@@ -99,7 +90,7 @@ class userRegistration extends Component {
                         </select>
                     </div>     
                     </div>    
-                    {this.state.type === "Buyer" ? 
+                    {this.state.user.type === "Buyer" ? 
                     (<div class="form form-floating col-6">
   <textarea class="form-control" placeholder="Add your shipping address here" name="address" id="address" onChange={this.handleChange}></textarea>
   <label htmlFor="address">Shipping address</label>
@@ -110,7 +101,7 @@ class userRegistration extends Component {
                         <input type="password" onChange={this.handleChange} class="form-control" id="password" name="password" placeholder="Password" />
                     </div>                    
                     <div class="form col-3">
-                        <input type="password" class="form-control" id="Cpassword" name="Cpassword" placeholder="Repeat Password" />
+                        <input type="password" onChange={this.handleCPwd} class="form-control" id="Cpassword" name="Cpassword" placeholder="Repeat Password" />
                     </div>
                     <div className="form">
                         <button type="submit" class="btn btn-primary mb-3">Submit</button>

@@ -3,13 +3,23 @@ const uuid = require('uuid');
 const User = require('../models/userModel');
 const jsonwebtoken = require('jsonwebtoken');
 const passwordHash = require('password-hash');
-const { reset } = require('nodemon');
 
 // get users -- done
 router.get('/',(req,res)=>{
     User.find((err,docs)=>{
         res.json(docs);
     })
+});
+
+// get user by id
+router.get('/:id',(req,res)=>{
+    console.log(req.params.id);
+    User.findOne({
+        id: req.params.id      
+    }).then((u) => {
+    console.log(u);
+    res.json(u);
+    }).catch((err) => res.json("Error:" + err));
 });
 
 // post user -- done
@@ -44,8 +54,52 @@ router.post('/',(req,res)=>{
 })
 
 // modify user
+router.put('/:id',(req,res)=>{
+    User.findOneAndUpdate(
+    {
+        id: req.params.id
+    },
+    {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        phoneNumber: req.body.phoneNumber,
+        address:req.body.address,
+        type: req.body.type,
+        email: req.body.email,
+        password: passwordHash.generate(req.body.Newpassword)
+    }).then((u)=>{
+        User.findOne({
+            id: req.params.id
+        }).then((newUser) => {
+            const token = jsonwebtoken.sign({
+                id: newUser.id,
+                email: newUser.email,
+                type: newUser.type,
+                phone: newUser.phoneNumber,
+                address: newUser.address
+            }, "jwtSecret")
+            console.log(token,newUser)
+            res.json({token,newUser});
+        })
+    }).catch((err)=>{
+        console.log(err);
+        res.json(err);
+    })
+});
 
 // delete user
+router.delete('/:id',(req,res)=>{
+    User.findOneAndRemove(
+    {
+        id: req.params.id
+    }).then((u)=>{
+        console.log(u)
+        res.json(u);
+    }).catch((err)=>{
+        console.log(err);
+        res.json(err);
+    })
+});
 
 // login user by email -- done
 router.post('/:email',(req,res)=>{
