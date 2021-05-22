@@ -1,6 +1,8 @@
 import * as actionType from '../constants/productConstants'
 import axios from 'axios';
 
+//Get all products details 
+
 export const getProducts = () => (dispatch) => {
     try{
         dispatch({type: actionType.GET_PRODUCTS_REQUEST});
@@ -24,6 +26,7 @@ export const getProducts = () => (dispatch) => {
     }
 }
 
+//Get Product details according to its 'id'
 
 export const getProductDetails = (id) => (dispatch) => {
     try{
