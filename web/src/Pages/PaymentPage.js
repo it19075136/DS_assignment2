@@ -31,9 +31,22 @@ class Payment extends Component {
             ExpirationMonth : '',
             ExpirationYear : '',
             CVC :'',
-            delivery : "Prompt Express" // default value for the delivery
+            delivery : "Prompt Express", // default value for the delivery,
+            orderId : ''
         }
     }
+
+    componentDidMount(){
+      const search = this.props.location.search; // returns the URL query String
+      const params = new URLSearchParams(search); 
+      const orderID = params.get('id'); 
+      console.log('orderID: ', orderID);
+
+      this.setState({
+        orderId : orderID
+      })
+
+          }
 
     onChangeNic(e){
         this.setState({
@@ -91,6 +104,7 @@ class Payment extends Component {
 
         e.preventDefault();
         const {users, orders} = this.props;
+        console.log(' this.props: ',  this.props);
 
         const payment = {
             itemNames : itemnames,
@@ -110,7 +124,7 @@ class Payment extends Component {
         }
 
         const delivery = { 
-            order_id : 'order_id',
+            order_id : this.state.orderId,
             user_id : users.profile.id,
             quantity : itemnames.length,
             amount : s,
@@ -174,6 +188,7 @@ class Payment extends Component {
 
     render() {
         const {users,orders} = this.props; //Below are input fields to get the required information
+        console.log('orders final: ', orders);
         return (
           <div>
             <h3 className="payment-text">Payment Information</h3>   
