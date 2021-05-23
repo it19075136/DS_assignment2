@@ -8,7 +8,7 @@ import SellerProduct from './sellerProduct'
 import { addProduct, updateStateRed } from '../actions/sellerActions';
 class sellerProducts extends Component {
   componentDidMount() {
-    this.props.getProducts();
+    this.props.getProducts();//gettin product from database
     console.log('componentdidmount')
   }
 
@@ -18,13 +18,13 @@ class sellerProducts extends Component {
     console.log(user)
 
     const handleUpdateStateRed = () => {
-      updateStateRed();
+      updateStateRed();//updating the update state in reducx store to false
     }
-    const products = this.props.products;
+    const products = this.props.products;//geting the product in the product collection 
     console.log(products)
-    const sellerProductsList = products ? (products.filter(product => product.sellerId == user.id)) : null
+    const sellerProductsList = products ? (products.filter(product => product.sellerId == user.id)) : null//filtering the products that login user owns
     console.log(sellerProductsList)
-    const sellerProductArr = sellerProductsList.map(product => {
+    const sellerProductArr = sellerProductsList.map(product => {//passing product to SellerProduct one by one
       return (<SellerProduct product={product} />)
     })
     console.log(sellerProductArr)
@@ -34,8 +34,6 @@ class sellerProducts extends Component {
         <div className="homepage__products">
           {sellerProductArr}
         </div>
-
-
       </div>
     )
   }

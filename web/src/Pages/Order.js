@@ -33,21 +33,21 @@ const useStyles = makeStyles((theme) => ({
 
 const Order = (props) => {
     const classes = useStyles();
-    const { order_ID } = useParams();
+    const { order_ID } = useParams();//geting the order id 
     console.log('order id', order_ID)
-    const orders = props.orders;
+    const orders = props.orders;//geting the orders 
     console.log(orders)
-    const order = orders ? (orders.filter(order => order._id == order_ID)) : null
+    const order = orders ? (orders.filter(order => order._id == order_ID)) : null//geting the perticular order by filtering
 
     console.log(order, 'order eka')
-    const items = order[0].item.map(item => {
+    const items = order[0].item.map(item => {//geting item 
         return (
             <div className={classes.root} key={item.order_id}>
                 <Paper className={classes.paper}>
                     <Grid container spacing={2}>
                         <Grid item>
                             <ButtonBase className={classes.image}>
-                                <img className={classes.img} alt="complex" src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" />
+                                <img className={classes.img} alt="complex" src={item.imgUrl}/>
                             </ButtonBase>
                         </Grid>
                         <Grid item xs={12} sm container>

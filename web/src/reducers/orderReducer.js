@@ -1,5 +1,6 @@
 let initialState = {
-    orders: []
+    orders: [],
+    allOrders:[]
 
 }
 export default function (state = initialState, action) {
@@ -14,6 +15,11 @@ export default function (state = initialState, action) {
             return ({
                 ...state,
                 orders: action.payload
+            })
+        case 'GET_All_ORDERS':
+            return({
+                ...state,
+                allOrders:[...state.allOrders,...action.payload]
             })
         default:
             return state;
