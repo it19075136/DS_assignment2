@@ -9,36 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import { Link } from 'react-router-dom';
 
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//         flexGrow: 1,
-//     },
-//     paper: {
-//         padding: theme.spacing(2),
-//         margin: 'auto',
-//         maxWidth: 700,
-//         marginTop: 40,
-//         borderRadius: 10
-//     },
-//     image: {
-//         width: 128,
-//         height: 128,
-//     },
-//     img: {
-//         margin: 'auto',
-//         display: 'block',
-//         maxWidth: '100%',
-//         maxHeight: '100%',
-//     },
-//     text: {
-//         textDecoration: 'none',
-//     },
-//     Typography: {
-//         textDecoration: 'none'
-//     },
-// }));
-
-
 class SellerOrders extends Component {
 
 
