@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
 import { addProduct } from '../actions/sellerActions';
 import { updateProduct } from '../actions/sellerActions';
+import { Input } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -45,25 +46,41 @@ function AddProductForm(props) {
 
   const [state, setState] = useState(
     {
+      product:{
       itemName: null,
       description: null,
       countInStock: 0,
       price: 0,
       date: new Date(),
       imageUrl: null,
-      sellerId: profile.id
+      sellerId: profile.id},
+      file: null
     });
 
+
   const handlechange = (e) => {
+    if(e.target.name === "photo"){
+      setState({
+        ...state,
+        file: e.target.files[0]
+      })
+      console.log(e.target.files[0])
+    }
+    else{
     setState({
       ...state,
-      [e.target.name]: e.target.value
+      product: {
+        ...state.product,
+        [e.target.name]: e.target.value
+      }
     })
+  }
+  console.log(state);
   }
   const handlesubmit = (e) => {
     e.preventDefault();
-    console.log(state)
-    props.addProduct(state).then((res) => {
+    console.log(state.file,state.product);
+    props.addProduct(state.product,state.file).then((res) => {
       window.location.href = "/seller"
     }).catch((err) => {
       console.log(err);
@@ -71,8 +88,8 @@ function AddProductForm(props) {
   }
   const handleUpdateProduct = (e) => {
     e.preventDefault();
-    console.log(state, productWantTOUpdate._id)
-    props.updateProduct(state, productWantTOUpdate._id).then((res) => {
+    console.log(state.product, productWantTOUpdate._id)
+    props.updateProduct(state.product, productWantTOUpdate._id).then((res) => {
       alert("Update Successful");
       window.location.href = "/seller"
       console.log(res);
@@ -170,6 +187,7 @@ function AddProductForm(props) {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
+            <input type="file" name="photo" id="photo" onChange={handlechange} />
             <Grid item xs={12} >
               <TextField
                 autoComplete="fname"

@@ -1,18 +1,28 @@
 import axios from 'axios'
 
-export const addProduct=product=>dispatch=>{
+export const addProduct=(product,file)=>dispatch=>{
+    console.log(product);
+    let formData = new FormData();
+    formData.append("file",file);
+    formData.append("upload_preset","shoppingLankaWeb");
     return new Promise((resolve,reject)=>{
-        axios.post("http://192.168.8.183:8280/products/add",product).then((res)=>{
-            console.log('get products')
-            console.log(product)
-            dispatch({type:'ADD_PRODUCT',payload:product})
+    axios.post("https://api.cloudinary.com/v1_1/shoppinglanka/image/upload",formData).then((response)=>{
+            console.log(response.data.url);
+            product.imageUrl = response.data.url;
             console.log(product);
-            resolve("product added")
+            axios.post("http://192.168.8.183:8280/products/add",product).then((res)=>{
+                dispatch({type:'ADD_PRODUCT',payload:product})
+                console.log(product);
+                resolve("product added")
+            }).catch((err)=>{
+                console.log(err)
+            })
         }).catch((err)=>{
-            console.log(err)
-            reject(err)
+            console.log(err);
+            reject(err);
         })
     })
+
 }
 
 export const ProductWantTOUpdate=(product)=>(dispatch)=>{
