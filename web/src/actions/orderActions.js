@@ -65,3 +65,15 @@ export const getOrder = (userid) => dispatch => {
     else
         dispatch({ type: 'GET_ORDER', payload: null });
 }
+
+export const updateOrderStatus = (orderId) => dispatch => {
+    console.log('update order status orderId: ', orderId);
+    
+        axios.post(`http://localhost:5000/api/order/orderStatus/${orderId}`).then((res) =>{
+            console.log('order updated');
+            dispatch({type : 'UPDATE_ORDER_STATUS', payload : res.data})
+        }).catch(err => {
+            console.log('err: ', err);
+        })
+    
+}
