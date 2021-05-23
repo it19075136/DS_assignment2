@@ -14,8 +14,11 @@ const CartPage = (props) => {
         if(profile.id){
             console.log(profile);
             props.addOrder(cartItems,profile.id,getCartSubTotal()).then((res)=>{
+                console.log('res in the cart page : ', res);
                 console.log('order added');
-                window.location.href="/delivery/payment"
+                const order_ID = res._id;
+                console.log('order_ID: ', order_ID);
+                window.location.href=`/delivery/payment?id=${order_ID}`;
                 // window.location.href="/delivery/payment"
             //     const itemList= cartItems.map(cartItem=>{return {itemId:cartItem.product,countInStock:Number(cartItem.countInStock)-Number(cartItem.qty)}});
             // // console.log(itemList[0])

@@ -3,8 +3,9 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {deleteDelivery, editDeliveryCache, updateDelivery} from '../actions/deliveryActions';
 import { Link } from 'react-router-dom'
+import './DeliveryList.css'
 
-
+//  PARENT CLASS IS CONTROLLING THE BEHAVIOUR OF DELIVERYLIST CLASS AND EDITDELIVERY CLASS
 
 class DeliveryList extends Component {
 
@@ -20,7 +21,7 @@ class DeliveryList extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/api/delivery/')
+        axios.get('http://localhost:5000/api/delivery/')  // Getting all the deliveries and assigning them to the states
         .then(response => {
             this.setState({ deliveries:response.data })
         })
@@ -34,7 +35,7 @@ class DeliveryList extends Component {
   
       const {deleteDelivery} = this.props;
       
-      // deleteDelivery(value);
+        deleteDelivery(value);
 
     }
 
@@ -47,14 +48,12 @@ class DeliveryList extends Component {
 
     render() {
         const {deliveries} = this.state;
-        console.log('deliveries: ', deliveries);
-
-
+        let { profile,authError } = this.props.users;
         return (
           <div>
-            <h1>Delivery List Page</h1>
-            <button onClick={() => window.location.href ="/delivery"}>Add a new delivery</button>
-            <table className="table">
+            <h1 className="payment-text">Delivery List</h1>
+            {/* <button onClick={() => window.location.href ="/delivery"}>Add a new delivery</button> */}
+            <table className="table delivery-table">
               <thead className="thead-light">
                 <tr>
                   <th>Items</th>
@@ -65,12 +64,12 @@ class DeliveryList extends Component {
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 {/* {this.exerciseLis()} */}
                 {deliveries.map((item) => 
                 
                   <tr>
-                    <td>{item.deliveryItems.toString()}</td>
+                    <td>{item.deliveryItems.toString().length > 20 ? item.deliveryItems.toString().substring(0,50)+"..." : item.deliveryItems.toString() } </td>
                     <td>{item.order_id}</td>
                     <td>Rs {item.amount}.00</td>
                     <td>{item.isCancel ? 'true' : 'false'}</td>
@@ -81,16 +80,17 @@ class DeliveryList extends Component {
                          () => this.deleteDelivery(item._id)
                          }
                          >delete</a> */}
-                         <button onClick={() => this.deleteDelivery(item._id)}>Delete</button>
+                         <button  className="btn btn-danger"  onClick={() => this.deleteDelivery(item._id)}>Delete</button>
                     </td>
                     <td>
-                      <button onClick={() => this.editDelivery(item)} >Edit</button>
+                      <button className="btn btn-success" onClick={() => this.editDelivery(item)} >Edit</button>
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
           </div>
+          
         );
     }
 }
@@ -254,9 +254,6 @@ class Parent extends React.PureComponent {
     };
   }
 
-  componentDidMount() {
-   
-  }
 
   setItem(item){
     this.setState({
@@ -265,7 +262,7 @@ class Parent extends React.PureComponent {
     
   }
 
-  setFinal() {
+  setFinal() {  //This method decide which child class to show and hide
     const { final } = this.state;
     this.setState({
       final: !final
@@ -274,24 +271,31 @@ class Parent extends React.PureComponent {
 
   render() {
     const { final, item } = this.state;
+    let { profile,authError } = this.props.users;
+    console.log('profile: ', profile);
+
    
     return (
-      <div >
+      profile.id ? (profile.type === "Buyer" ? window.location.href = "/":  
+      <div > 
         {final ? (
             <EditDelivery item = {item} {...this.props} setFinal={() => this.setFinal()} />
         ) : (     
             <DeliveryList {...this.props}  setFinal={() => this.setFinal()} />
         )}
       </div>
+      ):( window.location.href = "/user/login" )
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ //Mapping initial states to props
   delivery : state.delivery,
   editDelivery : state.editDelivery,
-  updatedDelivery : state.updatedDelivery
+  updatedDelivery : state.updatedDelivery,
+  orders : state.orders,
+  users : state.users
 
 })
 
-export default connect(mapStateToProps, {deleteDelivery,editDeliveryCache,updateDelivery}) (Parent);
+export default connect(mapStateToProps, {deleteDelivery,editDeliveryCache,updateDelivery}) (Parent); // connecting reducers to parent class

@@ -20,7 +20,7 @@ const sellerProduct = (props) => {
     }
     return (
         <div className="product">
-            <img src={product.imageUrl} alt="" />
+            <img src={product.imageUrl? product.imageUrl:"https://homepages.cae.wisc.edu/~ece533/images/airplane.png"} alt="" />
             <div className="product__info">
                 <p className="info__name">{product.itemName}</p>
                 <p className="info__description">

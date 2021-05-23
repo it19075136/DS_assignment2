@@ -1,6 +1,7 @@
 let initialState = {
     orders: [],
-    allOrders:[]
+    allOrders:[],
+    orderStatus:{}
 
 }
 export default function (state = initialState, action) {
@@ -21,7 +22,12 @@ export default function (state = initialState, action) {
                 ...state,
                 allOrders:[...state.allOrders,...action.payload]
             })
-        default:
-            return state;
+      case "UPDATE_ORDER_STATUS":
+        return {
+          ...state,
+          orderStatus: action.payload,
+        };
+      default:
+        return state;
     }
 }

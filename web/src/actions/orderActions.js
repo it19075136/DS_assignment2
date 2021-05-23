@@ -11,13 +11,14 @@ export const addOrder = (cartItems, id, TotalAmount) => dispatch => {
             date: new Date(),
             status: 'payment not done'
         }
-        axios.post('http://localhost:5000/api/order/add', order).then((res) => {
+        axios.post('http://192.168.8.183:8280/orders/add', order).then((res) => {
             console.log('order added');
             console.log(order)
-            console.log(res.data)
+            console.log('res.data',res.data)
             dispatch({ type: 'ADD_ORDER', payload: order })
             dispatch({ type: 'GET_All_ORDERS', payload: order })
-            resolve("order added")
+            resolve(res.data)
+
             // const itemLists = cartItems.map(cartItem => { return { itemId: cartItem.product, countInStock: Number(cartItem.countInStock) - Number(cartItem.qty) } });
             // for (let index = 0; index < itemLists.length; index++) {
             //     const Item = itemList[index];
@@ -54,7 +55,7 @@ export const addOrder = (cartItems, id, TotalAmount) => dispatch => {
 }
 export const getOrder = (userid) => dispatch => {
     if (userid) {
-        axios.get(`http://localhost:5000/api/order/${userid}`).then((res) => {
+        axios.get(`http://192.168.8.183:8280/orders/${userid}`).then((res) => {
             console.log('order added');
             console.log(res.data)
             dispatch({ type: 'GET_ORDER', payload: res.data })
@@ -69,7 +70,7 @@ export const getAllOrders = (userid) => dispatch => {
     console.log(userid)
     return new Promise((resolve, reject) => {
     if (userid) {
-        axios.get(`http://localhost:5000/api/order`).then((res) => {
+        axios.get(`http://192.168.8.183:8280/orders/order`).then((res) => {
             console.log('order added');
             console.log(res.data)
             dispatch({ type: 'GET_All_ORDERS', payload: res.data })
@@ -81,5 +82,16 @@ export const getAllOrders = (userid) => dispatch => {
     }
     else
         dispatch({ type: 'GET_ORDER', payload: null });
-})
+})}
+
+export const updateOrderStatus = (orderId) => dispatch => {
+    console.log('update order status orderId: ', orderId);
+    
+        axios.post(`http://192.168.8.183:8280/orders/order/orderStatus/${orderId}`).then((res) =>{
+            console.log('order updated');
+            dispatch({type : 'UPDATE_ORDER_STATUS', payload : res.data})
+        }).catch(err => {
+            console.log('err: ', err);
+        })
+    
 }

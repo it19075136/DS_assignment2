@@ -14,7 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
 import { addProduct } from '../actions/sellerActions';
-import {updateProduct} from '../actions/sellerActions'; 
+import { updateProduct } from '../actions/sellerActions';
+import { Input } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -45,43 +46,64 @@ const useStyles = makeStyles((theme) => ({
 
   const [state, setState] = useState(
     {
-        itemName:null,
-        description:null,
-        countInStock:0,
-        price:0,
-        date:new Date(),
-        imageUrl:null,
-        sellerId:profile.id
+      product:{
+        itemName: null,
+        description: null,
+        countInStock: 0,
+        price: 0,
+        date: new Date(),
+        imageUrl: null,
+        sellerId: profile.id},
+        file: null        
       }      );
-
-//    state = {
-//     itemName:'',
-//     description:'',
-//     countInStock:0,
-//     price:0,
-//     date:'',
-//     imageUrl:'',
-//     sellerId:profile.id
+//  const handlechange=(e)=>{
+//     setState({
+//         ...state,
+//         [e.target.name]:e.target.value
+//       })
 //   }
- const handlechange=(e)=>{
-    setState({
+  // const handlesubmit=(e)=>{
+  //   e.preventDefault();
+  //   console.log(state)
+  //   props.addProduct(state).then((res)=>{
+  //     window.location.href="/seller"
+  //   }).catch((err)=>{
+     
+  //   });
+
+
+  const handlechange = (e) => {
+    if(e.target.name === "photo"){
+      setState({
         ...state,
-        [e.target.name]:e.target.value
+        file: e.target.files[0]
       })
+      console.log(e.target.files[0])
+    }
+    else{
+    setState({
+      ...state,
+      product: {
+        ...state.product,
+        [e.target.name]: e.target.value
+      }
+    })
   }
-  const handlesubmit=(e)=>{
+  console.log(state);
+  }
+  const handlesubmit = (e) => {
     e.preventDefault();
-    console.log(state)
-    props.addProduct(state).then((res)=>{
-      window.location.href="/seller"
-    }).catch((err)=>{
+    console.log(state.file,state.product);
+    props.addProduct(state.product,state.file).then((res) => {
+      window.location.href = "/seller"
+    }).catch((err) => {
       console.log(err);
   }) 
   }
   const handleUpdateProduct=(e)=>{
     e.preventDefault();
-      console.log(state, productWantTOUpdate._id)
-    props.updateProduct(state,productWantTOUpdate._id).then((res)=>{
+    console.log(state.product, productWantTOUpdate._id)
+    props.updateProduct(state.product, productWantTOUpdate._id).then((res) => {
       alert("Update Successful");
       window.location.href="/seller"
       console.log(res);
@@ -186,6 +208,7 @@ const useStyles = makeStyles((theme) => ({
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
+            <input type="file" name="photo" id="photo" onChange={handlechange} />
             <Grid item xs={12} >
               <TextField
                 autoComplete="fname"

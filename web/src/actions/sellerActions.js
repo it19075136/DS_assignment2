@@ -1,18 +1,28 @@
 import axios from 'axios'
 
-export const addProduct=product=>dispatch=>{
+export const addProduct=(product,file)=>dispatch=>{
+    console.log(product);
+    let formData = new FormData();
+    formData.append("file",file);
+    formData.append("upload_preset","shoppingLankaWeb");
     return new Promise((resolve,reject)=>{
-        axios.post("http://localhost:5000/api/products/add",product).then((res)=>{
-            console.log('get products')
-            console.log(product)
-            dispatch({type:'ADD_PRODUCT',payload:res.data})//updating reducx  store
+    axios.post("https://api.cloudinary.com/v1_1/shoppinglanka/image/upload",formData).then((response)=>{
+            console.log(response.data.url);
+            product.imageUrl = response.data.url;
             console.log(product);
-            resolve("product added")
+            axios.post("http://192.168.8.183:8280/products/add",product).then((res)=>{
+                dispatch({type:'ADD_PRODUCT',payload:product})
+                console.log(product);
+                resolve("product added")
+            }).catch((err)=>{
+                console.log(err)
+            })
         }).catch((err)=>{
-            console.log(err)
-            reject(err)
+            console.log(err);
+            reject(err);
         })
     })
+
 }
 
 export const ProductWantTOUpdate=(product)=>(dispatch)=>{
@@ -21,8 +31,8 @@ export const ProductWantTOUpdate=(product)=>(dispatch)=>{
 }
 export const deleteProduct=(productId)=>(dispatch)=>{
     return new Promise((resolve,reject)=>{
-        axios.delete(`http://localhost:5000/api/products/${productId}`).then((res)=>{
-            dispatch({type :'DELETE_PRODUCT',type:res.data})//updating reducx  store
+        axios.delete(`http://192.168.8.183:8280/products/${productId}`).then((res)=>{
+            dispatch({type :'DELETE_PRODUCT',type:res.data})
             console.log(res.data);
             resolve("product deleted")
         }).catch((err)=>{
@@ -37,8 +47,8 @@ export const updateStateRed=()=>(dispatch)=>{
 export const updateProduct=(product,id)=>dispatch=>{
     return new Promise((resolve,reject)=>{
         console.log(product,id)
-        axios.post(`http://localhost:5000/api/products/update/${id}`,product).then((res)=>{//product include _id but not  include in product module
-            dispatch({type:"SELLER_UPDATE_PRODUCT",payload:res.data})//updating reducx  store
+        axios.post(`http://192.168.8.183:8280/products/update/${id}`,product).then((res)=>{//product include _id but not  include in product module
+            dispatch({type:"SELLER_UPDATE_PRODUCT",payload:res.data})
             console.log(res.data)
             resolve("update product")
         }).catch((err)=>{
@@ -50,7 +60,7 @@ export const updateProduct=(product,id)=>dispatch=>{
 export const updatCountInStock=item=>dispatch=>{
     return new Promise((resolve,reject)=>{
         // items.forEach(item => {
-        axios.post(`http://localhost:5000/api/products/updateCountInStock/${item.itemId}`,item.countInStock).then((res)=>{
+        axios.post(`http://192.168.8.183:8280/products/updateCountInStock/${item.itemId}`,item.countInStock).then((res)=>{
             // console.log('get products')
             console.log("qua updated product added")
             // dispatch({type:'SELLER_UPDATE_PRODUCT',payload:product})
