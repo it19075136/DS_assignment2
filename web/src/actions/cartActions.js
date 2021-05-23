@@ -1,11 +1,12 @@
 import * as actionTypes from '../constants/cartConstants';
 import axios from 'axios';
+import {ip} from '../utils/hostAddress'
 
 //Add item to the cart according to id and the selected qty
 
 export const addToCart = (id , qty) => (dispatch, getState) => {
     return new Promise((resolve,reject) => {
-        axios.get(`http://192.168.8.183:8280/products/${id}`).then((res) => {
+        axios.get(`${ip}/products/${id}`).then((res) => {
             console.log(res.data.itemName);
                 dispatch({
                     type: actionTypes.ADD_TO_CART,

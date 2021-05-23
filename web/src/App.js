@@ -19,7 +19,6 @@ import DeliveryList from './Pages/DeliveryList';
 import Backdrop from './components/Backdrop';
 import SideDrawer from './components/SideDrawer';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import setAuthorizationToken from './actions/authActions';
 import { login } from './actions/userActions';
 import jwt from 'jsonwebtoken'
 import LoginPage from './Pages/LoginPage';
@@ -45,9 +44,9 @@ const store = createStore(rootReducer,initstate,compose(applyMiddleware(
 ));
 
 if(localStorage.jwtToken){
-  // setAuthorizationToken(localStorage.jwtToken);
   store.dispatch(login(jwt.decode(localStorage.jwtToken)));
 }
+
 function App() {
 
   const[sideToggle, setSideToggle] = useState(false);

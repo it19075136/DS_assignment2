@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
         case 'GET_All_ORDERS':
             return({
                 ...state,
-                allOrders:[...state.allOrders,...action.payload]
+                allOrders:action.payload
             })
       case "UPDATE_ORDER_STATUS":
         return {

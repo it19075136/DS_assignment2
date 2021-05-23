@@ -1,8 +1,10 @@
 import axios from 'axios';
+import {ip} from '../utils/hostAddress'
 
 export function addPayment(values) {
+    console.log()
     return (dispatch) =>{
-        axios.post("http://192.168.8.183:8280/payment", values)
+        axios.post(`${ip}/payment/add`, values)
         .then((res) => {
             dispatch({
                 type : 'ADD_PAYMENT',

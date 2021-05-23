@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import {ip} from '../utils/hostAddress';
 
 export const addProduct=(product,file)=>dispatch=>{
     console.log(product);
@@ -10,7 +11,7 @@ export const addProduct=(product,file)=>dispatch=>{
             console.log(response.data.url);
             product.imageUrl = response.data.url;
             console.log(product);
-            axios.post("http://192.168.8.183:8280/products/add",product).then((res)=>{
+            axios.post(`${ip}/products/add`,product).then((res)=>{
                 dispatch({type:'ADD_PRODUCT',payload:product})
                 console.log(product);
                 resolve("product added")
@@ -31,7 +32,7 @@ export const ProductWantTOUpdate=(product)=>(dispatch)=>{
 }
 export const deleteProduct=(productId)=>(dispatch)=>{
     return new Promise((resolve,reject)=>{
-        axios.delete(`http://192.168.8.183:8280/products/${productId}`).then((res)=>{
+        axios.delete(`${ip}/products/${productId}`).then((res)=>{
             dispatch({type :'DELETE_PRODUCT',type:res.data})
             console.log(res.data);
             resolve("product deleted")
@@ -47,7 +48,7 @@ export const updateStateRed=()=>(dispatch)=>{
 export const updateProduct=(product,id)=>dispatch=>{
     return new Promise((resolve,reject)=>{
         console.log(product,id)
-        axios.post(`http://192.168.8.183:8280/products/update/${id}`,product).then((res)=>{//product include _id but not  include in product module
+        axios.post(`${ip}/products/update/${id}`,product).then((res)=>{//product include _id but not  include in product module
             dispatch({type:"SELLER_UPDATE_PRODUCT",payload:res.data})
             console.log(res.data)
             resolve("update product")
@@ -60,7 +61,7 @@ export const updateProduct=(product,id)=>dispatch=>{
 export const updatCountInStock=item=>dispatch=>{
     return new Promise((resolve,reject)=>{
         // items.forEach(item => {
-        axios.post(`http://192.168.8.183:8280/products/updateCountInStock/${item.itemId}`,item.countInStock).then((res)=>{
+        axios.post(`${ip}/products/updateCountInStock/${item.itemId}`,item.countInStock).then((res)=>{
             // console.log('get products')
             console.log("qua updated product added")
             // dispatch({type:'SELLER_UPDATE_PRODUCT',payload:product})

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {deleteDelivery, editDeliveryCache, updateDelivery} from '../actions/deliveryActions';
 import { Link } from 'react-router-dom'
 import './DeliveryList.css'
+import {ip} from '../utils/hostAddress'
 
 //  PARENT CLASS IS CONTROLLING THE BEHAVIOUR OF DELIVERYLIST CLASS AND EDITDELIVERY CLASS
 
@@ -21,7 +22,7 @@ class DeliveryList extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/api/delivery/')  // Getting all the deliveries and assigning them to the states
+        axios.get(`${ip}/delivery/`)  // Getting all the deliveries and assigning them to the states
         .then(response => {
             this.setState({ deliveries:response.data })
         })
@@ -75,11 +76,6 @@ class DeliveryList extends Component {
                     <td>{item.isCancel ? 'true' : 'false'}</td>
                     <td>{item.quantity}</td>
                     <td>
-                     {/* <a href="http://localhost:5000/api/delivery/list" 
-                     onClick={
-                         () => this.deleteDelivery(item._id)
-                         }
-                         >delete</a> */}
                          <button  className="btn btn-danger"  onClick={() => this.deleteDelivery(item._id)}>Delete</button>
                     </td>
                     <td>

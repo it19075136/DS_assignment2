@@ -1,19 +1,17 @@
 import axios from 'axios' //importing axios module
-import setAuthorizationToken from './authActions'; // importing setAuthorizationToken action
 import jwt from 'jsonwebtoken'; //importing json web token module
 import hashPassword from 'password-hash' //importing password-hash module
-
+import {ip} from '../utils/hostAddress' //ip address - wso2
 
 // add new user action
 export const addUser = user => dispatch => {
     return new Promise((resolve,reject) => { //creating a new promise
     user.password = hashPassword.generate(user.password);
     console.log(user);
-    axios.post('http://192.168.8.183:8280/users',user).then((res)=>{ // calling the post server call of the set url while passing the user object param as data
+    axios.post(`${ip}/users`,user).then((res)=>{ // calling the post server call of the set url while passing the user object param as data
         const {token} = res.data; //destructuring the token object returned from the response data
     if(token){  // checking if the token is not null
         localStorage.setItem('jwtToken',token);  // setting the token with the key jwtToken in the localstorage of the browser
-        // setAuthorizationToken(token); //invoking the imported setAuthorizationToken method 
         dispatch({ //setting the dispatch action type and payload which will be invoked as a callback
             type: "ADD_USER", 
             payload: user,
@@ -44,7 +42,7 @@ export const login = credentials => dispatch => {
             })
         }
         else{
-        axios.post(`http://192.168.8.183:8280/users/${credentials.email}`,credentials).then((res) => {
+        axios.post(`${ip}/users/${credentials.email}`,credentials).then((res) => {
             const {token} = res.data;
             if(token){
                 localStorage.setItem('jwtToken',token);
@@ -77,10 +75,9 @@ export const login = credentials => dispatch => {
 export const deleteUser = (id) => dispatch => {
     console.log(id);
     return new Promise((resolve,reject) => {
-        axios.delete(`http://192.168.8.183:8280/users/${id}`).then((res)=>{
+        axios.delete(`${ip}/users/${id}`).then((res)=>{
             localStorage.removeItem('jwtToken'); //removing the token using it's key
             localStorage.removeItem('cart'); //removing the cart using it's key
-            // setAuthorizationToken(false);
             dispatch({
                 type: "LOGOUT"
             })
@@ -100,7 +97,7 @@ export const deleteUser = (id) => dispatch => {
 export const updateUser = (id,user) => dispatch => {
     console.log(id,user);
     return new Promise((resolve,reject) => {
-        axios.put(`http://192.168.8.183:8280/users/${id}`,user).then((res)=>{
+        axios.put(`${ip}/users/${id}`,user).then((res)=>{
             const {token, newUser} = res.data;
             if(token){
                 localStorage.setItem('jwtToken',token);
@@ -130,7 +127,6 @@ export const updateUser = (id,user) => dispatch => {
 export const logOut = () => dispatch => {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('cart');
-    // setAuthorizationToken(false);
     dispatch({
         type: "LOGOUT"
     })
@@ -144,7 +140,7 @@ export const logOut = () => dispatch => {
 export const getUserById = (id) => dispatch => {
     console.log(id);
     return new Promise((resolve,reject)=>{
-        axios.get(`http://192.168.8.183:8280/users/${id}`).then((res) => {
+        axios.get(`${ip}/users/${id}`).then((res) => {
             console.log(res.data);
             dispatch({
                 type:"GET_USER",
