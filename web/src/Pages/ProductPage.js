@@ -17,26 +17,12 @@ class ProductPage extends Component {
         qty: 0,
     }
 
-    // useEffect(() => {
-    //     if(product && match.params.id !== product._id){
-    //         dispatch(getProductDetails(match.params.id))
-    //     }
-    // },[dispatch, product, match]);
-
-    // countHandler = (e) =>{
-        
-    // }
-
     render(){
         
         const {product, loading, error} = this.props.products;
         let {cartItems} = this.props.cart;
 
-    //    const addToCartHandler = () => {
-    //        dispatch(addToCart(product._id));
-    //        history.pushState("/cart")
-    //    }
-        
+
         const addItemToCart = (id) => {
             console.log(id);
             if(this.state.qty <= product.countInStock && this.state.qty > 0){
