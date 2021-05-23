@@ -1,9 +1,10 @@
 import axios from 'axios';
+import {ip} from '../utils/hostAddress'
 
 export function addDelivery(values) {
   return (dispatch) => {
     axios
-      .post("http://192.168.8.183:8280/delivery/add", values)
+      .post(`${ip}/delivery/add`, values)
       .then((res) => {
         dispatch({
           type: "ADD_DELIVERY",
@@ -21,7 +22,7 @@ export function deleteDelivery(values) {
     console.log('values action: ', values);
   return (dispatch) => {
     axios
-      .delete(`http://192.168.8.183:8280/delivery/${values}`)
+      .delete(`${ip}/delivery/${values}`)
       .then((res) => {
         dispatch({
           type: "DELETE_DELIVERY",
@@ -48,7 +49,7 @@ export function editDeliveryCache(values) {
 export function updateDelivery (value) {
   console.log('value: ', value);
   return (dispatch) => {
-    axios.post(`http://192.168.8.183:8280/delivery/update/${value._id}`,value)
+    axios.post(`${ip}/delivery/update/${value._id}`,value)
     .then((res) => {
       dispatch({
         type:'UPDATE_DELIVERY',

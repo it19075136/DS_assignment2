@@ -142,6 +142,7 @@ class Payment extends Component {
             deliveryCharges : this.state.deliveryCharges
           }
           
+          console.log(payment);
           addPayment(payment);  //adding info to the payment Db
           addDelivery(delivery); //adding info to the delivery DB
           updateOrderStatus(this.state.orderId); //Updating order status to 'payment done'

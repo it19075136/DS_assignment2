@@ -104,6 +104,7 @@ router.post('/:email',(req,res)=>{
     User.findOne({
         email: req.body.email
     }).then(user=>{
+        if(user){
         if(passwordHash.verify(req.body.password,user.password)){
             const token = jsonwebtoken.sign({
                 id: user.id,
@@ -117,6 +118,10 @@ router.post('/:email',(req,res)=>{
         else{
             res.send("AUTHERROR");
         }
+        }
+        else
+            res.send("AUTHERROR");
+
     })
 });
 

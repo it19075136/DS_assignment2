@@ -22,17 +22,7 @@ const Navbar = (props) => {
     const handleProfile = () => {
         props.getUserById(profile.id);
     }
-    const handleSubmit=()=>{
-        props.getOrder(profile.id);
-    }
-    const handleSellerOrders=()=>{
-        props.getAllOrders(profile.id).then((res)=>{
-            window.location.href="/sellerOrders"
-            console.log(res)
-        }).catch((err)=>{
-            console.log(err)
-        })
-    }
+
     return (
         <nav className="navbar">
             <div className="navbar__logo">
@@ -40,7 +30,7 @@ const Navbar = (props) => {
             </div>
             <ul className="navbar__links">
                 <li>
-                    <Link to="/cart" className="cart__link" hidden={profile.type !="Buyer"}>
+                    <Link to="/cart" className="cart__link" hidden={profile.type =="Seller"}>
                         <i className="fas fa-shopping-cart"></i>
                         <span> 
                             Cart
@@ -50,16 +40,16 @@ const Navbar = (props) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/" hidden={profile.type !="Buyer"}>
+                    <Link to="/" hidden={profile.type =="Seller"}>
                         Shop
                     </Link>
                 </li>
                         {profile.id ? ( 
                         <ul className="navbar__links">
-                        <li><Link to="/orders" onClick={handleSubmit} hidden={profile.type !="Buyer"}>orders</Link></li>
+                        <li><Link to="/orders" hidden={profile.type =="Seller"}>orders</Link></li>
                         {profile.type === "Buyer" ? (null) :( <li><Link to="/delivery/list">delivery</Link></li>) }
                         <li><Link to="/user/profile" onClick={handleProfile}>My Profile</Link></li>
-                        <li><Link  onClick={handleSellerOrders} hidden={profile.type =="Buyer"}>Seller Orders</Link></li>
+                        <li><Link  to="/sellerOrders" hidden={profile.type =="Buyer"}>Seller Orders</Link></li>
                         <li><Link onClick={handleLogout}>Log out</Link></li>
                         </ul>):
                         (<ul className="navbar__links">
