@@ -1,5 +1,4 @@
 import axios from 'axios' //importing axios module
-import setAuthorizationToken from './authActions'; // importing setAuthorizationToken action
 import jwt from 'jsonwebtoken'; //importing json web token module
 import hashPassword from 'password-hash' //importing password-hash module
 
@@ -13,7 +12,6 @@ export const addUser = user => dispatch => {
         const {token} = res.data; //destructuring the token object returned from the response data
     if(token){  // checking if the token is not null
         localStorage.setItem('jwtToken',token);  // setting the token with the key jwtToken in the localstorage of the browser
-        // setAuthorizationToken(token); //invoking the imported setAuthorizationToken method 
         dispatch({ //setting the dispatch action type and payload which will be invoked as a callback
             type: "ADD_USER", 
             payload: user,
@@ -80,7 +78,6 @@ export const deleteUser = (id) => dispatch => {
         axios.delete(`http://192.168.8.183:8280/users/${id}`).then((res)=>{
             localStorage.removeItem('jwtToken'); //removing the token using it's key
             localStorage.removeItem('cart'); //removing the cart using it's key
-            // setAuthorizationToken(false);
             dispatch({
                 type: "LOGOUT"
             })
@@ -130,7 +127,6 @@ export const updateUser = (id,user) => dispatch => {
 export const logOut = () => dispatch => {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('cart');
-    // setAuthorizationToken(false);
     dispatch({
         type: "LOGOUT"
     })
