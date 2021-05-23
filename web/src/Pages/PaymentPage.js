@@ -4,8 +4,6 @@ import {addPayment} from '../actions/paymentAction'; //importing reducers
 import {addDelivery} from '../actions/deliveryActions';
 import './PaymentPage.css'; //importing the CSS file 
 
-
-
 class Payment extends Component {
     constructor(props){
         super(props);
