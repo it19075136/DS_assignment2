@@ -77,7 +77,6 @@ const Navbar = (props) => {
     )
 }
 
-
 const mapStateToProps = (state) => ({
     users: state.users
 })
