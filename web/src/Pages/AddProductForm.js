@@ -36,10 +36,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddProductForm(props) {
+ function AddProductForm(props) {
   const classes = useStyles();
 
-  let { profile } = props.users;
+  let {profile} = props.users;
   const update = props.update;
   console.log(update);
   const productWantTOUpdate = props.productWantTOUpdate;
@@ -47,15 +47,29 @@ function AddProductForm(props) {
   const [state, setState] = useState(
     {
       product:{
-      itemName: null,
-      description: null,
-      countInStock: 0,
-      price: 0,
-      date: new Date(),
-      imageUrl: null,
-      sellerId: profile.id},
-      file: null
-    });
+        itemName: null,
+        description: null,
+        countInStock: 0,
+        price: 0,
+        date: new Date(),
+        imageUrl: null,
+        sellerId: profile.id},
+        file: null        
+      }      );
+//  const handlechange=(e)=>{
+//     setState({
+//         ...state,
+//         [e.target.name]:e.target.value
+//       })
+//   }
+  // const handlesubmit=(e)=>{
+  //   e.preventDefault();
+  //   console.log(state)
+  //   props.addProduct(state).then((res)=>{
+  //     window.location.href="/seller"
+  //   }).catch((err)=>{
+     
+  //   });
 
 
   const handlechange = (e) => {
@@ -84,24 +98,24 @@ function AddProductForm(props) {
       window.location.href = "/seller"
     }).catch((err) => {
       console.log(err);
-    })
+  }) 
   }
-  const handleUpdateProduct = (e) => {
+  const handleUpdateProduct=(e)=>{
     e.preventDefault();
     console.log(state.product, productWantTOUpdate._id)
     props.updateProduct(state.product, productWantTOUpdate._id).then((res) => {
       alert("Update Successful");
-      window.location.href = "/seller"
+      window.location.href="/seller"
       console.log(res);
-    }).catch((err) => {
+    }).catch((err)=>{
       console.log(err);
-    })
+  }) 
   }
 
   return (
-
+    
     <Container component="main" maxWidth="xs">
-      {update == true ? (<div className={classes.paper}>
+      {update==true ? (<div className={classes.paper}>
         <Avatar className={classes.avatar}>
           {/* <LockOutlinedIcon /> */}
         </Avatar>
@@ -122,7 +136,7 @@ function AddProductForm(props) {
                 autoFocus
                 onChange={handlechange}
                 defaultValue={productWantTOUpdate.itemName}
-
+                
               />
             </Grid>
             <Grid item xs={12}>
@@ -166,21 +180,28 @@ function AddProductForm(props) {
                 defaultValue={productWantTOUpdate.price}
               />
             </Grid>
+            {/* <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="I want to receive inspiration, marketing promotions and updates via email."
+              />
+            </Grid> */}
           </Grid>
           <a href='/seller'
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={handleUpdateProduct}
-            className='info__button'>
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={handleUpdateProduct }
+          className='info__button'>
             Update
           </a>
-
+          
         </form>
-      </div>) : (<div className={classes.paper}>
+      </div>):(<div className={classes.paper}>
         <Avatar className={classes.avatar}>
+          {/* <LockOutlinedIcon /> */}
         </Avatar>
         <Typography component="h1" variant="h5">
           add Product
@@ -241,27 +262,27 @@ function AddProductForm(props) {
             </Grid>
           </Grid>
           <Link to='/seller'>
-            <a href='/seller'
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={handlesubmit}
-              className='info__button'>
-              ADD
+          <a href='/seller'
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={handlesubmit}
+          className='info__button'>
+            ADD
           </a>
           </Link>
         </form>
-      </div>)}
-
-
+      </div>) }
+     
+      
     </Container>
   );
 }
 const mapStateToProps = (state) => ({
-  users: state.users,
-  update: state.products.update,
-  productWantTOUpdate: state.products.productWantTOUpdate
+    users: state.users,
+    update:state.products.update,
+    productWantTOUpdate:state.products.productWantTOUpdate
 })
-export default connect(mapStateToProps, { addProduct, updateProduct })(AddProductForm)
+export default connect(mapStateToProps,{addProduct,updateProduct})(AddProductForm)

@@ -30,6 +30,10 @@ const orderSchema = new schema({
         imgUrl:{
             type:String,
             required:true
+        },
+        sellerId:{
+            type:String,
+            required:true
         }
     },
     userId:{

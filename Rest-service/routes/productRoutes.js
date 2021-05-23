@@ -24,7 +24,7 @@ router.get('/:id', (req, res) => {
 //@access Public
 router.post("/add", (req, res) => {
         const newProduct = new Product(req.body);
-        newProduct.save().then(() => res.json("Product Added"));
+        newProduct.save().then((product) => res.json(product));
 });
 
 //@desc   Update product from db

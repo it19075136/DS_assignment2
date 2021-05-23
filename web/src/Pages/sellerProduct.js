@@ -6,14 +6,14 @@ import { ProductWantTOUpdate } from '../actions/sellerActions'
 import { deleteProduct } from '../actions/sellerActions'
 
 const sellerProduct = (props) => {
-    const product = props.product;
+    const product = props.product;//geting the product that pass by sellerProducts component
     console.log(product._id);
     const handlesubmit = () => {
-        props.ProductWantTOUpdate(product);
+        props.ProductWantTOUpdate(product);//adding the the product details want to updatte to reducx
     }
     const handleDelete = () => {
-        props.deleteProduct(product._id).then((res) => {
-            window.location.href = "/seller"
+        props.deleteProduct(product._id).then((res) => {//deleting the product from database
+            window.location.href = "/seller"// opening the seller page
         }).catch((err) => {
             console.log(err)
         })

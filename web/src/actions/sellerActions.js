@@ -27,10 +27,8 @@ export const addProduct=(product,file)=>dispatch=>{
 
 export const ProductWantTOUpdate=(product)=>(dispatch)=>{
         console.log("updating product id", product._id);
-        dispatch({type:'PRODUCT_WANT_TO_UPDATE',payload:product});
-
+        dispatch({type:'PRODUCT_WANT_TO_UPDATE',payload:product});//updating reducx  store
 }
-
 export const deleteProduct=(productId)=>(dispatch)=>{
     return new Promise((resolve,reject)=>{
         axios.delete(`http://192.168.8.183:8280/products/${productId}`).then((res)=>{
@@ -44,7 +42,7 @@ export const deleteProduct=(productId)=>(dispatch)=>{
     })
 }
 export const updateStateRed=()=>(dispatch)=>{
-    dispatch({type:'UPDATE_STATE',payload:null})
+    dispatch({type:'UPDATE_STATE',payload:null})//updating reducx  store
 }
 export const updateProduct=(product,id)=>dispatch=>{
     return new Promise((resolve,reject)=>{
