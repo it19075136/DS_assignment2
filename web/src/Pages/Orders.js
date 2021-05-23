@@ -41,21 +41,22 @@ const useStyles = makeStyles((theme) => ({
 
 const Orders = (props) => {
     const classes = useStyles();
-    const orders = props.orders;
-    let { profile } = props.users;
+    const orders = props.orders;//geting the orders that login user has place
+    let { profile } = props.users;//geting the login  user details
     console.log(orders)
 
-    const orderList = orders && profile.id ? orders.map(order => {
-        const arrayDate = order.date.split("-")
-        const date = arrayDate[0] + "-" + arrayDate[1] + "-" + arrayDate[2].slice(0, 2);
+    const orderList = orders && profile.id ? orders.map(order => { // first checking the orders are available and user available and then passing order geting the oreders list
+        const arrayDate = order.date.split("-");
+        const date = arrayDate[0] + "-" + arrayDate[1] + "-" + arrayDate[2].slice(0, 2); //arranging the date in proper way
         return (
+           
             <div className={classes.root} key={order._id}>
                 <Paper className={classes.paper}>
                     <Link to={'/order/' + order._id} textDecoration='none' >
                         <Grid container spacing={2}>
                             <Grid item>
                                 <ButtonBase className={classes.image}>
-                                    <img className={classes.img} alt="complex" src="https://homepages.cae.wisc.edu/~ece533/images/airplane.png" />
+                                    <img className={classes.img} alt="complex" src={order.item[0].imgUrl} />
                                 </ButtonBase>
                             </Grid>
                             <Grid item xs={12} sm container>
@@ -85,7 +86,7 @@ const Orders = (props) => {
 
     return (
         <div>
-            {orderList}
+            {profile.id ? {orderList}:(window.location.href = "/")} 
         </div>
     )
 

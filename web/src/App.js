@@ -27,6 +27,7 @@ import sellerProducts from './Pages/sellerProducts';
 import Payment from './Pages/PaymentPage';
 import UserProfile from './Pages/userProfile';
 import AddProductForm from './Pages/AddProductForm';
+import sellerOrders from './Pages/sellerOrders';
 
 
 // If the page is refresh the qty will keep as it is
@@ -72,6 +73,7 @@ function App() {
         <Route exact path="/seller" component={sellerProducts}/>
         <Route exact path="/form" component={AddProductForm}/>
         <Route exact path="/delivery/payment" component ={Payment} />
+        <Route exact path="/sellerOrders" component={sellerOrders}/>
       </BrowserRouter>
     </Provider>
   );

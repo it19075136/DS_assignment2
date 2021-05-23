@@ -15,7 +15,8 @@ export const addToCart = (id , qty) => (dispatch, getState) => {
                         imageUrl: res.data.imageUrl,
                         price:res.data.price,
                         countInStock: res.data.countInStock,
-                        qty    
+                        qty ,
+                        sellerId:res.data.sellerId,
                     }
                 });
                 resolve("Added item to cart");
