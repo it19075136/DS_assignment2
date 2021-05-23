@@ -49,8 +49,12 @@ class ProductPage extends Component {
                 })
 
             }
-            else
+            else if(this.state.qty > product.countInStock){
                 alert("Quantity is higher than the available stock,Please enter a valid quantity");
+            }
+            else{
+                alert("Quantity is lower than 0 or quantity is equal to 0,Please enter a valid quantity");
+            }      
         }
 
         const handleChange = (e) => {
