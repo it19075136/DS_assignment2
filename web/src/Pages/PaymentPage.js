@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {addPayment} from '../actions/paymentAction'; //importing reducers 
 import {addDelivery} from '../actions/deliveryActions';
+import {updateOrderStatus} from '../actions/orderActions';
 import './PaymentPage.css'; //importing the CSS file 
 
 class Payment extends Component {
@@ -94,7 +95,7 @@ class Payment extends Component {
     onSubmit(e){
 
 
-        const {addPayment,addDelivery} = this.props;
+        const {addPayment,addDelivery,updateOrderStatus} = this.props;
 
         const cartItems = JSON.parse(localStorage.getItem('cart')) || [];  // getting cart item information from the local storage
 
@@ -143,14 +144,11 @@ class Payment extends Component {
           
           addPayment(payment);  //adding info to the payment Db
           addDelivery(delivery); //adding info to the delivery DB
+          updateOrderStatus(this.state.orderId); //Updating order status to 'payment done'
           
           console.log('payment: ', payment);
           alert("Payment Successful");
-          
-          // window.location.href = "/"; //Upon payment completion redirecting user to the cart page
-          
-          
-          
+           
           this.setState({
             
                 itemName :'',
@@ -169,9 +167,7 @@ class Payment extends Component {
             
         })
 
-        
-        
-        
+        window.location.href = "/"; //Upon payment completion redirecting user to the cart page  
     }
 
     handleChangeDelivery(e){
@@ -382,5 +378,5 @@ const mapStateToProps = (state) => ({  // assigning initial stated to props
     orders : state.orders
 })
 
-export default connect(mapStateToProps, {addPayment,addDelivery}) (Payment)  // connecting reducers 
+export default connect(mapStateToProps, {addPayment,addDelivery,updateOrderStatus}) (Payment)  // connecting reducers 
 
