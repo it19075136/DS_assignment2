@@ -1,0 +1,29 @@
+[{
+  "_id": {
+    "$oid": "60aa74b3637f6081acbd239d"
+  },
+  "date": {
+    "$date": "2021-05-23T15:28:27.683Z"
+  },
+  "itemName": "tempered glass",
+  "description": "tempered",
+  "countInStock": 100,
+  "price": 200,
+  "imageUrl": "http://res.cloudinary.com/shoppinglanka/image/upload/v1621783731/t1xpg2gjsz3tfs5stkkh.jpg",
+  "sellerId": "810d823e-7fc5-4fa9-8aac-588c73f3df9b",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60aa74db637f6081acbd239e"
+  },
+  "date": {
+    "$date": "2021-05-23T15:29:00.457Z"
+  },
+  "itemName": "back case",
+  "description": "case",
+  "countInStock": 100,
+  "price": 800,
+  "imageUrl": "http://res.cloudinary.com/shoppinglanka/image/upload/v1621783772/kawbf8kfgiwbvn4vfxlz.jpg",
+  "sellerId": "810d823e-7fc5-4fa9-8aac-588c73f3df9b",
+  "__v": 0
+}]

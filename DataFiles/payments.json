@@ -1,0 +1,51 @@
+[{
+  "_id": {
+    "$oid": "60aa799e637f6081acbd23a6"
+  },
+  "userID": "79cf0f25-3845-4ab3-a29a-15bced45f7d7",
+  "userMail": "avanthac@yahoo.com",
+  "noOfItems": 2,
+  "totalAmount": 1000,
+  "deliveryCharges": 300,
+  "NIC": null,
+  "PhoneNumber": 213123231231,
+  "CardNumber": null,
+  "ExpirationMonth": "",
+  "ExpirationYear": null,
+  "CVC": null,
+  "delivery": "Prompt Express",
+  "paymentMethod": "mobile",
+  "pinNumber": 2312,
+  "createdAt": {
+    "$date": "2021-05-23T15:49:50.355Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-23T15:49:50.355Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60aa9341dd073d8120378610"
+  },
+  "userID": "79cf0f25-3845-4ab3-a29a-15bced45f7d7",
+  "userMail": "avanthac@yahoo.com",
+  "noOfItems": 1,
+  "totalAmount": 200,
+  "deliveryCharges": 550,
+  "NIC": 228129831282,
+  "PhoneNumber": null,
+  "CardNumber": 12631273881,
+  "ExpirationMonth": "12",
+  "ExpirationYear": 2131,
+  "CVC": 123,
+  "delivery": "DHL",
+  "paymentMethod": "card",
+  "pinNumber": null,
+  "createdAt": {
+    "$date": "2021-05-23T17:39:13.584Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-23T17:39:13.584Z"
+  },
+  "__v": 0
+}]

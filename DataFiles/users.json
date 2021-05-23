@@ -1,0 +1,27 @@
+[{
+  "_id": {
+    "$oid": "60aa737b637f6081acbd239a"
+  },
+  "firstName": "Avantha",
+  "lastName": "Chandrasena",
+  "phoneNumber": "0766323751",
+  "address": "testAddress, check street",
+  "email": "avanthac@yahoo.com",
+  "password": "sha1$cd837ea8$1$19f8684d63f7ea8b4bf32be3dfbbf8eac0ca0e83",
+  "type": "Buyer",
+  "id": "79cf0f25-3845-4ab3-a29a-15bced45f7d7",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60aa73e7637f6081acbd239b"
+  },
+  "firstName": "seller",
+  "lastName": "lastname",
+  "phoneNumber": "0782912922",
+  "address": "",
+  "email": "seller@gmail.com",
+  "password": "sha1$42523fec$1$23da832465d49609cb3496aba177855ed3dfb7b1",
+  "type": "Seller",
+  "id": "810d823e-7fc5-4fa9-8aac-588c73f3df9b",
+  "__v": 0
+}]

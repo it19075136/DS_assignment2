@@ -1,3 +1,0 @@
-<api xmlns="http://ws.apache.org/ns/synapse" context="/api" name="ShoppingLankaAPI">
-<resource methods="GET"><inSequence/><outSequence/><faultSequence/></resource>
-</api>

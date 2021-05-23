@@ -1,0 +1,46 @@
+[{
+  "_id": {
+    "$oid": "60aa799e637f6081acbd23a7"
+  },
+  "deliveryItems": [
+    "tempered glass",
+    "back case"
+  ],
+  "order_id": "60aa796d637f6081acbd23a5",
+  "user_id": "79cf0f25-3845-4ab3-a29a-15bced45f7d7",
+  "quantity": 2,
+  "amount": 1000,
+  "isCancel": false,
+  "address": "testAddress, check street",
+  "deliveryMethod": "Prompt Express",
+  "deliveryCharges": 300,
+  "createdAt": {
+    "$date": "2021-05-23T15:49:50.369Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-23T15:49:50.369Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "60aa9341dd073d812037860f"
+  },
+  "deliveryItems": [
+    "tempered glass"
+  ],
+  "order_id": "60aa92f9dd073d812037860e",
+  "user_id": "79cf0f25-3845-4ab3-a29a-15bced45f7d7",
+  "quantity": 1,
+  "amount": 200,
+  "isCancel": false,
+  "address": "testAddress, check street",
+  "deliveryMethod": "DHL",
+  "deliveryCharges": 550,
+  "createdAt": {
+    "$date": "2021-05-23T17:39:13.508Z"
+  },
+  "updatedAt": {
+    "$date": "2021-05-23T17:39:13.508Z"
+  },
+  "__v": 0
+}]
